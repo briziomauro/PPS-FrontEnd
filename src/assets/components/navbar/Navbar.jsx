@@ -2,8 +2,8 @@ import React from 'react'
 
 const Navbar = () => {
     return (
-        <nav className="navbar bg-zinc-950 bg-opacity-5 justify-evenly">
-            <div className="navbar-start">
+        <nav className="navbar bg-zinc-950 bg-opacity-5 justify-evenly text-white">
+            <div>
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                         <svg
@@ -21,7 +21,7 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        className="menu menu-sm dropdown-content bg-zinc-950 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li><a>Item 1</a></li>
                         <li>
                             <a>Parent</a>
@@ -35,13 +35,13 @@ const Navbar = () => {
                 </div>
                 <a className="btn btn-ghost text-xl">daisyUI</a>
             </div>
-            <div className="navbar-center hidden lg:flex">
+            <div className="hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     <li><a>Item 1</a></li>
                     <li>
                         <details>
                             <summary>Parent</summary>
-                            <ul className="p-2">
+                            <ul className="p-2 bg-zinc-950 bg-opacity-5 shadow-none">
                                 <li><a>Submenu 1</a></li>
                                 <li><a>Submenu 2</a></li>
                             </ul>
@@ -50,8 +50,8 @@ const Navbar = () => {
                     <li><a>Item 3</a></li>
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn">Button</a>
+            <div>
+                <a className="btn bg-zinc-900 border-none hover:bg-zinc-800 text-white transition-all duration-200 ">LOGIN</a>
             </div>
         </nav>
     )
