@@ -18,11 +18,11 @@ const Footer = () => {
                     </svg>
 
                 </aside>
-                <nav>
+                <div>
                     <h6 className='footer-title'>DIRECCION</h6>
                     <p>Zeballos 1341, S2000BQA - Rosario, Santa Fe</p>
-                </nav>
-                <nav>
+                </div>
+                <div>
                     <h6 className="footer-title">SOCIAL</h6>
                     <div className="grid grid-flow-col gap-4">
                         <a>
@@ -59,7 +59,7 @@ const Footer = () => {
                             </svg>
                         </a>
                     </div>
-                </nav>
+                </div>
             </footer>
             <footer className="footer bg-transparent text-white border-zinc-800 border-t justify-evenly py-4">
                 <aside className="grid-flow-col items-center pr-16">
