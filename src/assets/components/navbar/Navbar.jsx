@@ -2,7 +2,7 @@ import React from 'react'
 
 const Navbar = () => {
     return (
-        <nav className="navbar bg-zinc-950 bg-opacity-5 justify-evenly text-white">
+        <nav className="navbar bg-zinc-950 bg-opacity-60 justify-evenly text-white absolute z-50">
             <div>
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -32,10 +32,10 @@ const Navbar = () => {
             </div>
             <div className="hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <li><a>Ventajas</a></li>
-                    <li><a>Membersias</a></li>
-                    <li><a>Sobre Nosotros</a></li>
-                    <li><a>Entrenadores</a></li>
+                    <li><a>VENTAJAS</a></li>
+                    <li><a>MEMBERSIAS</a></li>
+                    <li><a>SOBRE NOSOTROS</a></li>
+                    <li><a>ENTRENADORES</a></li>
                 </ul>
             </div>
             <div>
