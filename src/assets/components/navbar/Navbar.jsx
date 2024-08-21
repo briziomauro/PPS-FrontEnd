@@ -2,7 +2,7 @@ import React from 'react'
 
 const Navbar = () => {
     return (
-        <nav className="navbar bg-zinc-950 bg-opacity-60 justify-evenly text-white absolute z-50">
+        <nav className="navbar bg-white justify-evenly text-black">
             <div>
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -28,7 +28,7 @@ const Navbar = () => {
                         <li><a>Entrenadores</a></li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <img src="./img/logoTC.png" alt="" className="h-[80px] w-[120px]" />
             </div>
             <div className="hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -39,7 +39,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div>
-                <a className="btn bg-zinc-900 border-none hover:bg-zinc-800 text-white transition-all duration-200 ">LOGIN</a>
+                <a className="btn bg-yellow-500 rounded-full w-[120px] border-none hover:bg-zinc-800 text-white transition-all duration-200 ">LOGIN</a>
             </div>
         </nav>
     )
