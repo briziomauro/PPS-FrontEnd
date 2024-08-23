@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Benefits from "../benefits/Benefits";
 import Memberships from "../memberships/Memberships";
+import Trainers from "../trainers/Trainers";
 
 const MainPage = () => {
   return (
@@ -41,6 +42,7 @@ const MainPage = () => {
       </div>
       <Benefits />
       <Memberships />
+      <Trainers/>
     </>
   );
 };
