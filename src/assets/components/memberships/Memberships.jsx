@@ -4,9 +4,13 @@ import { GoDotFill } from 'react-icons/go'
 
 const Memberships = () => {
     return (
-        <div className='bg-gradient-to-t from-yellow-500 to-whte mb-10 rounded-xl h-[800px]'>
-            
-            <div className='flex justify-center gap-28 items-center h-full text-white'>
+        <div className='flex flex-col justify-center items-center text-center mb-10 rounded-xl h-[800px]'>
+            <div className='text-black my-10'>
+                <h2 className='font-bebas text-4xl'>MEMBRESIAS</h2>
+                <p>Mejora tu experiencia entrenando con nuestros planes de membresias</p>
+            </div>
+
+            <div className='flex justify-center gap-28 items-center text-white'>
                 <div className='flex flex-col text-center bg-zinc-800 h-[500px] w-[330px] shadow-lg shadow-black rounded-md hover:scale-105 transition-all duration-200'>
                     <h3 className='mt-10 text-2xl'>MEMBRESIA 1</h3>
                     <p className='mt-3 '>Mejor opcion para principiantes</p>
