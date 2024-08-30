@@ -21,6 +21,12 @@ function App() {
       )
     },
     {
+      path: "/locations",
+      element: (
+        <></>
+      )
+    },
+    {
       path: "/login",
       element: (
         <LoginPage />
@@ -32,7 +38,6 @@ function App() {
         <RegisterPage />
       )
     },
-    ,
     {
       path: "/clientid",
       element: (
@@ -41,7 +46,6 @@ function App() {
         </LayoutLogged>
       )
     },
-    ,
     {
       path: "/profesorid",
       element: (
@@ -50,7 +54,6 @@ function App() {
         </LayoutLogged>
       )
     },
-    ,
     {
       path: "/adminid",
       element: (
@@ -59,6 +62,55 @@ function App() {
         </LayoutLogged>
       )
     },
+    {
+      path: "/adminid/user-center",
+      element: (
+        <></>
+      )
+    },
+    {
+      path: "/adminid/assing-shift",
+      element: (
+        <></>
+      )
+    },
+    {
+      path: "/clientid/get-turn",
+      element: (
+        <></>
+      )
+    },
+    {
+      path: "/clientid/nutritional-plan",
+      element: (
+        <></>
+      )
+    },
+    {
+      path: "/clientid/routine",
+      element: (
+        <></>
+      )
+    },
+    {
+      path: "/profesorid/work-calendar",
+      element: (
+        <></>
+      )
+    },
+    {
+      path: "/profesorid/assing-nutritional-plan",
+      element: (
+        <></>
+      )
+    },
+    {
+      path: "/profesorid/assing-routine",
+      element: (
+        <></>
+      )
+    },
+
   ]);
 
   return <RouterProvider router={router} />;
