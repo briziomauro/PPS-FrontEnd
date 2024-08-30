@@ -5,6 +5,10 @@ import { useState } from "react";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({
+    email: false,
+    password: false,
+  });
   const navigate = useNavigate();
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -18,14 +22,28 @@ const LoginPage = () => {
     const filterUser = data.find(
       (f) => f.password == password && f.email == email
     );
+
+    const emailValue = email.trim();
+    const passwordValue = password.trim();
+
+    if (emailValue === "" || passwordValue === "") {
+      setErrors({
+        email: emailValue === "",
+        password: passwordValue === "",
+      });
+      return;
+    }
+
+    setErrors({ email: false, password: false });
+
     console.log(filterUser);
     if (filterUser) {
       if (filterUser.type === "admin") {
         navigate("/adminid");
       } else if (filterUser.type === "trainer") {
-        navigate("/entrenadorid");
+        navigate("/profesorid");
       } else if (filterUser.type === "client") {
-        navigate("/clienteid");
+        navigate("/clientid");
       } else {
         alert("Rol no reconocido");
       }
@@ -33,6 +51,7 @@ const LoginPage = () => {
       alert("Usuario no encontrado");
     }
   };
+
   return (
     <div className="mx-auto h-screen flex">
       <main className="w-full px-10">
@@ -56,7 +75,11 @@ const LoginPage = () => {
                 value={email}
                 type="email"
                 placeholder="Ingrese su Correo Electrónico"
-                className="bg-white appearance-none border caret-zinc-400 border-gray-300 rounded w-full py-4 px-3 leading-tight focus:outline-none focus:border-yellow-400  text-zinc-700"
+                className={
+                  errors.email
+                    ? " bg-white appearance-none border caret-zinc-400  rounded w-full py-4 px-3 leading-tight focus:outline-none border-red-600  text-zinc-700"
+                    : "bg-white appearance-none border caret-zinc-400 border-gray-300 rounded w-full py-4 px-3 leading-tight focus:outline-none focus:border-yellow-400  text-zinc-700"
+                }
               />
             </div>
             <div className="mb-4 w-full">
@@ -66,13 +89,16 @@ const LoginPage = () => {
                 value={password}
                 type="password"
                 placeholder="Ingrese su Contraseña"
-                className="bg-white appearance-none border caret-zinc-400 border-gray-300 rounded w-full py-4 px-3 leading-tight focus:outline-none focus:border-yellow-400  text-zinc-700"
+                className={
+                  errors.password
+                    ? " bg-white appearance-none border caret-zinc-400  rounded w-full py-4 px-3 leading-tight focus:outline-none border-red-600  text-zinc-700"
+                    : "bg-white appearance-none border caret-zinc-400 border-gray-300 rounded w-full py-4 px-3 leading-tight focus:outline-none focus:border-yellow-400  text-zinc-700"
+                }
               />
             </div>
             <button
               className="bg-yellow-500 w-full text-white px-6 py-3 mr-2 transition duration-300 hover:bg-yellow-400 font-bold"
               type="submit"
-              disabled={!email || !password}
             >
               CONTINUAR
             </button>
