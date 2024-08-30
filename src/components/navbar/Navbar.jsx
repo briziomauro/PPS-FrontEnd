@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const navigate = useNavigate()
+
+  const navigateLogin = () => {
+    navigate("/login");
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,11 +24,10 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`navbar fixed top-0 w-full z-10 transition-all duration-300 justify-evenly ${
-        isScrolled
-          ? "bg-gradient-to-b from-zinc-800 bg-opacity-10 text-white "
-          : "bg-gradient-to-b from-white text-black "
-      }`}
+      className={`navbar fixed top-0 w-full z-10 transition-all duration-300 justify-evenly ${isScrolled
+        ? "bg-gradient-to-b from-zinc-800 bg-opacity-10 text-white "
+        : "bg-gradient-to-b from-white text-black "
+        }`}
     >
       <div>
         <div className="dropdown">
@@ -82,9 +88,9 @@ const Navbar = () => {
         </ul>
       </div>
       <div>
-        <a className="btn bg-yellow-500 rounded-full w-[120px] border-none hover:bg-zinc-800 text-white transition-all duration-200">
+        <button onClick={navigateLogin} className="btn bg-yellow-500 rounded-full w-[120px] border-none hover:bg-zinc-800 text-white transition-all duration-200">
           LOGIN
-        </a>
+        </button>
       </div>
     </nav>
   );
