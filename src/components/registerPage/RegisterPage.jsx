@@ -14,7 +14,7 @@ const RegisterPage = () => {
             </Link>
           </nav>
         </header>
-        <main className="mt-6 max-w-lg mx-auto">
+        <main className="mt-6 max-w-lg mx-auto h-screen">
           <h2 className="font-bebas text-5xl text-zinc-700 text-center ">
             Ingresa tu Información
           </h2>
