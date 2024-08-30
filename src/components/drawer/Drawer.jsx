@@ -1,5 +1,6 @@
 import React from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
+import { Link } from 'react-router-dom'
 
 const Drawer = () => {
     return (
@@ -14,16 +15,30 @@ const Drawer = () => {
                 <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu bg-black text-white min-h-full w-80 p-4 justify-center ">
                     {/* ternario segun el rol del usuario */}
-                    <li className='hover:bg-white hover:text-black'><a>CENTRO DE USUARIOS</a></li>
-                    <li className='hover:bg-white hover:text-black'><a>ASIGNACION DE TURNOS</a></li>
-
-                    <li className='hover:bg-white hover:text-black'><a>SACAR TURNO</a></li>
-                    <li className='hover:bg-white hover:text-black'><a>PLANES NUTRICIONALES</a></li>
-                    <li className='hover:bg-white hover:text-black'><a>RUTINAS</a></li>
-
-                    <li className='hover:bg-white hover:text-black'><a>MIS TURNOS</a></li>
-                    <li className='hover:bg-white hover:text-black'><a>ASIGNAR PLANES NUTRICIONALES</a></li>
-                    <li className='hover:bg-white hover:text-black'><a>ASIGNAR RUTINAS</a></li>
+                    <Link to="/adminid/user-center">
+                        <li className='hover:bg-white hover:text-black'><p>CENTRO DE USUARIOS</p></li>
+                    </Link>
+                    <Link to="/adminid/assing-shift">
+                        <li className='hover:bg-white hover:text-black'><p>ASIGNACION DE TURNOS</p></li>
+                    </Link>
+                    <Link to="/clientid/get-turn">
+                        <li className='hover:bg-white hover:text-black'><p>SACAR TURNO</p></li>
+                    </Link>
+                    <Link to="/clientid/nutritional-plan">
+                        <li className='hover:bg-white hover:text-black'><p>PLANES NUTRICIONALES</p></li>
+                    </Link>
+                    <Link to="/clientid/routine">
+                        <li className='hover:bg-white hover:text-black'><p>RUTINAS</p></li>
+                    </Link>
+                    <Link to="/profesorid/work-calendar">
+                        <li className='hover:bg-white hover:text-black'><p>MIS TURNOS</p></li>
+                    </Link>
+                    <Link to="/profesorid/assing-nutritional-plan">
+                        <li className='hover:bg-white hover:text-black'><p>ASIGNAR PLANES NUTRICIONALES</p></li>
+                    </Link>
+                    <Link to="/profesorid/assing-routine">
+                        <li className='hover:bg-white hover:text-black'><p>ASIGNAR RUTINAS</p></li>
+                    </Link>
                 </ul>
             </div>
         </div>
