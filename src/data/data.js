@@ -1,0 +1,32 @@
+export const data = [
+  {
+    id: 1,
+    name: "Valentin",
+    lastName: "Cura",
+    email: "cura@example.com",
+    password: "admin123",
+    type: "admin",
+    date: "23-02-2004",
+    phoneNumber: 312312331,
+  },
+  {
+    id: 2,
+    name: "Santiago",
+    lastName: "Javkin",
+    email: "santi@example.com",
+    password: "trainer123",
+    type: "trainer",
+    date: "16-03-2004",
+    phoneNumber: 312515325,
+  },
+  {
+    id: 3,
+    name: "Mateo",
+    lastName: "Caranta",
+    email: "mate@example.com",
+    password: "client123",
+    type: "client",
+    date: "20-04-2003",
+    phoneNumber: 312315235,
+  },
+];
