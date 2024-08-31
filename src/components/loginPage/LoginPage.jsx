@@ -22,7 +22,7 @@ const LoginPage = () => {
     const filterUser = data.find(
       (f) => f.password == password && f.email == email
     );
-
+    
     const emailValue = email.trim();
     const passwordValue = password.trim();
 
@@ -51,7 +51,6 @@ const LoginPage = () => {
       alert("Usuario no encontrado");
     }
   };
-
   return (
     <div className="mx-auto h-screen flex">
       <main className="w-full px-10">
@@ -75,11 +74,7 @@ const LoginPage = () => {
                 value={email}
                 type="email"
                 placeholder="Ingrese su Correo Electrónico"
-                className={
-                  errors.email
-                    ? " bg-white appearance-none border caret-zinc-400  rounded w-full py-4 px-3 leading-tight focus:outline-none border-red-600  text-zinc-700"
-                    : "bg-white appearance-none border caret-zinc-400 border-gray-300 rounded w-full py-4 px-3 leading-tight focus:outline-none focus:border-yellow-400  text-zinc-700"
-                }
+                className={errors.email ? " bg-white appearance-none border caret-zinc-400  rounded w-full py-4 px-3 leading-tight focus:outline-none border-red-600  text-zinc-700" : "bg-white appearance-none border caret-zinc-400 border-gray-300 rounded w-full py-4 px-3 leading-tight focus:outline-none focus:border-yellow-400  text-zinc-700"}
               />
             </div>
             <div className="mb-4 w-full">
@@ -89,16 +84,13 @@ const LoginPage = () => {
                 value={password}
                 type="password"
                 placeholder="Ingrese su Contraseña"
-                className={
-                  errors.password
-                    ? " bg-white appearance-none border caret-zinc-400  rounded w-full py-4 px-3 leading-tight focus:outline-none border-red-600  text-zinc-700"
-                    : "bg-white appearance-none border caret-zinc-400 border-gray-300 rounded w-full py-4 px-3 leading-tight focus:outline-none focus:border-yellow-400  text-zinc-700"
-                }
+                className={errors.password ? " bg-white appearance-none border caret-zinc-400  rounded w-full py-4 px-3 leading-tight focus:outline-none border-red-600  text-zinc-700" : "bg-white appearance-none border caret-zinc-400 border-gray-300 rounded w-full py-4 px-3 leading-tight focus:outline-none focus:border-yellow-400  text-zinc-700"}
               />
             </div>
             <button
               className="bg-yellow-500 w-full text-white px-6 py-3 mr-2 transition duration-300 hover:bg-yellow-400 font-bold"
               type="submit"
+             
             >
               CONTINUAR
             </button>

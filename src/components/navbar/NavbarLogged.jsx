@@ -4,13 +4,13 @@ import Drawer from '../drawer/Drawer'
 const NavbarLogged = () => {
     return (
         <nav className="navbar bg-black text-white">
-            <div className="navbar-start ml-10 flex w-[45%]">
+            <div className="navbar-start ml-10 flex w-[42%]">
                 <Drawer />
             </div>
             <img
-                src="./img/logoTraining.png"
+                src="./img/LogoLight.png"
                 alt=""
-                className="h-[80px] w-[120px] "
+                className="h-[40px] w-[120px] "
             />
         </nav>
     )
