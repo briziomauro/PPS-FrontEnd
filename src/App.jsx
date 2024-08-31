@@ -1,16 +1,16 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css'
-import Layout from './components/layout/Layout';
-import MainPage from './components/mainPage/MainPage';
-import LoginPage from './components/loginPage/LoginPage';
-import RegisterPage from './components/registerPage/RegisterPage';
-import LayoutLogged from './components/layout/LayoutLogged';
-import ClientPage from './components/clientPage/ClientPage';
-import ProfessorPage from './components/professorPage/ProfessorPage';
-import AdminPage from './components/adminPage/AdminPage';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
+import Layout from "./components/layout/Layout";
+import MainPage from "./components/mainPage/MainPage";
+import LoginPage from "./components/loginPage/LoginPage";
+import RegisterPage from "./components/registerPage/RegisterPage";
+import LayoutLogged from "./components/layout/LayoutLogged";
+import ClientPage from "./components/clientPage/ClientPage";
+import ProfessorPage from "./components/professorPage/ProfessorPage";
+import AdminPage from "./components/adminPage/AdminPage";
+import LocationsPage from "./components/locationsPage/LocationsPage";
 
 function App() {
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -18,25 +18,19 @@ function App() {
         <Layout>
           <MainPage />
         </Layout>
-      )
+      ),
     },
     {
       path: "/locations",
-      element: (
-        <></>
-      )
+      element: <LocationsPage />,
     },
     {
       path: "/login",
-      element: (
-        <LoginPage />
-      )
+      element: <LoginPage />,
     },
     {
       path: "/register",
-      element: (
-        <RegisterPage />
-      )
+      element: <RegisterPage />,
     },
     {
       path: "/clientid",
@@ -44,7 +38,7 @@ function App() {
         <LayoutLogged>
           <ClientPage />
         </LayoutLogged>
-      )
+      ),
     },
     {
       path: "/profesorid",
@@ -52,7 +46,7 @@ function App() {
         <LayoutLogged>
           <ProfessorPage />
         </LayoutLogged>
-      )
+      ),
     },
     {
       path: "/adminid",
@@ -60,60 +54,43 @@ function App() {
         <LayoutLogged>
           <AdminPage />
         </LayoutLogged>
-      )
+      ),
     },
     {
       path: "/adminid/user-center",
-      element: (
-        <></>
-      )
+      element: <></>,
     },
     {
       path: "/adminid/assing-shift",
-      element: (
-        <></>
-      )
+      element: <></>,
     },
     {
       path: "/clientid/get-turn",
-      element: (
-        <></>
-      )
+      element: <></>,
     },
     {
       path: "/clientid/nutritional-plan",
-      element: (
-        <></>
-      )
+      element: <></>,
     },
     {
       path: "/clientid/routine",
-      element: (
-        <></>
-      )
+      element: <></>,
     },
     {
       path: "/profesorid/work-calendar",
-      element: (
-        <></>
-      )
+      element: <></>,
     },
     {
       path: "/profesorid/assing-nutritional-plan",
-      element: (
-        <></>
-      )
+      element: <></>,
     },
     {
       path: "/profesorid/assing-routine",
-      element: (
-        <></>
-      )
+      element: <></>,
     },
-
   ]);
 
   return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
