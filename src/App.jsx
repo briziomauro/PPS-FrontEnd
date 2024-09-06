@@ -9,6 +9,7 @@ import ClientPage from "./components/clientPage/ClientPage";
 import ProfessorPage from "./components/professorPage/ProfessorPage";
 import AdminPage from "./components/adminPage/AdminPage";
 import LocationsPage from "./components/locationsPage/LocationsPage";
+import AssingShiftsPage from "./components/assingShiftsPage/AssingShiftsPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -62,7 +63,11 @@ function App() {
     },
     {
       path: "/adminid/assing-shift",
-      element: <></>,
+      element: (
+      <LayoutLogged>
+        <AssingShiftsPage/>
+      </LayoutLogged>
+      ),
     },
     {
       path: "/clientid/get-turn",
