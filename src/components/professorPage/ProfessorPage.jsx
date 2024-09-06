@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Calendar from 'react-calendar';
 import './ProfessorPage.css'
+import { Link } from 'react-router-dom';
 
 const ProfessorPage = () => {
   const [date, setDate] = useState(new Date());
@@ -35,14 +36,18 @@ const ProfessorPage = () => {
         <div className='flex flex-col flex-1 justify-center items-center text-white h-full'>
           <h2 className='font-bebas text-5xl text-black mb-10'>ASIGNACIONES PENDIENTES:</h2>
           <div className='flex flex-col gap-5 font-bebas'>
-            <div className=' w-[450px] h-[150px] bg-zinc-900 border border-white flex justify-evenly items-center cursor-pointer hover:scale-105 hover:rotate-2 hover:bg-zinc-800 transition-all duration-200'>
-              <p className='text-2xl'>RUTINAS PENDIENTES:</p>
-              <p className='text-7xl'>5</p>
-            </div>
-            <div className='w-[450px] h-[150px] bg-zinc-900 border border-white flex justify-evenly items-center cursor-pointer hover:scale-105 hover:-rotate-2 hover:bg-zinc-800 transition-all duration-200'>
-              <p className='text-2xl'>PLANES NUTRICIONALES PENDIENTES:</p>
-              <p className='text-7xl'>7</p>
-            </div>
+            <Link to="/profesorid/assing-routine">
+              <div className=' w-[450px] h-[150px] bg-zinc-900 border border-white flex justify-evenly items-center cursor-pointer hover:scale-105 hover:rotate-2 hover:bg-zinc-800 transition-all duration-200'>
+                <p className='text-2xl'>RUTINAS PENDIENTES:</p>
+                <p className='text-7xl'>5</p>
+              </div>
+            </Link>
+            <Link to="/profesorid/assing-nutritional-plan">
+              <div className='w-[450px] h-[150px] bg-zinc-900 border border-white flex justify-evenly items-center cursor-pointer hover:scale-105 hover:-rotate-2 hover:bg-zinc-800 transition-all duration-200'>
+                <p className='text-2xl'>PLANES NUTRICIONALES PENDIENTES:</p>
+                <p className='text-7xl'>7</p>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
