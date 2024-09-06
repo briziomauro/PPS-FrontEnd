@@ -11,6 +11,9 @@ import AdminPage from "./components/adminPage/AdminPage";
 import LocationsPage from "./components/locationsPage/LocationsPage";
 import UserCenter from "./components/userCenter/UserCenter";
 import AssingShiftsPage from "./components/assingShiftsPage/AssingShiftsPage";
+import NotFound from "./components/notFound/NotFound";
+import AssingNutricionalPlan from "./components/assingNutricionalPlan/AssingNutricionalPlan";
+import AssingRoutine from "./components/assingRoutine/AssingRoutine";
 
 function App() {
   const router = createBrowserRouter([
@@ -60,18 +63,18 @@ function App() {
     },
     {
       path: "/adminid/user-center",
-      element:(
-      <LayoutLogged>
-        <UserCenter/>
-      </LayoutLogged>
+      element: (
+        <LayoutLogged>
+          <UserCenter />
+        </LayoutLogged>
       ),
     },
     {
       path: "/adminid/assing-shift",
       element: (
-      <LayoutLogged>
-        <AssingShiftsPage/>
-      </LayoutLogged>
+        <LayoutLogged>
+          <AssingShiftsPage />
+        </LayoutLogged>
       ),
     },
     {
@@ -87,17 +90,27 @@ function App() {
       element: <></>,
     },
     {
-      path: "/profesorid/work-calendar",
-      element: <></>,
-    },
-    {
       path: "/profesorid/assing-nutritional-plan",
-      element: <></>,
+      element: (
+        <LayoutLogged>
+          <AssingNutricionalPlan />
+        </LayoutLogged>
+      ),
     },
     {
       path: "/profesorid/assing-routine",
-      element: <></>,
+      element: (
+        <LayoutLogged>
+          <AssingRoutine />
+        </LayoutLogged>
+      ),
     },
+    {
+      path: "*",
+      element: (
+        <NotFound />
+      ),
+    }
   ]);
 
   return <RouterProvider router={router} />;
