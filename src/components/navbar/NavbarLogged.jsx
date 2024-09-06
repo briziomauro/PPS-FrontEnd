@@ -8,7 +8,7 @@ const NavbarLogged = () => {
                 <Drawer />
             </div>
             <img
-                src="./img/LogoLight.png"
+                src="/img/LogoLight.png"
                 alt=""
                 className="h-[40px] w-[120px] "
             />
