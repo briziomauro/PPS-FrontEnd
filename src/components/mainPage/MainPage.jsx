@@ -4,6 +4,8 @@ import Benefits from "../benefits/Benefits";
 import Memberships from "../memberships/Memberships";
 import Trainers from "../trainers/Trainers";
 
+import AboutUs from "../aboutUs/AboutUs";
+
 const MainPage = () => {
   return (
     <>
@@ -43,6 +45,7 @@ const MainPage = () => {
       <Benefits />
       <Memberships />
       <Trainers />
+      <AboutUs />
     </>
   );
 };
