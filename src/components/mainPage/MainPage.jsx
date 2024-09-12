@@ -9,7 +9,7 @@ import AboutUs from "../aboutUs/AboutUs";
 const MainPage = () => {
   return (
     <>
-      <div className="flex justify-center items-center h-[550px] bg-grungeBg bg-cover ">
+      <div className="flex justify-center items-center h-[550px] bg-grungeBg bg-cover overflow-hidden">
         <div className="flex flex-col justify-center mt-10 gap-y-2 font-bebas font-semibold text-black text-8xl w-[1000px]">
           <div className="flex justify-center items-center gap-5 animate-slideInLeft">
             <p>DISFRUTA</p>
