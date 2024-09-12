@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`navbar fixed top-0 w-full z-10 transition-all duration-300 justify-evenly ${
+      className={`navbar fixed top-0 w-full z-10 justify-evenly ${
         isScrolled
           ? "bg-gradient-to-b from-zinc-800 bg-opacity-10 text-white "
           : "bg-gradient-to-b from-white text-black "
