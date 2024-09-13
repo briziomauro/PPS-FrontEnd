@@ -16,6 +16,7 @@ import AssingNutricionalPlan from "./components/assingNutricionalPlan/AssingNutr
 import AssingRoutine from "./components/assingRoutine/AssingRoutine";
 import GetTurn from "./components/getTurn/GetTurn";
 import NutritionalPlan from "./components/nutritionalPlan/NutritionalPlan";
+import Routines from "./components/routines/Routines";
 
 function App() {
   const router = createBrowserRouter([
@@ -97,7 +98,11 @@ function App() {
     },
     {
       path: "/clientid/routine",
-      element: <></>,
+      element: (
+        <LayoutLogged>
+          <Routines />
+        </LayoutLogged>
+      ),
     },
     {
       path: "/profesorid/assing-nutritional-plan",
