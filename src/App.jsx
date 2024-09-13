@@ -14,6 +14,8 @@ import AssingShiftsPage from "./components/assingShiftsPage/AssingShiftsPage";
 import NotFound from "./components/notFound/NotFound";
 import AssingNutricionalPlan from "./components/assingNutricionalPlan/AssingNutricionalPlan";
 import AssingRoutine from "./components/assingRoutine/AssingRoutine";
+import GetTurn from "./components/getTurn/GetTurn";
+import NutritionalPlan from "./components/nutritionalPlan/NutritionalPlan";
 
 function App() {
   const router = createBrowserRouter([
@@ -79,11 +81,19 @@ function App() {
     },
     {
       path: "/clientid/get-turn",
-      element: <></>,
+      element: (
+        <LayoutLogged>
+          <GetTurn />
+        </LayoutLogged>
+      ),
     },
     {
       path: "/clientid/nutritional-plan",
-      element: <></>,
+      element: (
+        <LayoutLogged>
+          <NutritionalPlan />
+        </LayoutLogged>
+      ),
     },
     {
       path: "/clientid/routine",
@@ -107,10 +117,8 @@ function App() {
     },
     {
       path: "*",
-      element: (
-        <NotFound />
-      ),
-    }
+      element: <NotFound />,
+    },
   ]);
 
   return <RouterProvider router={router} />;
