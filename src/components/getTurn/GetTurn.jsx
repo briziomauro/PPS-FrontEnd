@@ -1,24 +1,20 @@
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-  faMapMarkerAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { FaChevronLeft, FaChevronRight, FaMapMarkerAlt } from "react-icons/fa";
+import { locations } from "../../data/data";
 
 const monthNames = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
+  "Ene",
+  "Feb",
+  "Mar",
+  "Abr",
+  "May",
+  "Jun",
+  "Jul",
+  "Ago",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dic",
 ];
 
 const getCurrentMonthYear = () => {
@@ -47,73 +43,6 @@ const getLastDayOfMonth = (month, year) => {
 };
 
 const GetTurn = () => {
-  const branches = [
-    {
-      id: 1,
-      name: "SEDE UTN",
-      address: "Zeballos 3172, Rosario.",
-      phone: "4805-1312",
-      hours: "L a V: 7 a 22 hs. | S: 9 a 20 hs. | D: 10 a 20 hs.",
-      email: "utn@t-center.com",
-    },
-    {
-      id: 2,
-      name: "SEDE ABASTO",
-      address: "Corrientes 2135, Rosario.",
-      phone: "4862-7925",
-      hours: "L a V: 7 a 23 hs. | S: 8 a 20 hs.",
-      email: "abastot-center.com",
-    },
-    {
-      id: 3,
-      name: "SEDE CENTRO",
-      address: "Arenales 3378, Rosario.",
-      phone: "4821-6811",
-      hours: "L a V: 6.30 a 23 hs. | S: 8 a 20 hs. | D: 10 a 20 hs.",
-      email: "centro@t-center.com",
-    },
-    {
-      id: 4,
-      name: "ALTO ROSARIO",
-      address: "Junín 501, Rosario.",
-      phone: "4789-8754",
-      hours: "L a V: 7 a 23 hs. | S: 9 a 21 hs. | D: 10 a 20 hs.",
-      email: "altorosario@t-center.com",
-    },
-    {
-      id: 5,
-      name: "SEDE SAN MARTIN",
-      address: "Riobamba 165, Rosario.",
-      phone: "4372-1106",
-      hours: "L a V: 7 a 22 hs. | S: 8 a 19 hs.",
-      email: "sanmartin@t-center.com",
-    },
-    {
-      id: 6,
-      name: "SEDE LOURDES",
-      address: "Iriarte 2056, Rosario.",
-      phone: "4301-4327",
-      hours: "L a V: 7 a 22 hs. | S: 9 a 20 hs.",
-      email: "lourdes@t-center.com",
-    },
-    {
-      id: 7,
-      name: "BARRIO NORTE",
-      address: "Rodríguez Peña 1062, Rosario.",
-      phone: "4816-8566",
-      hours: "L a V: 7 a 22 hs. | S: 9 a 20 hs.",
-      email: "barrio@t-center.com",
-    },
-    {
-      id: 8,
-      name: "BELGRANO",
-      address: "Vuelta de Obligado 2250, Rosario.",
-      phone: "4784-6635",
-      hours: "L a V: 6.30 a 23 hs. | S: 8 a 20 hs.",
-      email: "belgrano@t-center.com",
-    },
-  ];
-
   const [selectedSede, setSelectedSede] = useState(null);
   const [selectedMonthYear, setSelectedMonthYear] = useState(
     getCurrentMonthYear()
@@ -149,17 +78,17 @@ const GetTurn = () => {
       </h2>
 
       <div className="flex flex-wrap gap-2 mt-12 justify-center">
-        {branches.map((branch) => (
+        {locations.map((branch) => (
           <button
             key={branch.id}
-            className={`bg-gray-200 text-gray-600 font-bold py-2 px-4 rounded-lg transition-colors duration-200 ${
+            className={`bg-gray-200 text-gray-600 font-bold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center ${
               selectedSede === branch.name
                 ? "bg-gray-600 text-yellow-400"
                 : "bg-gray-200 text-gray-600"
             }`}
             onClick={() => handleSedeChange(branch.name)}
           >
-            <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" />
+            <FaMapMarkerAlt className="mr-2" />
             {branch.name}
           </button>
         ))}
@@ -171,7 +100,7 @@ const GetTurn = () => {
             className="text-black p-2 font-bold text-2xl"
             onClick={() => handleMonthChange("prev")}
           >
-            <FontAwesomeIcon icon={faChevronLeft} />
+            <FaChevronLeft />
           </button>
 
           <span className="font-bold text-lg">{selectedMonthYear}</span>
@@ -180,7 +109,7 @@ const GetTurn = () => {
             className="text-black p-2 font-bold text-2xl"
             onClick={() => handleMonthChange("next")}
           >
-            <FontAwesomeIcon icon={faChevronRight} />
+            <FaChevronRight />
           </button>
         </div>
       </div>
@@ -191,7 +120,7 @@ const GetTurn = () => {
             className="text-black p-2 font-bold text-2xl"
             onClick={() => handleDayChange("prev")}
           >
-            <FontAwesomeIcon icon={faChevronLeft} />
+            <FaChevronLeft />
           </button>
 
           <span className="font-bold text-lg">
@@ -202,7 +131,7 @@ const GetTurn = () => {
             className="text-black p-2 font-bold text-2xl"
             onClick={() => handleDayChange("next")}
           >
-            <FontAwesomeIcon icon={faChevronRight} />
+            <FaChevronRight />
           </button>
         </div>
       </div>
