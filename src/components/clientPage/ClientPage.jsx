@@ -1,18 +1,13 @@
-import React, { useState } from "react";
-import {
-  MdAccessTime,
-  MdOutlineKeyboardArrowDown,
-  MdOutlineKeyboardArrowUp,
-} from "react-icons/md";
-import { CiCalendar, CiLocationOn, CiTimer, CiUser } from "react-icons/ci";
-import { CgGym } from "react-icons/cg";
+import React from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { CiCalendar, CiLocationOn, CiUser } from "react-icons/ci";
 import { FaCheck } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa6";
+import { MdAccessTime } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const ClientPage = () => {
-  const [togglePlans, setTogglePlans] = useState(true);
-  const [toggleRoutines, setToggleRoutines] = useState(true);
   return (
     <>
       <header className="bg-zinc-700 pl-20 py-4 font-bebas tracking-wider ">
@@ -23,8 +18,15 @@ const ClientPage = () => {
 
       <main className="px-20  text-zinc-800 flex flex-col md:flex-row gap-10 py-10 ">
         <div className="w-1/2 flex flex-col gap-5 ">
+          <article className="bg-amber-300 h-24  p-4 rounded-lg shadow-md text-zinc-800 flex flex-col items-center">
+            <Link
+              to="get-turn"
+              className="text-lg cursor-pointer uppercase w-full bg-black/10 rounded hover:opacity-50 h-28 flex items-center justify-center"
+            >
+              Reservar turno
+            </Link>
+          </article>
           <article className="bg-yellow-300  p-6 rounded-lg shadow-md text-zinc-800 flex flex-col items-center">
-            {/* Título */}
             <h2 className="flex items-center w-full gap-1 text-2xl font-bold uppercase  mb-4  pb-2 border-black">
               <CiCalendar className="text-black " />
               Turno de Hoy
@@ -32,38 +34,25 @@ const ClientPage = () => {
             </h2>
 
             <div className="text-lg w-full">
-              {/* Tipo de entrenamiento */}
               <p className="text-gray-700 flex items-center gap-1">
                 <CiLocationOn />
                 Locacion
               </p>
 
-              {/* Entrenador */}
               <p className="flex items-center gap-1">
                 <CiUser /> <span className="font-semibold">Entrenador:</span>{" "}
                 Carlos Pérez
               </p>
 
-              {/* Horario */}
               <p className="flex items-center gap-1">
                 <MdAccessTime />
                 17:00
               </p>
             </div>
           </article>
-          <article className="bg-yellow-300  p-6 rounded-lg shadow-md text-zinc-800 flex flex-col items-center">
-            {/* Título */}
-            <h2 className="flex items-center w-full gap-1 text-2xl font-bold uppercase  mb-4  pb-2 border-black">
-              <CiCalendar className="text-black " />
-              Turno de Hoy
-            </h2>
 
-            <a className="text-lg cursor-pointer w-full bg-black/10 rounded hover:opacity-50 h-28 flex items-center justify-center">
-              Solicitar turno
-            </a>
-          </article>
-          <article className="">
-            <Calendar className="rounded !bg-zinc-700 text-white" />
+          <article>
+            <Calendar className="rounded" />
           </article>
         </div>
 
@@ -71,26 +60,19 @@ const ClientPage = () => {
           <article className="w-full">
             <div className="bg-amber-400 flex items-center justify-between ">
               <h2 className="text-3xl  font-bebas p-1">Mi plan nutricional</h2>
-              <span
-                onClick={() => setTogglePlans((prev) => !prev)}
-                className="cursor-pointer hover:opacity-40"
-              >
-                {!togglePlans ? (
-                  <MdOutlineKeyboardArrowDown size={40} />
-                ) : (
-                  <MdOutlineKeyboardArrowUp size={40} />
-                )}
-              </span>
             </div>
-            {togglePlans && (
-              <div>
-                <a
-                  className="bg-zinc-700 block text-white p-10 text-2xl rounded-b-3xl text-center hover:bg-zinc-800"
-                  href=""
+
+            <ul>
+              <li>
+                <Link
+                  className="bg-zinc-700 flex justify-center items-center gap-3 text-white p-10 text-2xl rounded-b-3xl text-center hover:bg-zinc-800"
+                  to="nutritional-plan"
                 >
-                  Solicitar plan nutricional
-                </a>
-                <div className="bg-zinc-700 shadow-lg rounded-lg p-6 text-white ">
+                  Ver mi plan nutricional <FaArrowRight />
+                </Link>
+              </li>
+              <li></li>
+              {/* <li className="bg-zinc-700 shadow-lg rounded-lg p-6 text-white ">
                   <h3 className="font-bold text-xl mb-4 ">
                     Plan nutricional básico
                   </h3>
@@ -121,35 +103,25 @@ const ClientPage = () => {
                       con almendras.
                     </li>
                   </ul>
-                </div>
-              </div>
-            )}
+                </li> */}
+            </ul>
           </article>
 
           <article className="w-full">
             <div className="bg-amber-400 flex items-center justify-between ">
               <h2 className="text-3xl  font-bebas p-1">Mis rutinas</h2>
-              <span
-                onClick={() => setToggleRoutines((prev) => !prev)}
-                className="cursor-pointer hover:opacity-40"
-              >
-                {!toggleRoutines ? (
-                  <MdOutlineKeyboardArrowDown size={40} />
-                ) : (
-                  <MdOutlineKeyboardArrowUp size={40} />
-                )}
-              </span>
             </div>
-            {toggleRoutines && (
-              <div>
-                <a
-                  className="bg-zinc-700 block text-white p-10 text-2xl rounded-b-3xl text-center hover:bg-zinc-800"
-                  href=""
+
+            <ul>
+              <li>
+                <Link
+                  className="bg-zinc-700 flex justify-center items-center gap-3 text-white p-10 text-2xl rounded-b-3xl text-center hover:bg-zinc-800"
+                  to="routine"
                 >
-                  Solicitar rutinas
-                </a>
-              </div>
-            )}
+                  Ver mis rutinas <FaArrowRight />
+                </Link>
+              </li>
+            </ul>
           </article>
         </div>
       </main>
@@ -158,7 +130,3 @@ const ClientPage = () => {
 };
 
 export default ClientPage;
-
-{
-  /*  */
-}
