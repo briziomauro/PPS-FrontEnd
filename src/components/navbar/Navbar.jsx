@@ -67,9 +67,9 @@ const Navbar = () => {
           </ul>
         </div>
         <img
-          src="./img/logoTraining.png"
+          src={isScrolled ? "/img/LogoLight.png" : "/img/logoTraining2.png"} 
           alt=""
-          className="h-[80px] w-[120px]"
+          className="h-[40px] w-[130px] my-6"
         />
       </div>
       <div className="hidden lg:flex">

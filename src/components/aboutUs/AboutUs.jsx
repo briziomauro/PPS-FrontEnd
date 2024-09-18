@@ -5,27 +5,21 @@ import { EffectCards } from "swiper/modules";
 import "./AboutUs.css";
 const AboutUs = () => {
   return (
-    <div id="AboutUs">
+    <div id="AboutUs" className="bg-black border-b h-screen flex flex-col justify-center items-center">
       <div className="flex text-center justify-center mt-6">
-        <h1 className="font-bebas text-black text-4xl">Sobre Nosotros</h1>
+        <h1 className="font-bebas text-white text-6xl">Sobre Nosotros</h1>
       </div>
-      <div className="flex text-pretty text-ellipsis justify-center items-center bg-zinc-900 text-white rounded-md p-8 m-11 gap-8">
-        <div className="flex flex-col justify-evenly h-full gap-4 w-[750px]">
+      <div className="flex text-pretty text-lg text-ellipsis justify-center items-center text-white rounded-md p-8 gap-20">
+        <div className="flex flex-col justify-evenly h-full gap-4 w-[650px]">
           <p className="font-roboto">
             En <strong>Training Center</strong>, somos tu gimnasio de confianza
             en Rosario, Santa Fe.
           </p>
           <p className="font-roboto">
-            Con <strong>10 sedes</strong> en la ciudad y una nueva apertura en
-            camino, ofrecemos un ambiente motivador para alcanzar tus
-            <strong> objetivos</strong>. Contamos con
-            <strong> instalaciones modernas</strong>, equipamiento de última
-            generación y un equipo de instructores dedicados a tu{" "}
-            <strong> bienestar</strong>.
+            Con más de 10 sedes distribuidas por toda la ciudad, nos enorgullece ofrecer un espacio donde la salud y el bienestar son nuestra prioridad. Desde nuestros inicios, nos hemos dedicado a crear un ambiente inclusivo y motivador para todas las personas, independientemente de su nivel de experiencia o condición física.
           </p>
-          <p className="font-bebas text-2xl">
-            ¡Únete a <span className="text-yellow-400">Training Center</span> y
-            mejora tu vida hoy mismo!
+          <p className="font-roboto">
+            En Training Center, contamos con instalaciones de primer nivel y equipamiento de última generación. Además, nuestros instructores altamente capacitados están comprometidos en ayudarte a alcanzar tus metas, ya sea mejorar tu condición física, ganar fuerza, perder peso o simplemente llevar un estilo de vida más saludable.
           </p>
         </div>
         <div>
@@ -61,12 +55,6 @@ const AboutUs = () => {
             </SwiperSlide>
             <SwiperSlide>
               <img
-                src="https://www.on24.com.ar/wp-content/uploads/2023/02/IMG_2248-scaled-1.jpg"
-                alt=""
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img
                 src="https://mercadofitness.com/wp-content/uploads/2022/09/Training-Center-abrira-una-nueva-sede-en-el-centro-de-Rosario-Santa-Fe.jpg"
                 alt=""
               />
@@ -74,6 +62,10 @@ const AboutUs = () => {
           </Swiper>
         </div>
       </div>
+      <p className="font-bebas text-4xl text-white">
+        ¡Únete a <span className="text-yellow-400">Training Center</span> y
+        mejora tu vida hoy mismo!
+      </p>
     </div>
   );
 };
