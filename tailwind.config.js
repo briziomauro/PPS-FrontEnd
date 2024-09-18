@@ -29,7 +29,7 @@ export default {
       },
       backgroundImage: {
         grungeBg:
-          "url('https://img.freepik.com/foto-gratis/fondo-blanco-sucio-cemento-natural-o-textura-antigua-piedra-como-pared-patron-retro_1258-28331.jpg?t=st=1724522629~exp=1724526229~hmac=614d2499ee2fb04d73f92d2e762a2aa09a6306550f38bd8ba51c3696df452f07&w=740')",
+          "url('https://media.istockphoto.com/id/1320330053/es/foto/textura-de-fondo-de-papel-de-cuadr%C3%ADcula-punteada-patr%C3%B3n-de-repetici%C3%B3n-sin-costuras.jpg?s=2048x2048&w=is&k=20&c=JyUM5sxE6C60iWxBER_YeI-lsbzDUknzBUzVXeMzeyg=')",
       },
     },
   },
