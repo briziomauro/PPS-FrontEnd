@@ -20,7 +20,7 @@ const ProfessorPage = () => {
       <div className='flex text-black justify-center items-center h-[700px]'>
         <div className='flex  flex-col flex-1 justify-center items-center'>
           <h2 className='font-bebas text-5xl'>MIS TURNOS</h2>
-          <div className='bg-white w-[300px] h-full text-black uppercase font-bebas text-xl mb-4'>
+          <div className='bg-white w-[330px] h-full text-black uppercase font-bebas text-xl mb-4'>
             <Calendar onChange={onChangeDate} value={date} />
           </div>
           <div className='flex flex-col font-bebas text-xl bg-zinc-800 text-white w-[500px] p-3'>

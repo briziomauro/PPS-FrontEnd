@@ -1,51 +1,25 @@
-.react-calendar__tile {
-    @apply p-2 text-center uppercase;
-}
-
-.react-calendar__tile--active {
-    @apply bg-yellow-400 text-white rounded-xl;
-}
-
-.react-calendar__tile--now {
-    @apply bg-yellow-400 text-white rounded-xl;
-}
-
-.react-calendar__navigation {
-    @apply border border-b-black border-x-0 border-t-0
-}
-
-.react-calendar__viewContainer {
-    @apply mt-3
-}
-
-.react-calendar__navigation button {
-    @apply text-gray-700 hover:text-yellow-400 text-2xl;
-}
-
-.react-calendar__month-view__weekdays__weekday {
-    @apply font-semibold text-zinc-600 text-center;
-}
-
-.react-calendar__navigation__label__labelText {
-    @apply uppercase
-}
-
-.react-calendar__navigation {
-    @apply flex justify-between items-center p-2;
+.react-calendar {
+    @apply font-bebas bg-zinc-800 text-white
 }
 
 .react-calendar__navigation__label {
-    @apply text-center flex-grow;
+    @apply text-xl rounded-xl hover:text-yellow-400 hover:bg-transparent
 }
 
-.react-calendar__month-view__days__day--neighboringMonth {
-    @apply text-zinc-400
-}
-
-.react-calendar__year-view__months__month {
-    @apply hover:bg-zinc-700 hover:text-white rounded-xl transition-all duration-100
+.react-calendar__navigation__label__labelText {
+    @apply hover:bg-transparent
 }
 
 .react-calendar__month-view__days__day {
-    @apply hover:text-yellow-500
+    @apply hover:bg-zinc-800
+}
+
+.react-calendar__tile{
+    @apply hover:bg-zinc-800
+}
+.react-calendar__tile--active{
+    @apply bg-yellow-400 
+}
+.react-calendar__tile--active:hover{
+    @apply bg-yellow-400
 }
