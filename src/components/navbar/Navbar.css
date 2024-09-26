@@ -1,6 +1,6 @@
-a:active,
-a:focus,
-a:hover {
+.aNav:active,
+.aNav:focus,
+.aNav:hover {
     background-color: transparent !important;
     color: inherit !important;
 

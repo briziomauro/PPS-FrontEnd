@@ -53,16 +53,16 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-zinc-950 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a>VENTAJAS</a>
+              <a className="aNav">VENTAJAS</a>
             </li>
             <li>
-              <a>MEMBRESIAS</a>
+              <a className="aNav">MEMBRESIAS</a>
             </li>
             <li>
-              <a>SOBRE NOSOTROS</a>
+              <a className="aNav">SOBRE NOSOTROS</a>
             </li>
             <li>
-              <a>ENTRENADORES</a>
+              <a className="aNav">ENTRENADORES</a>
             </li>
           </ul>
         </div>
@@ -77,13 +77,13 @@ const Navbar = () => {
       <div className="hidden lg:flex">
         <ul className="menu menu-horizontal px-1 font-bebas text-2xl">
           <li className="hover:scale-110 ">
-            <a href="#Memberships">MEMBRESIAS</a>
+            <a className="aNav" href="#Memberships">MEMBRESIAS</a>
           </li>
           <li className="hover:scale-110">
-            <a href="#Trainers">ENTRENADORES</a>
+            <a className="aNav" href="#Trainers">ENTRENADORES</a>
           </li>
           <li className="hover:scale-110">
-            <a href="#AboutUs">SOBRE NOSOTROS</a>
+            <a className="aNav" href="#AboutUs">SOBRE NOSOTROS</a>
           </li>
         </ul>
       </div>
