@@ -1,65 +1,84 @@
 import React from "react";
+import { BentoGrid, BentoGridItem } from "../ui/bento-grid";
+import { div } from "framer-motion/client";
 
-const Trainers = () => {
+
+export default function BentoGridSecondDemo() {
   return (
-    <div className="flex justify-center" id="Trainers">
-      <div className="grid grid-cols-3 grid-flow-row gap-2 p-4  w-[625px]">
-        <div className="col-span-1 row-span-2 filter grayscale hover:filter-none w-[190px] h-[220px] transition-all duration-300 ">
-          <img
-            className="h-full w-full object-cover"
-            src="https://cdn.discordapp.com/attachments/1270897558490976318/1276677990469861377/OIG3.png?ex=66ca6688&is=66c91508&hm=55f56b34dd9a6f05d810af2a8e6792a2a7152189ef8fb03f7ffa43b061727b4f&"
-            alt=""
+    <div id="Trainers" className="flex min-h-screen justify-center items-center mb-20">
+      <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[20rem] mt-32">
+        {items.map((item, i) => (
+          <BentoGridItem
+            key={i}
+            title={item.title}
+            description={item.description}
+            header={item.header}
+            className={item.className}
           />
-        </div>
-        <div className="col-span-2 row-span-2 bg-yellow-500 w-[391px] h-[220px] flex flex-col justify-center items-center text-center text-white">
-          <p className="font-bebas text-4xl">CONOCE A NUESTRO STAFF</p>
-          <p>¡Nunca dudes en pedirles ayuda cuando lo necesites!</p>
-        </div>
-        <div className="col-span-1 row-span-1 filter grayscale hover:filter-none w-[190px] h-[220px] transition-all duration-300">
-          <img
-            className="h-full w-full object-cover"
-            src="https://cdn.discordapp.com/attachments/1270897558490976318/1276677990469861377/OIG3.png?ex=66ca6688&is=66c91508&hm=55f56b34dd9a6f05d810af2a8e6792a2a7152189ef8fb03f7ffa43b061727b4f&"
-            alt=""
-          />
-        </div>
-        <div className="col-span-1 row-span-1 filter grayscale hover:filter-none w-[190px] h-[220px] transition-all duration-300">
-          <img
-            className="h-full w-full object-cover"
-            src="https://cdn.discordapp.com/attachments/1270897558490976318/1276677990469861377/OIG3.png?ex=66ca6688&is=66c91508&hm=55f56b34dd9a6f05d810af2a8e6792a2a7152189ef8fb03f7ffa43b061727b4f&"
-            alt=""
-          />
-        </div>
-        <div className="col-span-1 row-span-1 filter grayscale hover:filter-none w-[190px] h-[220px] transition-all duration-300">
-          <img
-            className="h-full w-full object-cover"
-            src="https://cdn.discordapp.com/attachments/1270897558490976318/1276677990469861377/OIG3.png?ex=66ca6688&is=66c91508&hm=55f56b34dd9a6f05d810af2a8e6792a2a7152189ef8fb03f7ffa43b061727b4f&"
-            alt=""
-          />
-        </div>
-        <div className="col-span-1 row-span-1 filter grayscale hover:filter-none w-[190px] h-[220px] transition-all duration-300">
-          <img
-            className="h-full w-full object-cover"
-            src="https://cdn.discordapp.com/attachments/1270897558490976318/1276677990469861377/OIG3.png?ex=66ca6688&is=66c91508&hm=55f56b34dd9a6f05d810af2a8e6792a2a7152189ef8fb03f7ffa43b061727b4f&"
-            alt=""
-          />
-        </div>
-        <div className="col-span-1 row-span-1 filter grayscale hover:filter-none w-[190px] h-[220px] transition-all duration-300">
-          <img
-            className="h-full w-full object-cover"
-            src="https://cdn.discordapp.com/attachments/1270897558490976318/1276677990469861377/OIG3.png?ex=66ca6688&is=66c91508&hm=55f56b34dd9a6f05d810af2a8e6792a2a7152189ef8fb03f7ffa43b061727b4f&"
-            alt=""
-          />
-        </div>
-        <div className="col-span-1 row-span-1 filter grayscale hover:filter-none w-[190px] h-[220px] transition-all duration-300">
-          <img
-            className="h-full w-full object-cover"
-            src="https://cdn.discordapp.com/attachments/1270897558490976318/1276677990469861377/OIG3.png?ex=66ca6688&is=66c91508&hm=55f56b34dd9a6f05d810af2a8e6792a2a7152189ef8fb03f7ffa43b061727b4f&"
-            alt=""
-          />
-        </div>
-      </div>
+        ))}
+      </BentoGrid>
     </div>
   );
-};
+}
 
-export default Trainers;
+const items = [
+  {
+    title: "Mauro Brizio",
+    description: "Profesor - Sede Centro",
+    header: "/img/mauroProf.JPG",
+    className: "md:col-span-1",
+  },
+  {
+    title: "Mateo Caranta",
+    description: "Profesor - Sede Abasto",
+    header: "/img/mateoProf.JPG",
+    className: "md:col-span-1",
+  },
+  {
+    title: "CONOCE NUESTRO STAFF",
+    description: "¡Nunca dudes en pedirles ayuda cuando lo necesites!",
+    className: "md:col-span-2",
+  },
+  {
+    title: "Nicolas Arrastia",
+    description:
+      "Profesor - Sede Norte",
+    header: "/img/nicoProf.JPG",
+    className: "md:col-span-1",
+  },
+  {
+    title: "Valentin Cura",
+    description:
+      "Profesor - Sede Downtown",
+    header: "/img/curaProf.JPG",
+    className: "md:col-span-1",
+  },
+  {
+    title: "Santiago Haquin",
+    description:
+      "Profesor - Sede San Martin",
+    header: "/img/haquinProf.webp",
+    className: "md:col-span-1",
+  },
+  {
+    title: "Nicolas Abramovich",
+    description:
+      "Profesor - Sede Pichincha",
+    header: "/img/nicoaProf.jpg",
+    className: "md:col-span-1",
+  },
+  {
+    title: "Joaquin Benitez",
+    description:
+      "Profesor - Sede Lourdes",
+    header: "/img/joacoProf.JPG",
+    className: "md:col-span-1",
+  },
+  {
+    title: "The Power of Communication",
+    description:
+      "Understand the impact of effective communication in our lives.",
+    header: "/img/profesJuntos.jpg",
+    className: "md:col-span-3",
+  },
+];
