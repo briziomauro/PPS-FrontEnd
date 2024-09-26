@@ -137,3 +137,89 @@ export const locations = [
     position: [-32.9527, -60.6449],
   },
 ];
+
+export const shifts = [
+  {
+    id: 1,
+    hora: "09:00",
+    dia: "Lunes",
+    cupoDisponible: 5,
+    profesorAsignado: "Mauro Brizio",
+    sede: "Sede Centro"
+  },
+  {
+    id: 2,
+    hora: "10:00",
+    dia: "Lunes",
+    cupoDisponible: 3,
+    profesorAsignado: "Mateo Caranta",
+    sede: "Sede Abasto"
+  },
+  {
+    id: 3,
+    hora: "11:00",
+    dia: "Lunes",
+    cupoDisponible: 4,
+    profesorAsignado: "Nicolas Arrastia",
+    sede: "Sede Norte"
+  },
+  {
+    id: 4,
+    hora: "12:00",
+    dia: "Martes",
+    cupoDisponible: 2,
+    profesorAsignado: "Valentin Cura",
+    sede: "Sede Downtown"
+  },
+  {
+    id: 5,
+    hora: "14:00",
+    dia: "Martes",
+    cupoDisponible: 6,
+    profesorAsignado: "Santiago Haquin",
+    sede: "Sede San Martin"
+  },
+  {
+    id: 6,
+    hora: "15:00",
+    dia: "Miércoles",
+    cupoDisponible: 1,
+    profesorAsignado: "Nicolas Abramovich",
+    sede: "Sede Pichincha"
+  },
+  {
+    id: 7,
+    hora: "16:00",
+    dia: "Miércoles",
+    cupoDisponible: 4,
+    profesorAsignado: "Joaquin Benitez",
+    sede: "Sede Lourdes"
+  },
+  {
+    id: 8,
+    hora: "17:00",
+    dia: "Jueves",
+    cupoDisponible: 0,
+    profesorAsignado: "Mauro Brizio",
+    sede: "Sede Centro"
+  },
+  {
+    id: 9,
+    hora: "18:00",
+    dia: "Jueves",
+    cupoDisponible: 2,
+    profesorAsignado: "Mateo Caranta",
+    sede: "Sede Abasto"
+  },
+  {
+    id: 10,
+    hora: "19:00",
+    dia: "Viernes",
+    cupoDisponible: 5,
+    profesorAsignado: "Nicolas Arrastia",
+    sede: "Sede Norte"
+  },
+];
+
+
+
