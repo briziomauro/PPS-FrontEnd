@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import './Navbar.css'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,11 +25,10 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`navbar fixed top-0 w-full z-10 justify-evenly ${
-        isScrolled
-          ? "bg-gradient-to-b from-zinc-800 bg-opacity-10 text-white "
-          : "bg-gradient-to-b from-white text-black "
-      }`}
+      className={`navbar fixed top-0 w-full z-10 justify-evenly ${isScrolled
+        ? "bg-black bg-opacity-60 text-white "
+        : "bg-transparent text-black "
+        } transition-all duration-300`}
     >
       <div>
         <div className="dropdown">
@@ -66,32 +66,31 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <img
-          src={isScrolled ? "/img/LogoLight.png" : "/img/logoTraining2.png"} 
-          alt=""
-          className="h-[40px] w-[130px] my-6"
-        />
+        <a href="#Main">
+          <img
+            src={isScrolled ? "/img/LogoLight.png" : "/img/logoTraining2.png"}
+            alt=""
+            className="h-[40px] w-[130px] my-6"
+          />
+        </a>
       </div>
       <div className="hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li className="hover:scale-110 hover:bg-transparent hover:border-none">
-            <a href="#Benefits">VENTAJAS</a>
-          </li>
-          <li className="hover:scale-110">
+        <ul className="menu menu-horizontal px-1 font-bebas text-2xl">
+          <li className="hover:scale-110 ">
             <a href="#Memberships">MEMBRESIAS</a>
           </li>
           <li className="hover:scale-110">
-            <a href="#AboutUs">SOBRE NOSOTROS</a>
+            <a href="#Trainers">ENTRENADORES</a>
           </li>
           <li className="hover:scale-110">
-            <a href="#Trainers">ENTRENADORES</a>
+            <a href="#AboutUs">SOBRE NOSOTROS</a>
           </li>
         </ul>
       </div>
       <div>
         <button
           onClick={navigateLogin}
-          className="btn bg-yellow-500 rounded-full w-[120px] border-none hover:bg-zinc-800 text-white transition-all duration-200"
+          className="btn bg-yellow-500 rounded-full w-[120px] border-none hover:bg-yellow-400 text-white transition-all duration-300"
         >
           LOGIN
         </button>

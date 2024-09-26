@@ -112,7 +112,7 @@ export const locations = [
   },
   {
     id: 7,
-    name: "BARRIO NORTE",
+    name: "NORTE",
     address: "Salta 2400, Rosario.",
     phone: "0341-4816-8566",
     hours: {

@@ -12,7 +12,7 @@ import { CgGym } from "react-icons/cg";
 const MainPage = () => {
   return (
     <>
-      <div className="flex flex-col justify-evenly items-center h-screen overflow-hidden">
+      <div className="flex flex-col justify-evenly items-center h-screen overflow-hidden" id="Main">
         <div className="flex flex-col justify-center mt-10 font-bebas font-semibold text-black text-[180px] leading-none w-screen">
           <div className="flex justify-center items-center gap-5 animate-slideInLeft">
             <p>DISFRUTA</p>
