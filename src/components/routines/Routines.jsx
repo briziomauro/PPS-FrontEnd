@@ -1,6 +1,7 @@
 import { GiWeightLiftingUp } from "react-icons/gi";
 
 const Routines = () => {
+
   const routines = [
     {
       id: 1,
@@ -25,8 +26,8 @@ const Routines = () => {
   ];
 
   return (
-    <div className="bg-yellow-400  min-h-screen p-8 flex flex-col items-center">
-      <h1 className="text-4xl font-bold text-center text-black mt-12 mb-12">
+    <div className="bg-gradient-to-bl from-black via-zinc-900 to-black h-screen flex flex-col items-center justify-center">
+      <h1 className="text-6xl font-bebas text-center text-white mb-12">
         Mis Rutinas
       </h1>
 
@@ -34,7 +35,7 @@ const Routines = () => {
         {routines.map((routine) => (
           <div
             key={routine.id}
-            className="bg-white rounded-xl shadow-lg p-10 w-full max-w-3xl mx-auto"
+            className="bg-white rounded-xl shadow-lg p-10 w-full max-w-3xl mx-auto flex flex-col justify-evenly"
           >
             <div className="flex items-center justify-center mb-4">
               <GiWeightLiftingUp className="text-black text-5xl mr-3" />
@@ -55,6 +56,10 @@ const Routines = () => {
                 </li>
               ))}
             </ul>
+            <button className="flex w-50 p-3 mt-6 text-black items-center justify-center gap-3 border border-black rounded-2xl hover:bg-black hover:text-white transition-all duration-200">
+              DESCARGAR
+              <img src="/svg/pdfsvg.svg" alt="PDF" className="w-12 h-8" />
+            </button>
           </div>
         ))}
       </div>

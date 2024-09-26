@@ -1,20 +1,21 @@
+import { div } from "framer-motion/client";
 import { CiForkAndKnife } from "react-icons/ci";
 
 const NutritionalPlan = () => {
   return (
-    <main className="h-screen flex justify-center text-gray-700 items-center bg-gray-100 p-6">
+    <div className="flex h-screen justify-center items-center bg-gradient-to-br from-black via-zinc-800 to-black p-6">
       <div className="max-w-4xl w-full">
-        <h3 className="text-3xl font-bold text-gray-800  mb-6 ">
+        <h3 className="text-6xl font-bebas text-white mb-6">
           Plan Nutricional Básico
         </h3>
-        <p className="text-lg mb-2 ">
-          <span className="font-medium">Objetivo:</span> Ganancia de masa
+        <p className="text-lg mb-2  text-white">
+          <span className="font-medium text-yellow-400">Objetivo:</span> Ganancia de masa
           muscular
         </p>
-        <p className="text-lg mb-4 ">
-          <span className="font-medium">Calorías diarias:</span> 2,500 kcal
+        <p className="text-lg mb-4 text-white ">
+          <span className="font-medium text-yellow-400">Calorías diarias:</span> 2,500 kcal
         </p>
-        <div className="flex flex-wrap justify-between gap-6">
+        <div className="flex flex-wrap justify-between gap-6 text-black">
           <div className="flex-1 min-w-[200px] bg-white p-4 rounded-lg shadow-md">
             <h4 className="flex items-center gap-1 text-xl font-semibold mb-2">
               <CiForkAndKnife />
@@ -51,7 +52,7 @@ const NutritionalPlan = () => {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 
