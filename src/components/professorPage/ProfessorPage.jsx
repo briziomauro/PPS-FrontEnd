@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Calendar from 'react-calendar';
 import './ProfessorPage.css'
 import { Link } from 'react-router-dom';
+import CalendarProf from '../calendarProf/CalendarProf';
 
 const ProfessorPage = () => {
   const [date, setDate] = useState(new Date());
@@ -11,19 +11,19 @@ const ProfessorPage = () => {
   };
 
   return (
-    <div>
+    <div className='min-h-screen'>
       <header className="bg-zinc-700 pl-20 py-4 font-bebas tracking-wider ">
         <h1 className="text-white text-4xl">
           Bienvenido <strong className="text-yellow-400">Jhon Doe</strong>
         </h1>
       </header>
-      <div className='flex text-black justify-center items-center h-[700px]'>
+      <div className='flex text-black justify-center items-center'>
         <div className='flex  flex-col flex-1 justify-center items-center'>
-          <h2 className='font-bebas text-5xl'>MIS TURNOS</h2>
-          <div className='bg-white w-[330px] h-full text-black uppercase font-bebas text-xl mb-4'>
-            <Calendar onChange={onChangeDate} value={date} />
+          <h2 className='font-bebas text-5xl my-10'>MIS TURNOS</h2>
+          <div className='bg-white w-[600px] h-full text-black uppercase font-bebas text-xl mb-4'>
+            <CalendarProf/>
           </div>
-          <div className='flex flex-col font-bebas text-xl bg-zinc-800 text-white w-[500px] p-3'>
+          <div className='flex flex-col font-bebas text-xl bg-gradient-to-br from-black via-zinc-800 to-black text-white w-[500px] p-3'>
             <p className='border-b'>Proximo Turno:</p>
             <div className='flex mt-1'>
               <p className='flex-1'>Dia: <strong>10/10/24</strong></p>
@@ -32,7 +32,6 @@ const ProfessorPage = () => {
             </div>
           </div>
         </div>
-        <div className="divider divider-horizontal bg-zinc-500 w-[1px]"></div>
         <div className='flex flex-col flex-1 justify-center items-center text-white h-full'>
           <h2 className='font-bebas text-5xl text-black mb-10'>ASIGNACIONES PENDIENTES:</h2>
           <div className='flex flex-col gap-5 font-bebas'>
