@@ -10,18 +10,20 @@
 
 *,
 *:hover {
-    scrollbar-color: auto;
+  scrollbar-color: auto;
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
-    background-color: black;
+  width: 5px;
+  background-color: black;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: white;
-    border-radius: 5px;
+  background-color: white;
+  border: solid 1px rgba(17, 17, 17, 0.2);
+  border-radius: 5px;
 }
+
 html {
   scroll-behavior: smooth;
 }
