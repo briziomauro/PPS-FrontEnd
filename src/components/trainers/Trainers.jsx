@@ -25,13 +25,13 @@ const items = [
   {
     title: "Mauro Brizio",
     description: "Profesor - Sede Centro",
-    header: "/img/mauroProf.JPG",
+    header: "",
     className: "md:col-span-1",
   },
   {
     title: "Mateo Caranta",
     description: "Profesor - Sede Abasto",
-    header: "/img/mateoProf.JPG",
+    header: "",
     className: "md:col-span-1",
   },
   {
@@ -43,42 +43,42 @@ const items = [
     title: "Nicolas Arrastia",
     description:
       "Profesor - Sede Norte",
-    header: "/img/nicoProf.JPG",
+    header: "",
     className: "md:col-span-1",
   },
   {
     title: "Valentin Cura",
     description:
       "Profesor - Sede Downtown",
-    header: "/img/curaProf.JPG",
+    header: "",
     className: "md:col-span-1",
   },
   {
     title: "Santiago Haquin",
     description:
       "Profesor - Sede San Martin",
-    header: "/img/haquinProf.webp",
+    header: "",
     className: "md:col-span-1",
   },
   {
     title: "Nicolas Abramovich",
     description:
       "Profesor - Sede Pichincha",
-    header: "/img/nicoaProf.jpg",
+    header: "",
     className: "md:col-span-1",
   },
   {
     title: "Joaquin Benitez",
     description:
       "Profesor - Sede Lourdes",
-    header: "/img/joacoProf.JPG",
+    header: "",
     className: "md:col-span-1",
   },
   {
     title: "The Power of Communication",
     description:
       "Understand the impact of effective communication in our lives.",
-    header: "/img/profesJuntos.jpg",
+    header: "",
     className: "md:col-span-3",
   },
 ];
