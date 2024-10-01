@@ -1,6 +1,4 @@
 import React from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import { CiCalendar, CiLocationOn, CiUser } from "react-icons/ci";
 import { FaCheck } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa6";
