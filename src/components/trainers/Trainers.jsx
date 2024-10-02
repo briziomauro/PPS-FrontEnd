@@ -5,7 +5,7 @@ import { div } from "framer-motion/client";
 
 export default function BentoGridSecondDemo() {
   return (
-    <div id="Trainers" className="flex min-h-screen justify-center items-center mb-20">
+    <div id="Trainers" className="flex min-h-screen justify-center items-center mb-32">
       <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[20rem] mt-32">
         {items.map((item, i) => (
           <BentoGridItem

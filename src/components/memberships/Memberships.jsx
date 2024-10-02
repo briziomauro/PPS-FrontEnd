@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Memberships = () => {
   return (
     <div
-      className="flex flex-col justify-center items-center text-center mb-10 bg-black h-screen border-[2px] border-x-0 border-black "
+      className="flex flex-col justify-center items-center text-center bg-black h-screen border-[2px] border-x-0 border-black "
       id="Memberships"
     >
       <div className="text-white">
@@ -15,7 +15,7 @@ const Memberships = () => {
         </p>
       </div>
       <div className="flex justify-center gap-28 items-center text-white mt-10">
-        <div className="flex flex-col text-center bg-gradient-to-br from-black via-zinc-800 to-black h-[570px] w-[360px] border border-yellow-200 shadow-md shadow-yellow-200 rounded-md hover:scale-105 transition-all duration-200">
+        <div className="flex flex-col text-center bg-gradient-to-br from-black via-zinc-800 to-black h-[570px] w-[360px] border border-yellow-300 rounded-md hover:scale-105 transition-all duration-200">
           <h3 className="mt-10 text-3xl font-bebas">ESTANDAR</h3>
           <p className="mt-3 italic">"La opción ideal para quienes recién comienzan."</p>
           <div className="flex justify-center items-center h-[1px] bg-yellow-400 w-full mt-4"/>
@@ -44,7 +44,7 @@ const Memberships = () => {
           </div>
         </div>
 
-        <div className="flex flex-col items-center text-center bg-gradient-to-bl from-black via-zinc-800 to-black h-[570px] w-[360px] border border-yellow-200 shadow-md shadow-yellow-200 rounded-md hover:scale-105 transition-all duration-200">
+        <div className="flex flex-col items-center text-center bg-gradient-to-bl from-black via-zinc-800 to-black h-[570px] w-[360px] border border-yellow-300 rounded-md hover:scale-105 transition-all duration-200">
           <h3 className="mt-10 text-3xl font-bebas">PREMIUM</h3>
           <p className="mt-3 italic">"Perfecta para usuarios que buscan el máximo rendimiento y beneficios."</p>
           <div className="flex justify-center items-center h-[1px] bg-yellow-400 w-full mt-4"/>
