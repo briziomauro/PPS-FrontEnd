@@ -30,6 +30,12 @@ const Routines = () => {
       <h1 className="text-6xl font-bebas text-center text-white mb-12">
         Mis Rutinas
       </h1>
+      
+      <div className="flex justify-center items-center w-2/4 mb-10">
+        <button className="uppercase font-bebas bg-white text-black p-5 w-full text-2xl rounded-md">
+          Solicitar Rutina
+        </button>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-12 mx-auto max-w-6xl">
         {routines.map((routine) => (
