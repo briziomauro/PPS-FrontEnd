@@ -2,7 +2,7 @@
 
 ## Gestion de Turnos, Rutinas y Planes Alimenticios - Training Center
 
-![Pantalla inicial de la pagina](img/mainPage2.jpg)
+![Pantalla inicial de la pagina](/public/img/mainPage2.JPG)
 
 ## Integrantes:
     - Abramovich Nicolás - 53101
