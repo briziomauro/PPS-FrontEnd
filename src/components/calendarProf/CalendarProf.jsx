@@ -10,9 +10,9 @@ const CalendarProf = () => {
 
     const fetchEvents = async () => {
         const mockData = [
-            { title: 'Evento 1', date: '2024-09-01', description: 'Descripción del evento 1' },
-            { title: 'Evento 2', date: '2024-09-15', description: 'Descripción del evento 2' },
-            { title: 'Evento 3', date: '2024-09-21', description: 'Descripción del evento 3' },
+            { title: 'Evento 1', date: '2024-10-05', description: 'Descripción del evento 1' },
+            { title: 'Evento 2', date: '2024-10-15', description: 'Descripción del evento 2' },
+            { title: 'Evento 3', date: '2024-10-21', description: 'Descripción del evento 3' },
         ];
         setEvents(mockData);
     };
