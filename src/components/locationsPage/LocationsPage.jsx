@@ -5,6 +5,8 @@ import { IoLocationSharp } from "react-icons/io5";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { GoClockFill } from "react-icons/go";
+import { useState } from "react";
+import ModalMaps from "../modalMaps/ModalMaps";
 
 const LocationsPage = () => {
 
@@ -17,12 +19,12 @@ const LocationsPage = () => {
       </div>
 
 
-      <div className="flex flex-col flex-grow items-center justify-center my-10">
+      <div className="flex flex-grow flex-col items-center justify-center my-10">
         <div className="font-bebas">
           <h1 className="text-6xl text-black">SEDES</h1>
         </div>
         <div className="flex justify-center w-[90%] bg-black h-[2px] my-5"/>
-        <div className="flex">
+        <div className="flex items-center justify-center w-full">
           <div className="flex flex-wrap gap-6 justify-center font-roboto w-[60%]">
             {locations.map((branch) => (
               <div
@@ -77,24 +79,15 @@ const LocationsPage = () => {
                     </p>
                   </a>
                 </div>
-                <button
-                  className="flex justify-center items-center text-xl px-5 py-3 bg-yellow-500 text-white rounded-sm hover:bg-yellow-600 transition-colors font-bebas"
-                >
-                  VER DIRECCION
-                </button>
+                <ModalMaps id={branch.id} position={branch.position}/>
               </div>
             ))}
           </div>
-          <div>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.2250704708895!2d-60.65439582354715!3d-32.94506667181009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab368e3c9ab9%3A0x674070ccfacf0b55!2sTraining%20Center%20Rioja!5e0!3m2!1ses!2sar!4v1726170813749!5m2!1ses!2sar" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
         </div>
       </div>
-
-
       <Footer />
     </div>
   );
 };
 
-export default LocationsPage;
+export default LocationsPage
