@@ -43,7 +43,7 @@ export const locations = [
       sunday: "10 a 18 hs.",
     },
     email: "pichincha@t-center.com",
-    position: [-32.9442, -60.6541],
+    position: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.574892817111!2d-60.65153401733888!3d-32.9358281139195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab5b5985e9c7%3A0xb9766325c7595c83!2sTraining%20Center!5e0!3m2!1ses-419!2sar!4v1728077273107!5m2!1ses-419!2sar",
   },
   {
     id: 2,
@@ -56,12 +56,12 @@ export const locations = [
       sunday: "Cerrado",
     },
     email: "abasto@t-center.com",
-    position: [-32.9512, -60.6497],
+    position:  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3347.5970805256115!2d-60.648845188302204!3d-32.961645672536854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7abe5b38bee7d%3A0xdea7b6be35f6ce2b!2sTraining%20Center%20(Abasto)!5e0!3m2!1ses-419!2sar!4v1728078430374!5m2!1ses-419!2sar",
   },
   {
     id: 3,
     name: "SEDE CENTRO",
-    address: "Córdoba 1500, Rosario.",
+    address: "Salta 1801, Rosario.",
     phone: "0341-4821-6811",
     hours: {
       weekday: "6.30 a 23 hs.",
@@ -69,20 +69,20 @@ export const locations = [
       sunday: "10 a 20 hs.",
     },
     email: "centro@t-center.com",
-    position: [-32.9446, -60.6415],
+    position:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.5000974236123!2d-60.65101480321047!3d-32.93780359999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab3297fc6f71%3A0x357cb9d4948c399b!2sTraining%20Center%20(Centro)!5e0!3m2!1ses-419!2sar!4v1728078657396!5m2!1ses-419!2sar",
   },
   {
     id: 4,
-    name: "ALTO ROSARIO",
-    address: "Junín 501, Rosario.",
-    phone: "0341-4789-8754",
+    name: "SHOPPING DEL SIGLO",
+    address: "Rioja 1638, Rosario.",
+    phone: "0341-3123-199",
     hours: {
       weekday: "7 a 23 hs.",
       saturday: "9 a 21 hs.",
       sunday: "10 a 20 hs.",
     },
     email: "altorosario@t-center.com",
-    position: [-32.9282, -60.6508],
+    position: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.574892817111!2d-60.65153401733888!3d-32.9358281139195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7abfcd845b2dd%3A0xc991f22bb948642f!2sTraining%20Center%20(shopping)!5e0!3m2!1ses-419!2sar!4v1728078506391!5m2!1ses-419!2sar",
   },
   {
     id: 5,
@@ -95,7 +95,7 @@ export const locations = [
       sunday: "Cerrado",
     },
     email: "sanmartin@t-center.com",
-    position: [-32.9742, -60.6443],
+    position:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.5000974236123!2d-60.65101480321047!3d-32.93780359999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab3297fc6f71%3A0x357cb9d4948c399b!2sTraining%20Center%20(Centro)!5e0!3m2!1ses-419!2sar!4v1728078781796!5m2!1ses-419!2sar",
   },
   {
     id: 6,
@@ -108,7 +108,7 @@ export const locations = [
       sunday: "Cerrado",
     },
     email: "lourdes@t-center.com",
-    position: [-32.9496, -60.6398],
+    position: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.743258975049!2d-60.6398!3d-32.9496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7abe2d5916e83%3A0x8a21b0ec62e3e2bb!2sLaprida%202056!5e0!3m2!1ses!2sar!4v1728077489123",
   },
   {
     id: 7,
@@ -121,7 +121,7 @@ export const locations = [
       sunday: "Cerrado",
     },
     email: "barrio@t-center.com",
-    position: [-32.9271, -60.6504],
+    position: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.5384388269156!2d-60.6504!3d-32.9271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab49928e579f%3A0xc3911212ef45f42e!2sSalta%202400!5e0!3m2!1ses!2sar!4v1728077523894",
   },
   {
     id: 8,
@@ -134,7 +134,7 @@ export const locations = [
       sunday: "Cerrado",
     },
     email: "belgrano@t-center.com",
-    position: [-32.9527, -60.6449],
+    position: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.879507923736!2d-60.6449!3d-32.9527!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab1b0ae8d05b%3A0x59b365faee41ab94!2sAv.%20Pellegrini%201800!5e0!3m2!1ses!2sar!4v1728077558123",
   },
 ];
 
