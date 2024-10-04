@@ -21,7 +21,7 @@ const LocationsPage = () => {
         <div className="font-bebas">
           <h1 className="text-6xl text-black">SEDES</h1>
         </div>
-        <div className="flex justify-center w-[90%] bg-black h-[2px] my-5"/>
+        <div className="flex justify-center w-[90%] bg-black h-[2px] my-5" />
         <div className="flex">
           <div className="flex flex-wrap gap-6 justify-center font-roboto w-[60%]">
             {locations.map((branch) => (
