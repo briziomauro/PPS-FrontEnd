@@ -100,7 +100,7 @@ export const locations = [
   {
     id: 6,
     name: "SEDE LOURDES",
-    address: "Laprida 2056, Rosario.",
+    address: "Santa Fe 2530, Rosario.",
     phone: "0341-4301-4327",
     hours: {
       weekday: "7 a 22 hs.",
@@ -108,12 +108,12 @@ export const locations = [
       sunday: "Cerrado",
     },
     email: "lourdes@t-center.com",
-    position: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.743258975049!2d-60.6398!3d-32.9496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7abe2d5916e83%3A0x8a21b0ec62e3e2bb!2sLaprida%202056!5e0!3m2!1ses!2sar!4v1728077489123",
+    position: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26785.822004877475!2d-60.67372852568358!3d-32.9449959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab303080cb35%3A0x20930676ee17c452!2sTraining%20center%20Lourdes!5e0!3m2!1ses-419!2sar!4v1728086275757!5m2!1ses-419!2sar",
   },
   {
     id: 7,
     name: "NORTE",
-    address: "Salta 2400, Rosario.",
+    address: "Av. Alberdi 690, Rosario.",
     phone: "0341-4816-8566",
     hours: {
       weekday: "7 a 22 hs.",
@@ -121,20 +121,20 @@ export const locations = [
       sunday: "Cerrado",
     },
     email: "barrio@t-center.com",
-    position: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.5384388269156!2d-60.6504!3d-32.9271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab49928e579f%3A0xc3911212ef45f42e!2sSalta%202400!5e0!3m2!1ses!2sar!4v1728077523894",
+    position:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26793.54231117603!2d-60.72005692568358!3d-32.91950430000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b653e1ef242025%3A0x97a21c56a25d2681!2sTraining%20Center%20-%20Sede%20Norte!5e0!3m2!1ses-419!2sar!4v1728086366617!5m2!1ses-419!2sar",
   },
   {
     id: 8,
-    name: "BELGRANO",
-    address: "Av. Pellegrini 1800, Rosario.",
+    name: "DOWNTOWN",
+    address: "San Lorenzo 950, Rosario.",
     phone: "0341-4784-6635",
     hours: {
       weekday: "6.30 a 23 hs.",
       saturday: "8 a 20 hs.",
       sunday: "Cerrado",
     },
-    email: "belgrano@t-center.com",
-    position: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.879507923736!2d-60.6449!3d-32.9527!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab1b0ae8d05b%3A0x59b365faee41ab94!2sAv.%20Pellegrini%201800!5e0!3m2!1ses!2sar!4v1728077558123",
+    email: "downtown@t-center.com",
+    position: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26785.822004877475!2d-60.67372852568358!3d-32.9449959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab74788e0e0f%3A0x36287a6c2f0bf9a7!2sTraining%20Center!5e0!3m2!1ses-419!2sar!4v1728086228894!5m2!1ses-419!2sar",
   },
 ];
 
@@ -220,6 +220,3 @@ export const shifts = [
     sede: "Sede Norte"
   },
 ];
-
-
-
