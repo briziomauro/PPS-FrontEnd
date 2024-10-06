@@ -1,8 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import { data } from "../../data/data";
 import { useState } from "react";
+import { useUser } from "../../contexts/UserContext";
+// Importa tu contexto
 
 const LoginPage = () => {
+  const { login } = useUser();
+  const [showPassLogin, setShowPassLogin] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
@@ -10,19 +13,23 @@ const LoginPage = () => {
     password: false,
   });
   const navigate = useNavigate();
+
+  const handleShowPassLogin = () => {
+    setShowPassLogin((prevShowPass) => !prevShowPass);
+  };
+
+
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
   };
+
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const filterUser = data.find(
-      (f) => f.password == password && f.email == email
-    );
-    
+
     const emailValue = email.trim();
     const passwordValue = password.trim();
 
@@ -36,21 +43,25 @@ const LoginPage = () => {
 
     setErrors({ email: false, password: false });
 
-    console.log(filterUser);
-    if (filterUser) {
-      if (filterUser.type === "admin") {
-        navigate("/adminid");
-      } else if (filterUser.type === "trainer") {
-        navigate("/profesorid");
-      } else if (filterUser.type === "client") {
+    try {
+      await login(email, password);
+
+      const userTypeFromStorage = localStorage.getItem("userTypeResponse");
+
+      if (userTypeFromStorage === "Client") {
         navigate("/clientid");
-      } else {
-        alert("Rol no reconocido");
+      } else if (userTypeFromStorage === "Trainer") {
+        navigate("/profesorid");
+      } else if (userTypeFromStorage === "Admin") {
+        navigate("/adminid");
       }
-    } else {
-      alert("Usuario no encontrado");
+
+    } catch (error) {
+      console.error("Error durante el inicio de sesión:", error);
     }
   };
+
+
   return (
     <div className="mx-auto h-screen flex">
       <main className="w-full px-10">
@@ -74,28 +85,32 @@ const LoginPage = () => {
                 value={email}
                 type="email"
                 placeholder="Ingrese su Correo Electrónico"
-                className={errors.email ? " bg-white appearance-none border caret-zinc-400  rounded w-full py-4 px-3 leading-tight focus:outline-none border-red-600  text-zinc-700" : "bg-white appearance-none border caret-zinc-400 border-gray-300 rounded w-full py-4 px-3 leading-tight focus:outline-none focus:border-yellow-400  text-zinc-700"}
+                className={`bg-white appearance-none border caret-zinc-400 rounded w-full py-4 px-3 leading-tight focus:outline-none ${errors.email ? "border-red-600" : "border-gray-300"}`}
               />
             </div>
-            <div className="mb-4 w-full">
+            <div className="mb-4 w-full relative">
               <label className="text-sm m-1 text-zinc-400">Contraseña</label>
               <input
                 onChange={handleChangePassword}
                 value={password}
-                type="password"
+                type={showPassLogin ? "text" : "password"}
                 placeholder="Ingrese su Contraseña"
-                className={errors.password ? " bg-white appearance-none border caret-zinc-400  rounded w-full py-4 px-3 leading-tight focus:outline-none border-red-600  text-zinc-700" : "bg-white appearance-none border caret-zinc-400 border-gray-300 rounded w-full py-4 px-3 leading-tight focus:outline-none focus:border-yellow-400  text-zinc-700"}
+                className={`bg-white appearance-none border caret-zinc-400 rounded w-full py-4 px-3 pr-10 focus:outline-none ${errors.password ? "border-red-600" : "border-gray-300"}`}
+              />
+              <i
+                className={`bi ${showPassLogin ? 'bi-eye-slash' : 'bi-eye'} absolute right-3 top-[65%] transform -translate-y-1/2 cursor-pointer`}
+                onClick={handleShowPassLogin}
               />
             </div>
+
+
             <button
               className="bg-yellow-500 w-full text-white px-6 py-3 mr-2 transition duration-300 hover:bg-yellow-400 font-bold"
               type="submit"
-             
             >
               CONTINUAR
             </button>
           </form>
-
           <div className="flex flex-row gap-2 items-center lg:mt-10 justify-center">
             <p className="text-gray-500 select-none">¿No tienes cuenta?</p>
             <p>-</p>
