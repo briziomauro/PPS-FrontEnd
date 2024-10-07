@@ -5,13 +5,12 @@ import { FaArrowRight } from "react-icons/fa6";
 import { MdAccessTime } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useClient } from "../../contexts/ClientContext";
-import { useQueryClient } from "@tanstack/react-query"; // Asegúrate de importar esto si usas react-query
+import { useQueryClient } from "@tanstack/react-query";
 
 const ClientPage = () => {
   const { clientDetails, isLoading, error } = useClient();
   const queryClient = useQueryClient(); // Obtén el queryClient para usarlo en logout
 
-  // Manejar estados de carga y error
   if (isLoading) {
     return <div>Cargando...</div>;
   }

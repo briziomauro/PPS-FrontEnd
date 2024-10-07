@@ -18,7 +18,7 @@ const Drawer = () => {
     const userTypeFromStorage = localStorage.getItem("userTypeResponse");
 
     return (
-        <div className="drawer">
+        <div className="drawer z-50">
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
                 <label htmlFor="my-drawer" className='flex w-20 h-10 justify-center items-center drawer-button cursor-pointer font-bold hover:bg-white hover:text-black transition-all duration-300'>
@@ -66,7 +66,7 @@ const Drawer = () => {
 
                         </div>}
                     </div>
-                    <div className='flex  items-center gap-2 mt-20 px-[16px] py-[8px] hover:bg-white hover:text-black' onClick={handleLogout}>
+                    <div className='flex  items-center gap-2 mt-20 px-[16px] py-[8px] hover:bg-white hover:text-black cursor-pointer' onClick={handleLogout}>
                         <RiLogoutBoxLine />
                         <button >CERRAR SESIÓN</button>
                     </div>

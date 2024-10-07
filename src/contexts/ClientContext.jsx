@@ -24,12 +24,12 @@ const fetchClientDetails = async () => {
 };
 
 export const ClientProvider = ({ children }) => {
-    const { isAuthenticated, userTypeResponse } = useUser();  // Usamos el contexto de usuario
+    const { isAuthenticated, userTypeResponse } = useUser();  
 
     const { data: clientDetails, error, isLoading } = useQuery({
         queryKey: ['clientDetails'],
         queryFn: fetchClientDetails,
-        enabled: isAuthenticated && userTypeResponse === 'Client',  // Dependemos del contexto en lugar de localStorage
+        enabled: isAuthenticated && userTypeResponse === 'Client', 
         onSuccess: () => {
             console.log("Detalles del cliente obtenidos exitosamente");
         },
