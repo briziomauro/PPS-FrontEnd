@@ -66,9 +66,9 @@ const Drawer = () => {
 
                         </div>}
                     </div>
-                    <div className='flex  items-center gap-2 mt-20 px-[16px] py-[8px] hover:bg-white hover:text-black'>
+                    <div className='flex  items-center gap-2 mt-20 px-[16px] py-[8px] hover:bg-white hover:text-black' onClick={handleLogout}>
                         <RiLogoutBoxLine />
-                        <button onClick={handleLogout}>CERRAR SESIÓN</button>
+                        <button >CERRAR SESIÓN</button>
                     </div>
                 </ul>
             </div>

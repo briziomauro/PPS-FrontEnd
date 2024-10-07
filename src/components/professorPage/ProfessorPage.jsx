@@ -3,9 +3,23 @@ import './ProfessorPage.css'
 import { Link } from 'react-router-dom';
 import CalendarProf from '../calendarProf/CalendarProf';
 import { FaArrowRight } from 'react-icons/fa';
+import { useTrainer } from '../../contexts/TrainerContext';
+import { useQueryClient } from '@tanstack/react-query';
 
 const ProfessorPage = () => {
+  const {trainerDetails, isLoading, error} = useTrainer();
+  const queryClient = useQueryClient();
   const [date, setDate] = useState(new Date());
+
+  if (isLoading) {
+    return <div>Cargando...</div>;
+  }
+
+  if (error) {
+    return <div>Error al cargar los detalles del entrenador: {error.message}</div>;
+  }
+  
+  
 
   const onChangeDate = (newDate) => {
     setDate(newDate);
@@ -15,7 +29,7 @@ const ProfessorPage = () => {
     <div>
       <header className="bg-zinc-700 pl-20 py-4 font-bebas tracking-wider ">
         <h1 className="text-white text-4xl">
-          Bienvenido <strong className="text-yellow-400">Jhon Doe</strong>
+          Bienvenido <strong className="text-yellow-400"> {trainerDetails.trainerDto.firstName} {trainerDetails.trainerDto.lastName}</strong>
         </h1>
       </header>
       <div className='flex text-black justify-evenly items-center'>
