@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/layout/Layout";
 import MainPage from "./components/mainPage/MainPage";
@@ -17,13 +17,17 @@ import AssingRoutine from "./components/assingRoutine/AssingRoutine";
 import GetTurn from "./components/getTurn/GetTurn";
 import NutritionalPlan from "./components/nutritionalPlan/NutritionalPlan";
 import Routines from "./components/routines/Routines";
+import RoleRedirect from "./components/roleRedirect/RoleRedirect";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 
 function App() {
+
   const router = createBrowserRouter([
     {
       path: "/",
       element: (
         <Layout>
+          <RoleRedirect />
           <MainPage />
         </Layout>
       ),
@@ -43,81 +47,101 @@ function App() {
     {
       path: "/clientid",
       element: (
-        <LayoutLogged>
-          <ClientPage />
-        </LayoutLogged>
+        <ProtectedRoute allowedRole={['Client']}>
+          <LayoutLogged>
+            <ClientPage />
+          </LayoutLogged>
+        </ProtectedRoute>
       ),
     },
     {
       path: "/profesorid",
       element: (
-        <LayoutLogged>
-          <ProfessorPage />
-        </LayoutLogged>
+        <ProtectedRoute allowedRole={['Trainer']}>
+          <LayoutLogged>
+            <ProfessorPage />
+          </LayoutLogged>
+        </ProtectedRoute>
       ),
     },
     {
       path: "/adminid",
       element: (
-        <LayoutLogged>
-          <AdminPage />
-        </LayoutLogged>
+        <ProtectedRoute allowedRole={['Admin']}>
+          <LayoutLogged>
+            <AdminPage />
+          </LayoutLogged>
+        </ProtectedRoute>
       ),
     },
     {
       path: "/adminid/user-center",
       element: (
-        <LayoutLogged>
-          <UserCenter />
-        </LayoutLogged>
+        <ProtectedRoute allowedRole={['Admin']}>
+          <LayoutLogged>
+            <UserCenter />
+          </LayoutLogged>
+        </ProtectedRoute>
       ),
     },
     {
       path: "/adminid/assing-shift",
       element: (
-        <LayoutLogged>
-          <AssingShiftsPage />
-        </LayoutLogged>
+        <ProtectedRoute allowedRole={['Admin']}>
+          <LayoutLogged>
+            <AssingShiftsPage />
+          </LayoutLogged>
+        </ProtectedRoute>
       ),
     },
     {
       path: "/clientid/get-turn",
       element: (
-        <LayoutLogged>
-          <GetTurn />
-        </LayoutLogged>
+        <ProtectedRoute allowedRole={['Client']}>
+          <LayoutLogged>
+            <GetTurn />
+          </LayoutLogged>
+        </ProtectedRoute>
       ),
     },
     {
       path: "/clientid/nutritional-plan",
       element: (
-        <LayoutLogged>
-          <NutritionalPlan />
-        </LayoutLogged>
+        <ProtectedRoute allowedRole={['Client']}>
+          <LayoutLogged>
+            <NutritionalPlan />
+          </LayoutLogged>
+        </ProtectedRoute>
       ),
     },
     {
       path: "/clientid/routine",
       element: (
-        <LayoutLogged>
-          <Routines />
-        </LayoutLogged>
+        <ProtectedRoute allowedRole={['Client']}>
+          <LayoutLogged>
+            <Routines />
+          </LayoutLogged>
+        </ProtectedRoute>
       ),
     },
     {
       path: "/profesorid/assing-nutritional-plan",
       element: (
-        <LayoutLogged>
-          <AssingNutricionalPlan />
-        </LayoutLogged>
+        <ProtectedRoute allowedRole={['Trainer']}>
+          <LayoutLogged>
+            <AssingNutricionalPlan />
+          </LayoutLogged>
+        </ProtectedRoute>
       ),
     },
     {
       path: "/profesorid/assing-routine",
       element: (
-        <LayoutLogged>
-          <AssingRoutine />
-        </LayoutLogged>
+        <ProtectedRoute allowedRole={['Trainer']}>
+          <LayoutLogged>
+            <AssingRoutine />
+          </LayoutLogged>
+        </ProtectedRoute>
       ),
     },
     {
