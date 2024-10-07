@@ -69,7 +69,7 @@ const AdminPage = () => {
 
       <header className="bg-zinc-700 pl-20 py-4 font-bebas tracking-wider ">
         <h1 className="text-white text-4xl">
-          Bienvenido <strong className="text-yellow-400">Jhon Doe</strong>
+          Bienvenido <strong className="text-yellow-400">ADMIN</strong>
         </h1>
       </header>
 
