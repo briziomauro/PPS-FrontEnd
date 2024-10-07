@@ -9,11 +9,25 @@ import { useState } from "react";
 import ModalMaps from "../modalMaps/ModalMaps";
 
 const LocationsPage = () => {
+  const userTypeFromStorage = localStorage.getItem("userTypeResponse");
+
+    const getLink = () => {
+        switch (userTypeFromStorage) {
+            case 'Client':
+                return '/clientid';
+            case 'Trainer':
+                return '/profesorid'; 
+            case 'Admin':
+                return '/adminid'; 
+            default:
+                return '/'; 
+        }
+    };
 
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex items-center font-bebas text-white bg-zinc-900 p-3">
-        <Link to='/' className="px-5 py-2 hover:bg-zinc-800 transition-all duration-200 rounded-sm">
+        <Link to={getLink()} className="px-5 py-2 hover:bg-zinc-800 transition-all duration-200 rounded-sm">
           <img className="h-[40px] w-[120px]" src="/img/LogoLight.png" alt="" />
         </Link>
       </div>
