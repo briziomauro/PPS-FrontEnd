@@ -34,16 +34,6 @@ export const UserProvider = ({ children }) => {
             localStorage.setItem("isAuthenticated", "true");
             setIsAuthenticated(true);
 
-            // Regenerar la query de detalles del cliente
-            if (data.userType === "Client") {
-                queryClient.invalidateQueries(['clientDetails']);
-                await queryClient.refetchQueries(['clientDetails']);
-            }
-            //   if (data.userType === "Trainer") {
-            //     queryClient.invalidateQueries(['trainerDetails']); // Si tienes una consulta para el entrenador
-            //     await queryClient.refetchQueries(['trainerDetails']);
-            // }
-
         } catch (error) {
             console.error("Error de autenticación:", error);
             throw error;
@@ -67,8 +57,6 @@ export const UserProvider = ({ children }) => {
 
             localStorage.removeItem("userTypeResponse", null);
             setUserTypeResponse(null);
-
-            localStorage.removeItem('REACT_QUERY_OFFLINE_CACHE');
 
             queryClient.resetQueries(['clientDetails']);
             queryClient.removeQueries(['clientDetails']);
