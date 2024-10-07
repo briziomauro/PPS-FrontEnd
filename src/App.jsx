@@ -40,18 +40,18 @@ function App() {
       path: "/login",
       element:
         (
-          <>
-            <LoginPage />
-          </>
+            <ProtectedRoute allowedRole={null}>
+              <LoginPage/>
+            </ProtectedRoute>
         ),
     },
     {
       path: "/register",
       element:
         (
-          <>
-            <RegisterProcess />
-          </>
+            <ProtectedRoute allowedRole={null}>
+              <RegisterProcess />
+            </ProtectedRoute>
         ),
     },
     {
