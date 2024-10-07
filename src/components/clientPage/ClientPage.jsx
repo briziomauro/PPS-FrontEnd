@@ -18,9 +18,7 @@ const ClientPage = () => {
   if (error) {
     return <div>Error al cargar los detalles del cliente: {error.message}</div>;
   }
-  if (!clientDetails || !clientDetails.clientDto) {
-    return <div>No se encontraron detalles del cliente.</div>;
-  }
+
 
   return (
     <div>
