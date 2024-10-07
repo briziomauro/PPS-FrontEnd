@@ -1,9 +1,8 @@
-import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/layout/Layout";
 import MainPage from "./components/mainPage/MainPage";
 import LoginPage from "./components/loginPage/LoginPage";
-import RegisterPage from "./components/registerPage/RegisterPage";
 import LayoutLogged from "./components/layout/LayoutLogged";
 import ClientPage from "./components/clientPage/ClientPage";
 import ProfessorPage from "./components/professorPage/ProfessorPage";
@@ -19,6 +18,7 @@ import NutritionalPlan from "./components/nutritionalPlan/NutritionalPlan";
 import Routines from "./components/routines/Routines";
 import RoleRedirect from "./components/roleRedirect/RoleRedirect";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import RegisterProcess from "./components/registerPage/RegisterProcess";
 
 function App() {
 
@@ -42,7 +42,7 @@ function App() {
     },
     {
       path: "/register",
-      element: <RegisterPage />,
+      element: <RegisterProcess />,
     },
     {
       path: "/clientid",
