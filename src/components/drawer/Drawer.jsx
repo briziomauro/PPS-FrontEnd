@@ -45,9 +45,6 @@ const Drawer = () => {
 
                         {userTypeFromStorage === 'Trainer' &&
                             <div>
-                                <Link to="/profesorid/work-calendar">
-                                    <li className='hover:bg-white hover:text-black'><p>MIS TURNOS</p></li>
-                                </Link>
                                 <Link to="/profesorid/assing-nutritional-plan">
                                     <li className='hover:bg-white hover:text-black'><p>ASIGNAR PLANES NUTRICIONALES</p></li>
                                 </Link>

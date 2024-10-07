@@ -1,8 +1,34 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Footer from '../footer/Footer'
 
 const NotFound = () => {
+    const isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated"));
+    const userTypeResponse = localStorage.getItem("userTypeResponse");
+
+    const navigate = useNavigate();
+
+    const handleRedirect = () => {
+        if (!isAuthenticated) {
+            navigate('/');
+        } else {
+            switch (userTypeResponse) {
+                case 'Client':
+                    navigate('/clientid');
+                    break;
+                case 'Trainer':
+                    navigate('/profesorid');
+                    break;
+                case 'Admin':
+                    navigate('/adminid');
+                    break;
+                default:
+                    navigate('/');
+                    break;
+            }
+        }
+    };
+
     return (
         <div className='bg-black'>
             <header className='w-full bg-black h-20 flex justify-center items-center'>
@@ -21,9 +47,12 @@ const NotFound = () => {
                         </div>
                     </div>
 
-                    <Link to="/" className='flex justify-center items-center bg-yellow-400 text-white font-bebas px-5 py-3 rounded-full w-[500px] hover:bg-gradient-to-br from-yellow-500 via-yellow-400 to-yellow-500 hover:scale-110 transition-all duration-300'>
-                        <button className='text-4xl'>VOLVER A INICIO</button>
-                    </Link>
+                    <button
+                        onClick={handleRedirect}
+                        className='flex justify-center items-center bg-yellow-400 text-white font-bebas px-5 py-3 rounded-full w-[500px] hover:bg-gradient-to-br from-yellow-500 via-yellow-400 to-yellow-500 hover:scale-110 transition-all duration-300'
+                    >
+                        <span className='text-4xl'>VOLVER A INICIO</span>
+                    </button>
                 </div>
 
                 <Footer />
