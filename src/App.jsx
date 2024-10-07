@@ -38,11 +38,21 @@ function App() {
     },
     {
       path: "/login",
-      element: <LoginPage />,
+      element:
+        (
+          <>
+            <LoginPage />
+          </>
+        ),
     },
     {
       path: "/register",
-      element: <RegisterProcess />,
+      element:
+        (
+          <>
+            <RegisterProcess />
+          </>
+        ),
     },
     {
       path: "/clientid",
