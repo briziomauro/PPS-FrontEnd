@@ -90,9 +90,9 @@ const Navbar = () => {
       <div>
         <button
           onClick={navigateLogin}
-          className="btn bg-yellow-500 rounded-full w-[120px] border-none hover:bg-yellow-400 text-white transition-all duration-300"
+          className="btn bg-yellow-500 rounded-full w-[175px] border-none hover:bg-yellow-400 text-white transition-all duration-300 "
         >
-          LOGIN
+          INICIAR SESIÓN
         </button>
       </div>
     </nav>
