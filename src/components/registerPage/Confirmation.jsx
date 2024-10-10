@@ -18,6 +18,12 @@ const Confirmation = ({ lastStep }) => {
                 <p>Detalles de membresia</p>
                 <p>Datos de cliente</p>
             </div>
+
+            <div className="flex justify-between mt-6 mx-5 gap-3">
+                <button className="bg-yellow-400 rounded-full w-full text-white px-6 py-3 transition-all duration-200 hover:bg-yellow-500 hover:font-bold flex-1">
+                    Confirmar
+                </button>
+            </div>
         </div>
     )
 }
