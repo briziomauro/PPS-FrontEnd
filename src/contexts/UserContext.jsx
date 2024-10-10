@@ -28,6 +28,8 @@ export const UserProvider = ({ children }) => {
             }
             const data = await response.json();
 
+            localStorage.setItem("expireDate", data.tokenExpires);
+
             localStorage.setItem("userTypeResponse", data.userType);
             setUserTypeResponse(data.userType);
 
@@ -58,6 +60,8 @@ export const UserProvider = ({ children }) => {
             localStorage.removeItem("userTypeResponse", null);
             setUserTypeResponse(null);
 
+            localStorage.removeItem("expireDate");
+
             queryClient.resetQueries(['clientDetails']);
             queryClient.removeQueries(['clientDetails']);
 
@@ -81,6 +85,22 @@ export const UserProvider = ({ children }) => {
             window.removeEventListener("storage", handleStorageChange);
         };
     }, []);
+
+    useEffect(() => {
+        const checkTokenExpiration = () => {
+            const tokenExpires = new Date(localStorage.getItem("tokenExpires"));
+            if (tokenExpires <= new Date()) {
+                logout();
+            }
+        };
+
+        const intervalId = setInterval(checkTokenExpiration, 300000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [logout]);
+
 
 
     return (

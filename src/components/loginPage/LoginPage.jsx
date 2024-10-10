@@ -88,7 +88,7 @@ const LoginPage = () => {
                 className={`bg-white appearance-none border caret-zinc-400 rounded w-full py-4 px-3 leading-tight focus:outline-none ${errors.email ? "border-red-600" : "border-gray-300"}`}
               />
             </div>
-            <div className="mb-4 w-full relative">
+            <div className="w-full relative mb-4">
               <label className="text-sm m-1 text-zinc-400">Contraseña</label>
               <input
                 onChange={handleChangePassword}
@@ -102,8 +102,6 @@ const LoginPage = () => {
                 onClick={handleShowPassLogin}
               />
             </div>
-
-
             <button
               className="bg-yellow-500 w-full text-white px-6 py-3 mr-2 transition duration-300 hover:bg-yellow-400 font-bold"
               type="submit"
@@ -111,7 +109,13 @@ const LoginPage = () => {
               CONTINUAR
             </button>
           </form>
-          <div className="flex flex-row gap-2 items-center lg:mt-10 justify-center">
+          
+          {/* Endpoint cambiar contraseña validando por email */}
+          <div className="text-zinc-600 mt-4 flex w-full justify-center cursor-pointer hover:text-yellow-500 transition-all duration-300">
+            <p>Olvidé mi contraseña</p>
+          </div>
+
+          <div className="flex flex-row gap-2 items-center lg:mt-8 justify-center">
             <p className="text-gray-500 select-none">¿No tienes cuenta?</p>
             <p>-</p>
             <Link

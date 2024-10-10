@@ -10,10 +10,15 @@ const Drawer = () => {
 
     const navigate = useNavigate()
 
-    const handleLogout = () => {
-        logout()
-        navigate("/login")
-    }
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate("/login");
+        } catch (error) {
+            console.error("Error al cerrar sesión:", error);
+        }
+    };
+
 
     const userTypeFromStorage = localStorage.getItem("userTypeResponse");
 

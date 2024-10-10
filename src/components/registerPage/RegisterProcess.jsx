@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import StepIndicator from "./StepIndicator";
-import ActionButtons from "./ActionButtons";
 import MembershipPayment from "./MembershipPayment";
 import Confirmation from "./Confirmation";
 import RegisterPage from './RegisterPage';
@@ -13,6 +12,13 @@ const RegisterProcess = () => {
     const nextStep = () => setActiveStep((prev) => Math.min(prev + 1, totalSteps - 1));
     const previousStep = () => setActiveStep((prev) => Math.max(prev - 1, 0));
     const lastStep = () => alert("Finalizado");
+
+    const [newUserData, setNewUserData] = useState([]);
+
+    const handleNewUserData = (data) => {
+        setNewUserData(data);
+        console.log("Datos del cliente recibidos:", data);
+    };
 
     return (
         <div className='min-h-screen bg-white flex'>
@@ -26,23 +32,26 @@ const RegisterProcess = () => {
                 </header>
                 <div>
                     <StepIndicator activeStep={activeStep} />
-                    {activeStep === 0 && <RegisterPage nextStep={nextStep} />}
+                    {activeStep === 0 && <RegisterPage nextStep={nextStep} sendClientData={handleNewUserData} />}
                     {activeStep === 1 && (
-                        <MembershipPayment
-                            previousStep={previousStep}
-                            nextStep={nextStep}
-                        />
+                        <MembershipPayment previousStep={previousStep} nextStep={nextStep} />
                     )}
                     {activeStep === 2 && (
                         <Confirmation lastStep={lastStep} />
                     )}
-                    <ActionButtons
-                        currentStep={activeStep}
-                        totalSteps={totalSteps}
-                        nextStep={nextStep}
-                        previousStep={previousStep}
-                        lastStep={lastStep}
-                    />
+
+                    {activeStep === 0 && (
+                        <div className="flex flex-row gap-2 items-center justify-center mt-6">
+                            <p className="text-gray-500 select-none">¿Ya eres usuario?</p>
+                            <p>-</p>
+                            <Link
+                                to="/login"
+                                className="border text-gray-800 border-black px-5 py-1 hover:bg-zinc-700 hover:text-white transition-all duration-300"
+                            >
+                                Iniciar sesión
+                            </Link>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="w-2/4 hidden md:block">
