@@ -66,6 +66,7 @@ const Routines = () => {
           </div>
         ))}
       </div>
+      
     </div>
   );
 };

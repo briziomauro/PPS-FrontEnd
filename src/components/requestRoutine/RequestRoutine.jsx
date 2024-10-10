@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
+import WeightPicker from '../heightWeightPicker/WeightPicker';
+import HeightPicker from '../heightWeightPicker/HeightPicker';
 
 const RequestRoutine = () => {
     const [objective, setObjective] = useState('');
     const [weight, setWeight] = useState('');
     const [height, setHeight] = useState('');
+    const [days, setDays] = useState(0);
 
     const handleWeightChange = (e) => {
         setWeight(e.target.value);
     };
-
+    const handleDaysChange = (e) => {
+        setDays(e.target.value)
+    };
     const handleHeightChange = (e) => {
         setHeight(e.target.value);
     };
@@ -16,18 +21,32 @@ const RequestRoutine = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        //llamar a la funcion del context que le corresponde por ej:
-        // try {
-        //     await sendRoutineRequest(objetive, height, weight)
-        // }
-        // catch (error) {
-        //     console.error("Error durante el inicio de sesión:", error);
-        // }
-        console.log(weight)
-        console.log(height)
+        // const response = await fetch("https://localhost:7179/api/Client/GetMyDetails", {
+        //     method: "POST",
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     credentials: "include",
+        // });
 
-        document.getElementById('my_modal_10').close();
+        // if (!response.ok) {
+        //     throw new Error("Error al obtener los detalles del cliente");
+        // }
+
+        // return response.json();
     };
+
+
+    //llamar a la funcion del context que le corresponde por ej:
+    // try {
+    //     await sendRoutineRequest(objetive, height, weight)
+    // }
+    // catch (error) {
+    //     console.error("Error durante el inicio de sesión:", error);
+    // }
+
+    document.getElementById('my_modal_10').close();
+
 
 
     return (
@@ -53,18 +72,29 @@ const RequestRoutine = () => {
                         </div>
                         <div className='flex w-full mt-5 gap-3'>
                             <div>
+                                <label className='text-white text-md p-2 font-bebas'>DIAS:</label>
+                                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleDaysChange(e)}>
+                                    <option selected>Selecciona los dias de su rutina</option>
+                                    <option value="dia1">1</option>
+                                    <option value="dia2">2</option>
+                                    <option value="dia3">3</option>
+                                    <option value="dia4">4</option>
+                                    <option value="dia5">5</option>
+                                </select>
+                            </div>
+                            <div>
                                 <label className='text-white text-md p-2 font-bebas'>PESO:</label>
-                                <input type="text" className='w-full bg-white text-black p-2 rounded-lg'
-                                    value={weight}
-                                    onChange={handleWeightChange}
-                                    placeholder='EJ: 80,50' />
+                                <div>
+
+                                    <WeightPicker onWeightChange={setWeight} />
+                                </div>
                             </div>
                             <div>
                                 <label className='text-white text-md font-bebas'>ALTURA:</label>
-                                <input type="text" className='w-full bg-white text-black p-2 rounded-lg'
-                                    value={height}
-                                    onChange={handleHeightChange}
-                                    placeholder='EJ: 1,75' />
+                                <div>
+                                    <HeightPicker onHeightChange={setHeight} />
+
+                                </div>
                             </div>
                         </div>
 
@@ -74,6 +104,7 @@ const RequestRoutine = () => {
                     </form>
                 </div>
             </dialog>
+
         </>
     )
 }
