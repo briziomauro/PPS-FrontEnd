@@ -19,6 +19,7 @@ import Routines from "./components/routines/Routines";
 import RoleRedirect from "./components/roleRedirect/RoleRedirect";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import RegisterProcess from "./components/registerPage/RegisterProcess";
+import ContactPage from "./components/contactPage/ContactPage";
 
 function App() {
 
@@ -155,9 +156,18 @@ function App() {
       ),
     },
     {
+      path: "/contactPage",
+      element: (
+        <Layout>
+          <ContactPage/>
+        </Layout>
+      )
+    },
+    {
       path: "*",
       element: <NotFound />,
     },
+    
   ]);
 
   return <RouterProvider router={router} />;
