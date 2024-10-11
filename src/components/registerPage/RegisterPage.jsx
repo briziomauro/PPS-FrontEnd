@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const RegisterPage = ({ nextStep, sendClientData }) => {
+const RegisterPage = ({ nextStep }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -10,10 +10,13 @@ const RegisterPage = ({ nextStep, sendClientData }) => {
   const [userdate, setUserDate] = useState("");
   const [dni, setDni] = useState("");
   const [genre, setGenre] = useState("");
+  const [membership, setMembership] = useState("");
+
 
   const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = {};
 
@@ -35,33 +38,57 @@ const RegisterPage = ({ nextStep, sendClientData }) => {
     if (!userdate.trim()) errors.userdate = "La fecha de nacimiento es obligatoria";
     if (!dni.trim()) errors.dni = "El DNI es obligatorio";
     if (!genre) errors.genre = "El género es obligatorio";
+    if (!membership) errors.membership = "La membresía es obligatoria";
 
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
       return;
     }
 
-    // Si no hay errores, limpia el estado de errores y procede con el siguiente paso
     setErrors({});
 
     const newClientData = {
-      ClientRequest: {
-        dni,
-        userdate,
-        userphone,
-        username,
-        userlastname,
-        genre
+      clientRequest: {
+        dniclient: dni,
+        typememberships: membership,
+        birthdate: userdate,
+        phonenumber: userphone,
+        firstname: username,
+        lastname: userlastname,
+        genre: genre,
       },
-      UserRequest: {
-        email,
-        password
+      userRequest: {
+        email: email,
+        password: password,
+      },
+    };
+
+    console.log(newClientData)
+
+    const storeClientData = async (newClientData) => {
+      try {
+        const response = await fetch("https://localhost:7179/api/Client/StoreClientUserData", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newClientData),
+          credentials: "include",
+        });
+
+        if (!response.ok) {
+          throw new Error("Error al registrar el usuario");
+        }
+        const data = await response.json();
+        console.log("Registro exitoso:", data);
+        nextStep();
+      } catch (error) {
+        console.error("Error en el registro:", error);
+        setSubmitError("Error al registrar el usuario. Intente nuevamente.");
       }
     };
 
-    sendClientData(newClientData);
-
-    nextStep();
+    await storeClientData(newClientData);
   };
 
   return (
@@ -149,16 +176,33 @@ const RegisterPage = ({ nextStep, sendClientData }) => {
               </div>
             </div>
 
-            <div className="mb-4 w-full">
-              <label className="text-sm m-1">Correo Electrónico</label>
-              <input
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                type="email"
-                placeholder="Ingrese su Correo Electrónico"
-                className={`bg-white appearance-none border caret-zinc-400 rounded w-full py-4 px-3 leading-tight focus:outline-none ${errors.email ? "border-red-600" : "border-gray-300"} text-zinc-700`}
-              />
-              {errors.email && <p className="text-red-600 text-sm">{errors.email}</p>}
+            <div className="flex mb-4 gap-3">
+              <div className=" w-full">
+                <label className="text-sm m-1">Correo Electrónico</label>
+                <input
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  type="email"
+                  placeholder="Ingrese su Correo Electrónico"
+                  className={`bg-white appearance-none border caret-zinc-400 rounded w-full py-4 px-3 leading-tight focus:outline-none ${errors.email ? "border-red-600" : "border-gray-300"} text-zinc-700`}
+                />
+                {errors.email && <p className="text-red-600 text-sm">{errors.email}</p>}
+              </div>
+              <div className="w-full">
+                <label className="text-sm m-1">Membresia</label>
+                <select
+                  onChange={(e) => setMembership(e.target.value)}
+                  value={membership}
+                  className={`bg-white appearance-none border caret-zinc-400 rounded w-full py-4 px-3 leading-tight focus:outline-none ${errors.genre ? "border-red-600" : "border-gray-300"} text-zinc-700`}
+                >
+                  <option value="" disabled>
+                    Seleccione su Membresia
+                  </option>
+                  <option value="premium">Premium</option>
+                  <option value="standar">Standar</option>
+                </select>
+                {errors.membership && <p className="text-red-600 text-sm">{errors.membership}</p>}
+              </div>
             </div>
 
             <div className="mb-4 flex flex-col md:flex-row gap-3">

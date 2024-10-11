@@ -119,7 +119,7 @@ const LoginPage = () => {
             <p className="text-gray-500 select-none">¿No tienes cuenta?</p>
             <p>-</p>
             <Link
-              to="/register"
+              to="/register/1"
               className="border text-gray-800 border-black px-5 py-1 hover:bg-zinc-700 hover:text-white transition-all duration-300"
             >
               Registrate aquí
