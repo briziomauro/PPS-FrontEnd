@@ -41,19 +41,43 @@ function App() {
       path: "/login",
       element:
         (
-            <ProtectedRoute allowedRole={null}>
-              <LoginPage/>
-            </ProtectedRoute>
+          <ProtectedRoute allowedRole={null}>
+            <LoginPage />
+          </ProtectedRoute>
         ),
     },
+    // {
+    //   path: "/register",
+    //   element:
+    //     (
+    //       <ProtectedRoute allowedRole={null}>
+    //         <RegisterProcess />
+    //       </ProtectedRoute>
+    //     ),
+    // },
     {
-      path: "/register",
-      element:
-        (
-            <ProtectedRoute allowedRole={null}>
-              <RegisterProcess />
-            </ProtectedRoute>
-        ),
+      path: "/register/1",
+      element: (
+        <ProtectedRoute allowedRole={null}>
+          <RegisterProcess />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/register/2",
+      element: (
+        <ProtectedRoute allowedRole={null}>
+          <RegisterProcess />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/register/3",
+      element: (
+        <ProtectedRoute allowedRole={null}>
+          <RegisterProcess />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/clientid",
@@ -159,7 +183,7 @@ function App() {
       path: "/contactPage",
       element: (
         <Layout>
-          <ContactPage/>
+          <ContactPage />
         </Layout>
       )
     },
@@ -167,7 +191,7 @@ function App() {
       path: "*",
       element: <NotFound />,
     },
-    
+
   ]);
 
   return <RouterProvider router={router} />;

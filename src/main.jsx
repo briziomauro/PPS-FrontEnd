@@ -7,15 +7,18 @@ import { ClientProvider } from './contexts/ClientContext.jsx'
 import { QueryClientProvider } from '@tanstack/react-query'
 import queryClient from './services/persistQueryClient.js'
 import { TrainerProvider } from './contexts/TrainerContext.jsx'
+import { MembershipProvider } from './contexts/MembershipContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <TrainerProvider>
-          <ClientProvider>
-            <App />
-          </ClientProvider>
+          <MembershipProvider>
+            <ClientProvider>
+              <App />
+            </ClientProvider>
+          </MembershipProvider>
         </TrainerProvider>
       </UserProvider>
     </QueryClientProvider>

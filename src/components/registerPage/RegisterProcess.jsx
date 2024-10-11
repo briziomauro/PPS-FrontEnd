@@ -1,24 +1,42 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import StepIndicator from "./StepIndicator";
 import MembershipPayment from "./MembershipPayment";
 import Confirmation from "./Confirmation";
 import RegisterPage from './RegisterPage';
+import { useUser } from "../../contexts/UserContext";
 
 const RegisterProcess = () => {
     const [activeStep, setActiveStep] = useState(0);
     const totalSteps = 3;
+    const navigate = useNavigate();
 
-    const nextStep = () => setActiveStep((prev) => Math.min(prev + 1, totalSteps - 1));
-    const previousStep = () => setActiveStep((prev) => Math.max(prev - 1, 0));
+    useEffect(() => {
+        const stepFromUrl = window.location.pathname.split("/").pop().replace("register", "");
+        const stepNumber = Number(stepFromUrl) - 1;
+        if (!isNaN(stepNumber) && stepNumber >= 0 && stepNumber < totalSteps) {
+            setActiveStep(stepNumber);
+        }
+    }, []);
+
+    const nextStep = () => {
+        if (activeStep < totalSteps - 1) {
+            const nextPath = `/register/${activeStep + 2}`;
+            setActiveStep((prevStep) => prevStep + 1);
+            navigate(nextPath);
+        }
+    };
+
+    const previousStep = () => {
+        if (activeStep > 0) {
+            const prevPath = `/register/${activeStep}`;
+            setActiveStep((prevStep) => prevStep - 1);
+            navigate(prevPath);
+        }
+    };
+
     const lastStep = () => alert("Finalizado");
 
-    const [newUserData, setNewUserData] = useState([]);
-
-    const handleNewUserData = (data) => {
-        setNewUserData(data);
-        console.log("Datos del cliente recibidos:", data);
-    };
 
     return (
         <div className='min-h-screen bg-white flex'>
@@ -26,18 +44,18 @@ const RegisterProcess = () => {
                 <header className="md:mx-14 flex justify-center md:justify-between">
                     <nav className="flex flex-col md:flex-row gap-5 md:gap-0 w-full justify-between items-center">
                         <Link to="/" className="flex items-center cursor-pointer hover:opacity-60">
-                            <img src="./img/logoTC.png" className="h-[80px] w-[120px]" />
+                            <img src="/img/logoTC.png" className="h-[80px] w-[120px]" />
                         </Link>
                     </nav>
                 </header>
                 <div>
                     <StepIndicator activeStep={activeStep} />
-                    {activeStep === 0 && <RegisterPage nextStep={nextStep} sendClientData={handleNewUserData} />}
+                    {activeStep === 0 && <RegisterPage nextStep={nextStep} />}
                     {activeStep === 1 && (
-                        <MembershipPayment previousStep={previousStep} nextStep={nextStep} />
+                        <MembershipPayment />
                     )}
                     {activeStep === 2 && (
-                        <Confirmation lastStep={lastStep} />
+                        <Confirmation lastStep={lastStep} /> 
                     )}
 
                     {activeStep === 0 && (
