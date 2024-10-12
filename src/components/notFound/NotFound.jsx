@@ -14,13 +14,13 @@ const NotFound = () => {
         } else {
             switch (userTypeResponse) {
                 case 'Client':
-                    navigate('/clientid');
+                    navigate('/client');
                     break;
                 case 'Trainer':
-                    navigate('/profesorid');
+                    navigate('/profesor');
                     break;
                 case 'Admin':
-                    navigate('/adminid');
+                    navigate('/admin');
                     break;
                 default:
                     navigate('/');

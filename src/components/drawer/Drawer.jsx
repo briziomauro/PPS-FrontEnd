@@ -36,13 +36,13 @@ const Drawer = () => {
                     <div>
                         {userTypeFromStorage === 'Client' &&
                             <div>
-                                <Link to="/clientid/get-turn">
+                                <Link to="/client/get-turn">
                                     <li className='hover:bg-white hover:text-black'><p>RESERVAR TURNO</p></li>
                                 </Link>
-                                <Link to="/clientid/nutritional-plan">
+                                <Link to="/client/nutritional-plan">
                                     <li className='hover:bg-white hover:text-black'><p>MIS PLANES NUTRICIONALES</p></li>
                                 </Link>
-                                <Link to="/clientid/routine">
+                                <Link to="/client/routine">
                                     <li className='hover:bg-white hover:text-black'><p>MIS RUTINAS</p></li>
                                 </Link>
                             </div>
@@ -50,19 +50,19 @@ const Drawer = () => {
 
                         {userTypeFromStorage === 'Trainer' &&
                             <div>
-                                <Link to="/profesorid/assing-nutritional-plan">
+                                <Link to="/profesor/assing-nutritional-plan">
                                     <li className='hover:bg-white hover:text-black'><p>ASIGNAR PLANES NUTRICIONALES</p></li>
                                 </Link>
-                                <Link to="/profesorid/assing-routine">
+                                <Link to="/profesor/assing-routine">
                                     <li className='hover:bg-white hover:text-black'><p>ASIGNAR RUTINAS</p></li>
                                 </Link>
                             </div>}
 
                         {userTypeFromStorage === 'Admin' && <div>
-                            <Link to="/adminid/user-center">
+                            <Link to="/admin/user-center">
                                 <li className='hover:bg-white hover:text-black'><p>CENTRO DE USUARIOS</p></li>
                             </Link>
-                            <Link to="/adminid/assing-shift">
+                            <Link to="/admin/assing-shift">
                                 <li className='hover:bg-white hover:text-black'><p>ASIGNACION DE TURNOS</p></li>
                             </Link>
 

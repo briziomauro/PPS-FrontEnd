@@ -55,32 +55,41 @@ function App() {
     //       </ProtectedRoute>
     //     ),
     // },
+    // {
+    //   path: "/register/1",
+    //   element: (
+    //     <ProtectedRoute allowedRole={null}>
+    //       <RegisterProcess />
+    //     </ProtectedRoute>
+    //   ),
+    // },
+    // {
+    //   path: "/register/2",
+    //   element: (
+    //     <ProtectedRoute allowedRole={null}>
+    //       <RegisterProcess />
+    //     </ProtectedRoute>
+    //   ),
+    // },
+    // {
+    //   path: "/register/3",
+    //   element: (
+    //     <ProtectedRoute allowedRole={null}>
+    //       <RegisterProcess />
+    //     </ProtectedRoute>
+    //   ),
+    // },
+    ,
     {
-      path: "/register/1",
+      path: "/register/:step",
       element: (
         <ProtectedRoute allowedRole={null}>
           <RegisterProcess />
         </ProtectedRoute>
-      ),
+      )
     },
     {
-      path: "/register/2",
-      element: (
-        <ProtectedRoute allowedRole={null}>
-          <RegisterProcess />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "/register/3",
-      element: (
-        <ProtectedRoute allowedRole={null}>
-          <RegisterProcess />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "/clientid",
+      path: "/client",
       element: (
         <ProtectedRoute allowedRole={['Client']}>
           <LayoutLogged>
@@ -90,7 +99,7 @@ function App() {
       ),
     },
     {
-      path: "/profesorid",
+      path: "/profesor",
       element: (
         <ProtectedRoute allowedRole={['Trainer']}>
           <LayoutLogged>
@@ -100,7 +109,7 @@ function App() {
       ),
     },
     {
-      path: "/adminid",
+      path: "/admin",
       element: (
         <ProtectedRoute allowedRole={['Admin']}>
           <LayoutLogged>
@@ -110,7 +119,7 @@ function App() {
       ),
     },
     {
-      path: "/adminid/user-center",
+      path: "/admin/user-center",
       element: (
         <ProtectedRoute allowedRole={['Admin']}>
           <LayoutLogged>
@@ -120,7 +129,7 @@ function App() {
       ),
     },
     {
-      path: "/adminid/assing-shift",
+      path: "/admin/assing-shift",
       element: (
         <ProtectedRoute allowedRole={['Admin']}>
           <LayoutLogged>
@@ -130,7 +139,7 @@ function App() {
       ),
     },
     {
-      path: "/clientid/get-turn",
+      path: "/client/get-turn",
       element: (
         <ProtectedRoute allowedRole={['Client']}>
           <LayoutLogged>
@@ -140,7 +149,7 @@ function App() {
       ),
     },
     {
-      path: "/clientid/nutritional-plan",
+      path: "/client/nutritional-plan",
       element: (
         <ProtectedRoute allowedRole={['Client']}>
           <LayoutLogged>
@@ -150,7 +159,7 @@ function App() {
       ),
     },
     {
-      path: "/clientid/routine",
+      path: "/client/routine",
       element: (
         <ProtectedRoute allowedRole={['Client']}>
           <LayoutLogged>
@@ -160,7 +169,7 @@ function App() {
       ),
     },
     {
-      path: "/profesorid/assing-nutritional-plan",
+      path: "/profesor/assing-nutritional-plan",
       element: (
         <ProtectedRoute allowedRole={['Trainer']}>
           <LayoutLogged>
@@ -170,7 +179,7 @@ function App() {
       ),
     },
     {
-      path: "/profesorid/assing-routine",
+      path: "/profesor/assing-routine",
       element: (
         <ProtectedRoute allowedRole={['Trainer']}>
           <LayoutLogged>

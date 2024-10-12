@@ -7,7 +7,7 @@ const Confirmation = ({ lastStep }) => {
     useEffect(() => {
         const getStoredClient = async () => {
             try {
-                const response = await fetch("https://localhost:7179/api/Client/GetClientUserData", {
+                const response = await fetch("https://localhost:7179/api/Client/GetStoredClientUserData", {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',

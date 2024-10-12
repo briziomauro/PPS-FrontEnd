@@ -2,8 +2,9 @@ import { PiWarningCircleLight } from "react-icons/pi";
 import { useMembership } from "../../contexts/MembershipContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const MembershipPayment = () => {
+const MembershipPayment = ({previousStep}) => {
     const { membershipData, errorMemberhsip, isLoadingMember } = useMembership();
     const [clientStoredData, setClientStoredData] = useState(null);
     const [loadingPayment, setLoadingPayment] = useState(false);
@@ -13,7 +14,7 @@ const MembershipPayment = () => {
     useEffect(() => {
         const getStoredClient = async () => {
             try {
-                const response = await fetch("https://localhost:7179/api/Client/GetClientUserData", {
+                const response = await fetch("https://localhost:7179/api/Client/GetStoredClientUserData", {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',
@@ -87,6 +88,10 @@ const MembershipPayment = () => {
         await createUrlPreference(); 
     };
 
+    const handleChangeData = () => {
+        previousStep();
+    }
+
     return (
         <div className="flex flex-col text-center text-black justify-center ">
             <h2 className="font-bebas mt-6 text-4xl text-zinc-700 text-center ">
@@ -94,14 +99,12 @@ const MembershipPayment = () => {
             </h2>
             <form onSubmit={handlePayment}>
                 <h3>Información de su membresía</h3>
-                {selectedMembership ? (
+                {selectedMembership && (
                     <div className="border border-black p-4">
                         <p className="uppercase">{selectedMembership.type}</p>
                         <p>${selectedMembership.price}<span> ARS/MES</span></p>
                         <p>{selectedMembership.description}</p>
                     </div>
-                ) : (
-                    <p>No hay membresía disponible para su tipo.</p>
                 )}
                 <button type="submit" className="border border-red-700 mt-10" disabled={loadingPayment}>
                     {loadingPayment ? "Cargando..." : "PAGAR"}
@@ -110,8 +113,11 @@ const MembershipPayment = () => {
             </form>
             <div className="flex items-center gap-2 justify-center">
                 <PiWarningCircleLight />
-                <p>DESPUES DE PAGAR NO SE PUEDE VOLVER ATRAS</p>
+                <p>VERIFICA BIEN TUS DATOS - DESPUES DE PAGAR NO SE PUEDE VOLVER ATRAS</p>
             </div>
+            <button onClick={handleChangeData}>
+                Modificar mis datos
+            </button>
         </div>
     );
 };

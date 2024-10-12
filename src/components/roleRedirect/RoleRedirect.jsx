@@ -11,11 +11,11 @@ const RoleRedirect = () => {
     useEffect(() => {
         if (isAuthenticated) {
             if (userTypeResponse === "Client") {
-                navigate("/clientid");
+                navigate("/client");
             } else if (userTypeResponse === "Trainer") {
-                navigate("/profesorid");
+                navigate("/profesor");
             } else if (userTypeResponse === "Admin") {
-                navigate("/adminid");
+                navigate("/admin");
             }
         }
     }, [isAuthenticated, userTypeResponse, navigate])

@@ -46,7 +46,7 @@ const ProfessorPage = () => {
                   <li>
                     <Link
                       className="bg-zinc-800 flex justify-center items-center gap-3 text-white p-10 text-xl rounded-b-3xl text-center hover:bg-zinc-900 transition-all duration-200"
-                      to="/profesorid/assing-routine"
+                      to="/profesor/assing-routine"
                     >
                       5 Rutinas pendientes de Asignación<FaArrowRight className="animate-bounce" />
                     </Link>
@@ -63,7 +63,7 @@ const ProfessorPage = () => {
                   <li>
                     <Link
                       className="bg-zinc-800 flex justify-center items-center gap-3 text-white p-10 text-xl rounded-b-3xl text-center hover:bg-zinc-900 transition-all duration-200"
-                      to="/profesorid/assing-nutritional-plan"
+                      to="/profesor/assing-nutritional-plan"
                     >
                       2 Planes pendientes de Asignación<FaArrowRight className="animate-bounce" />
                     </Link>
