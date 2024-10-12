@@ -118,7 +118,7 @@ const AdminPage = () => {
               <li>
                 <Link
                   className="bg-zinc-800 flex justify-center items-center gap-3 text-white p-10 text-xl rounded-b-3xl text-center hover:bg-zinc-900 transition-all duration-200"
-                  to="/adminid/user-center"
+                  to="/admin/user-center"
                 >
                   Ver usuarios <FaArrowRight className="animate-bounce" />
                 </Link>
@@ -135,7 +135,7 @@ const AdminPage = () => {
               <li>
                 <Link
                   className="bg-zinc-800 flex justify-center items-center gap-3 text-white p-10 text-xl rounded-b-3xl text-center hover:bg-zinc-900 transition-all duration-200"
-                  to="/adminid/assing-shift"
+                  to="/admin/assing-shift"
                 >
                   Asignar turnos disponibles <FaArrowRight className="animate-bounce" />
                 </Link>

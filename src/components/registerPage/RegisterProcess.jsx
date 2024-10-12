@@ -4,7 +4,6 @@ import StepIndicator from "./StepIndicator";
 import MembershipPayment from "./MembershipPayment";
 import Confirmation from "./Confirmation";
 import RegisterPage from './RegisterPage';
-import { useUser } from "../../contexts/UserContext";
 
 const RegisterProcess = () => {
     const [activeStep, setActiveStep] = useState(0);
@@ -52,7 +51,7 @@ const RegisterProcess = () => {
                     <StepIndicator activeStep={activeStep} />
                     {activeStep === 0 && <RegisterPage nextStep={nextStep} />}
                     {activeStep === 1 && (
-                        <MembershipPayment />
+                        <MembershipPayment  previousStep={previousStep} />
                     )}
                     {activeStep === 2 && (
                         <Confirmation lastStep={lastStep} /> 
