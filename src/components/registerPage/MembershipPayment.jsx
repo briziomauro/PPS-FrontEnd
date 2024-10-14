@@ -2,7 +2,7 @@ import { PiWarningCircleLight } from "react-icons/pi";
 import { useMembership } from "../../contexts/MembershipContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+
 
 const MembershipPayment = ({previousStep}) => {
     const { membershipData, errorMemberhsip, isLoadingMember } = useMembership();
@@ -66,7 +66,7 @@ const MembershipPayment = ({previousStep}) => {
                         BackUrls: {
                             Success: "http://localhost:5173/register/3",
                             Failure: "http://localhost:5173/register/2",
-                            Pending: "http://localhost:5173/",
+                            Pending: "http://localhost:5173/register/2",
                         },
                     }),
                 });
