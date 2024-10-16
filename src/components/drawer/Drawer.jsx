@@ -66,6 +66,9 @@ const Drawer = () => {
                                 <li className='hover:bg-white hover:text-black'><p>ASIGNACION DE TURNOS</p></li>
                             </Link>
 
+                            <Link to="/admin/manage-locations">
+                                <li className='hover:bg-white hover:text-black'><p>GESTIÓN DE SEDES</p></li>
+                            </Link>
                         </div>}
                     </div>
                     <div className='flex  items-center gap-2 mt-20 px-[16px] py-[8px] hover:bg-white hover:text-black cursor-pointer' onClick={handleLogout}>
