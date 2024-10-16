@@ -20,6 +20,7 @@ import RoleRedirect from "./components/roleRedirect/RoleRedirect";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import RegisterProcess from "./components/registerPage/RegisterProcess";
 import ContactPage from "./components/contactPage/ContactPage";
+import ManageLocations from "./components/manageLocations/ManageLocations";
 
 function App() {
 
@@ -100,6 +101,16 @@ function App() {
         <ProtectedRoute allowedRole={['Admin']}>
           <LayoutLogged>
             <AssingShiftsPage />
+          </LayoutLogged>
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path:"/admin/manage-locations",
+      element: (
+        <ProtectedRoute allowedRole={['Admin']}>
+          <LayoutLogged>
+            <ManageLocations/>
           </LayoutLogged>
         </ProtectedRoute>
       ),

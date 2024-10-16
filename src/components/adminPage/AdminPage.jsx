@@ -79,71 +79,36 @@ const AdminPage = () => {
 
       <div className='flex'>
         <div className='flex flex-col flex-1 justify-center items-center mb-4'>
-          <div className='flex justify-center items-center text-black text-3xl font-bebas'>
-            <h3>CANTIDAD DE PERSONAS POR SEDE</h3>
+          <div>
+            <div className='flex justify-center items-center text-black text-3xl font-bebas'>
+              <h3>CANTIDAD DE PERSONAS POR SEDE</h3>
+            </div>
+            <ResponsiveContainer width={600} height={450}>
+              <BarChart
+                width={200}
+                height={300}
+                data={userLocations}
+                margin={{
+                  top: 20,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="sedeName" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="userQuantity">
+                  {userLocations.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           </div>
-          <ResponsiveContainer width={600} height={700}>
-            <BarChart
-              width={200}
-              height={300}
-              data={userLocations}
-              margin={{
-                top: 20,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="sedeName" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="userQuantity">
-                {userLocations.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className='flex flex-col gap-5 flex-1'>
-          <article className="w-3/4">
-            <div className="bg-amber-400 flex items-center justify-between p-2">
-              <h2 className="text-3xl  font-bebas text-white">Centro de Usuarios</h2>
-            </div>
-
-            <ul>
-              <li>
-                <Link
-                  className="bg-zinc-800 flex justify-center items-center gap-3 text-white p-10 text-xl rounded-b-3xl text-center hover:bg-zinc-900 transition-all duration-200"
-                  to="/admin/user-center"
-                >
-                  Ver usuarios <FaArrowRight className="animate-bounce" />
-                </Link>
-              </li>
-            </ul>
-          </article>
-
-          <article className="w-3/4">
-            <div className="bg-amber-400 flex items-center justify-between p-2">
-              <h2 className="text-3xl  font-bebas text-white">Asignar Turnos</h2>
-            </div>
-
-            <ul>
-              <li>
-                <Link
-                  className="bg-zinc-800 flex justify-center items-center gap-3 text-white p-10 text-xl rounded-b-3xl text-center hover:bg-zinc-900 transition-all duration-200"
-                  to="/admin/assing-shift"
-                >
-                  Asignar turnos disponibles <FaArrowRight className="animate-bounce" />
-                </Link>
-              </li>
-            </ul>
-          </article>
-
-          <div className='flex gap-5'>
+          <div className='flex gap-5 mt-5'>
             <div>
               <h3 className='text-3xl font-bebas text-black mt-3 mb-5'>MEMBRESIAS MAS POPUALRES</h3>
               <div>
@@ -201,6 +166,59 @@ const AdminPage = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className='flex flex-col gap-5 flex-1'>
+          <article className="w-3/4">
+            <div className="bg-amber-400 flex items-center justify-between p-2">
+              <h2 className="text-3xl  font-bebas text-white">Centro de Usuarios</h2>
+            </div>
+
+            <ul>
+              <li>
+                <Link
+                  className="bg-zinc-800 flex justify-center items-center gap-3 text-white p-10 text-xl rounded-b-3xl text-center hover:bg-zinc-900 transition-all duration-200"
+                  to="/admin/user-center"
+                >
+                  Ver usuarios <FaArrowRight className="animate-bounce" />
+                </Link>
+              </li>
+            </ul>
+          </article>
+
+          <article className="w-3/4">
+            <div className="bg-amber-400 flex items-center justify-between p-2">
+              <h2 className="text-3xl  font-bebas text-white">Asignar Turnos</h2>
+            </div>
+
+            <ul>
+              <li>
+                <Link
+                  className="bg-zinc-800 flex justify-center items-center gap-3 text-white p-10 text-xl rounded-b-3xl text-center hover:bg-zinc-900 transition-all duration-200"
+                  to="/admin/assing-shift"
+                >
+                  Asignar turnos disponibles <FaArrowRight className="animate-bounce" />
+                </Link>
+              </li>
+            </ul>
+          </article>
+
+          <article className="w-3/4">
+            <div className="bg-amber-400 flex items-center justify-between p-2">
+              <h2 className="text-3xl  font-bebas text-white">Gestión de sedes</h2>
+            </div>
+
+            <ul>
+              <li>
+                <Link
+                  className="bg-zinc-800 flex justify-center items-center gap-3 text-white p-10 text-xl rounded-b-3xl text-center hover:bg-zinc-900 transition-all duration-200"
+                  to="/admin/manage-locations"
+                >
+                  Ver Sedes <FaArrowRight className="animate-bounce" />
+                </Link>
+              </li>
+            </ul>
+          </article>
         </div>
 
       </div>
