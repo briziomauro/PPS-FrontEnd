@@ -49,11 +49,11 @@ const LoginPage = () => {
       const userTypeFromStorage = localStorage.getItem("userTypeResponse");
 
       if (userTypeFromStorage === "Client") {
-        navigate("/clientid");
+        navigate("/client");
       } else if (userTypeFromStorage === "Trainer") {
-        navigate("/profesorid");
+        navigate("/profesor");
       } else if (userTypeFromStorage === "Admin") {
-        navigate("/adminid");
+        navigate("/admin");
       }
 
     } catch (error) {
