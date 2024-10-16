@@ -155,11 +155,9 @@ function App() {
       ),
     },
     {
-      path: "/contactPage",
+      path: "/contact",
       element: (
-        <ProtectedRoute allowedRole={'null'}>
-          <ContactPage />
-        </ProtectedRoute>
+        <ContactPage />
       )
     },
     {

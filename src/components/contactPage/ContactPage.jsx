@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Footer from "../footer/Footer";
 
 const ContactPage = () => {
     const [formData, setFormData] = useState({
@@ -15,7 +17,7 @@ const ContactPage = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
 
         const response = await fetch('https://formsubmit.co/mateocaranta@gmail.com', {
             method: 'POST',
@@ -41,6 +43,11 @@ const ContactPage = () => {
 
     return (
         <div className=' bg-gradient-to-r from-zinc-950 to-zinc-800 h-screen'>
+            <div className="flex items-center font-bebas text-white bg-black/60 w-full p-3 absolute">
+                <Link to="/" className="px-5 py-2 hover:bg-zinc-800 transition-all duration-200 rounded-sm">
+                    <img className="h-[40px] w-[120px]" src="/img/LogoLight.png" alt="" />
+                </Link>
+            </div>
             <div className="flex h-full">
                 <div className="w-1/2 flex justify-center items-center">
                     <div className="h-auto w-[660px]">
@@ -125,7 +132,8 @@ const ContactPage = () => {
                     <img src='./img/FotoContacto.webp' alt="Contacto" className="w-full h-full object-cover" />
                 </div>
             </div>
+            <Footer/>
         </div>
-    );
-};
+    )
+}
 export default ContactPage

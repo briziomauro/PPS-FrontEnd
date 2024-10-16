@@ -14,7 +14,7 @@ const Footer = () => {
           <Link to="locations">
             <h6>SEDES</h6>
           </Link>
-          <Link>
+          <Link to = "contact">
             <h6>CONTACTO</h6>
           </Link>
         </div>
