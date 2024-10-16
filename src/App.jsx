@@ -46,40 +46,6 @@ function App() {
           </ProtectedRoute>
         ),
     },
-    // {
-    //   path: "/register",
-    //   element:
-    //     (
-    //       <ProtectedRoute allowedRole={null}>
-    //         <RegisterProcess />
-    //       </ProtectedRoute>
-    //     ),
-    // },
-    // {
-    //   path: "/register/1",
-    //   element: (
-    //     <ProtectedRoute allowedRole={null}>
-    //       <RegisterProcess />
-    //     </ProtectedRoute>
-    //   ),
-    // },
-    // {
-    //   path: "/register/2",
-    //   element: (
-    //     <ProtectedRoute allowedRole={null}>
-    //       <RegisterProcess />
-    //     </ProtectedRoute>
-    //   ),
-    // },
-    // {
-    //   path: "/register/3",
-    //   element: (
-    //     <ProtectedRoute allowedRole={null}>
-    //       <RegisterProcess />
-    //     </ProtectedRoute>
-    //   ),
-    // },
-    ,
     {
       path: "/register/:step",
       element: (
@@ -191,9 +157,9 @@ function App() {
     {
       path: "/contactPage",
       element: (
-        <Layout>
+        <ProtectedRoute allowedRole={'null'}>
           <ContactPage />
-        </Layout>
+        </ProtectedRoute>
       )
     },
     {
