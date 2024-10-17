@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useClient } from "../../contexts/ClientContext";
+import { useQueryClient } from "@tanstack/react-query";
 
-const SettingsPage = () => {
+const SettingsPageClient = () => {
   const [fullName, setFullName] = useState("MIGUE");
   const [email, setEmail] = useState("MIGUELITO@gmail.com");
   const [documentId, setDocumentId] = useState("");
@@ -8,6 +10,9 @@ const SettingsPage = () => {
   const [birthDate, setBirthDate] = useState("");
   const [weight, setWeight] = useState("Peso");
   const [isEditing, setIsEditing] = useState(false);
+
+  const { clientDetails } = useClient();
+  const queryClient = useQueryClient(); // Obtén el queryClient para usarlo en logout
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -23,14 +28,18 @@ const SettingsPage = () => {
   };
 
   return (
-    <div>
-      <header className="bg-zinc-700 pl-20 py-4 font-bebas mt-4 tracking-wider">
+    <div className="bg-black h-screen">
+      <header className="bg-zinc-700 pl-20 py-4 font-bebas tracking-wider ">
         <h1 className="text-white text-4xl">
-          Bienvenido <strong className="text-yellow-400">MIGUE</strong>
+          Bienvenido{" "}
+          <strong className="text-yellow-400">
+            {clientDetails.clientDto.firstName} {clientDetails.clientDto.lastName}
+          </strong>
         </h1>
       </header>
-      <div className="flex justify-center items-center mt-4">
-        <div className="bg-zinc-800 rounded-lg shadow-md p-5 mt-36 w-full max-w-[1500px]">
+
+      <div className="flex justify-center items-center mt-4 w-full h-screen">
+        <div>
           <div className="flex items-center mb-4">
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROx-J1Qn1fr2r1gxcUToksn65vtGQt5QNNnw&s"
@@ -165,4 +174,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default SettingsPageClient;

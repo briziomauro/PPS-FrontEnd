@@ -3,7 +3,7 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { Link, useNavigate } from 'react-router-dom'
 import { useUser } from '../../contexts/UserContext'
-import { div } from 'framer-motion/client';
+import { IoIosSettings } from "react-icons/io";
 
 const Drawer = () => {
     const { logout } = useUser();
@@ -19,8 +19,17 @@ const Drawer = () => {
         }
     };
 
-
     const userTypeFromStorage = localStorage.getItem("userTypeResponse");
+
+    const handleSettings = () => {
+        if (userTypeFromStorage === "Trainer") {
+            navigate("/trainer/settings")
+        } else if (userTypeFromStorage === "Client") {
+            navigate("/client/settings")
+        }
+    }
+
+
 
     return (
         <div className="drawer z-50">
@@ -33,7 +42,7 @@ const Drawer = () => {
             <div className="drawer-side">
                 <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu bg-black text-white min-h-full w-80 p-4 justify-center ">
-                    <div>
+                    <div className='flex flex-1 flex-col justify-end'>
                         {userTypeFromStorage === 'Client' &&
                             <div>
                                 <Link to="/client/get-turn">
@@ -70,10 +79,18 @@ const Drawer = () => {
                                 <li className='hover:bg-white hover:text-black'><p>GESTIÓN DE SEDES</p></li>
                             </Link>
                         </div>}
+                        {(userTypeFromStorage === 'Client' || userTypeFromStorage === 'Trainer') &&
+                            <div className='flex  items-center mt-10 gap-2 px-[16px] py-[8px] hover:bg-white hover:text-black cursor-pointer' onClick={handleSettings}>
+                                <IoIosSettings />
+                                <button >CONFIGURACIÓN</button>
+                            </div>
+                        }
                     </div>
-                    <div className='flex  items-center gap-2 mt-20 px-[16px] py-[8px] hover:bg-white hover:text-black cursor-pointer' onClick={handleLogout}>
-                        <RiLogoutBoxLine />
-                        <button >CERRAR SESIÓN</button>
+                    <div className='flex flex-col flex-1 justify-end '>
+                        <div className='flex items-center mb-10 gap-2 px-[16px] py-[8px] hover:bg-white hover:text-black cursor-pointer' onClick={handleLogout}>
+                            <RiLogoutBoxLine />
+                            <button >CERRAR SESIÓN</button>
+                        </div>
                     </div>
                 </ul>
             </div>
