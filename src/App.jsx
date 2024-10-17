@@ -21,6 +21,8 @@ import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import RegisterProcess from "./components/registerPage/RegisterProcess";
 import ContactPage from "./components/contactPage/ContactPage";
 import ManageLocations from "./components/manageLocations/ManageLocations";
+import SetttingsPageTrainer from "./components/settingsPage/SetttingsPageTrainer";
+import SettingsPageClient from "./components/settingsPage/SettingsPageClient";
 
 function App() {
 
@@ -106,11 +108,11 @@ function App() {
       ),
     },
     {
-      path:"/admin/manage-locations",
+      path: "/admin/manage-locations",
       element: (
         <ProtectedRoute allowedRole={['Admin']}>
           <LayoutLogged>
-            <ManageLocations/>
+            <ManageLocations />
           </LayoutLogged>
         </ProtectedRoute>
       ),
@@ -145,6 +147,17 @@ function App() {
         </ProtectedRoute>
       ),
     },
+    ,
+    {
+      path: "/client/settings",
+      element: (
+        <ProtectedRoute allowedRole={['Client']}>
+          <LayoutLogged>
+            <SettingsPageClient />
+          </LayoutLogged>
+        </ProtectedRoute>
+      ),
+    },
     {
       path: "/profesor/assing-nutritional-plan",
       element: (
@@ -161,6 +174,17 @@ function App() {
         <ProtectedRoute allowedRole={['Trainer']}>
           <LayoutLogged>
             <AssingRoutine />
+          </LayoutLogged>
+        </ProtectedRoute>
+      ),
+    },
+    ,
+    {
+      path: "/profesor/settings",
+      element: (
+        <ProtectedRoute allowedRole={['Trainer']}>
+          <LayoutLogged>
+            <SetttingsPageTrainer />
           </LayoutLogged>
         </ProtectedRoute>
       ),

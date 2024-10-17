@@ -88,8 +88,10 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
         const checkTokenExpiration = () => {
-            const tokenExpires = new Date(localStorage.getItem("tokenExpires"));
-            if (tokenExpires <= new Date()) {
+            const tokenExpires = new Date(localStorage.getItem("expireDate"));
+            const now = new Date();
+
+            if (tokenExpires <= now) {
                 logout();
             }
         };
