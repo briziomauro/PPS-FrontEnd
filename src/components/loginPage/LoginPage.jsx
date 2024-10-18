@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useUser } from "../../contexts/UserContext";
-// Importa tu contexto
+import ResetPassword from "../resetPassword/ResetPassword";
 
 const LoginPage = () => {
   const { login } = useUser();
@@ -109,10 +109,9 @@ const LoginPage = () => {
               CONTINUAR
             </button>
           </form>
-          
-          {/* Endpoint cambiar contraseña validando por email */}
-          <div className="text-zinc-600 mt-4 flex w-full justify-center cursor-pointer hover:text-yellow-500 transition-all duration-300">
-            <p>Olvidé mi contraseña</p>
+
+          <div>
+            <ResetPassword />
           </div>
 
           <div className="flex flex-row gap-2 items-center lg:mt-8 justify-center">
