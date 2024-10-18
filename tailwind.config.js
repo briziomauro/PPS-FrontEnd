@@ -31,6 +31,10 @@ export default {
         grungeBg:
           "url('https://media.istockphoto.com/id/1320330053/es/foto/textura-de-fondo-de-papel-de-cuadr%C3%ADcula-punteada-patr%C3%B3n-de-repetici%C3%B3n-sin-costuras.jpg?s=2048x2048&w=is&k=20&c=JyUM5sxE6C60iWxBER_YeI-lsbzDUknzBUzVXeMzeyg=')",
       },
+      spin: {
+        from: { transform: "rotate(0deg)" },
+        to: { transform: "rotate(360deg)" },
+      },
     },
   },
   plugins: [require("daisyui")],
