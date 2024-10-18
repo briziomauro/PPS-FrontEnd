@@ -8,19 +8,22 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import queryClient from './services/persistQueryClient.js'
 import { TrainerProvider } from './contexts/TrainerContext.jsx'
 import { MembershipProvider } from './contexts/MembershipContext.jsx'
+import { LocationProvider } from './contexts/LocationContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        <TrainerProvider>
-          <MembershipProvider>
-            <ClientProvider>
-              <App />
-            </ClientProvider>
-          </MembershipProvider>
-        </TrainerProvider>
-      </UserProvider>
+      <LocationProvider>
+        <UserProvider>
+          <TrainerProvider>
+            <MembershipProvider>
+              <ClientProvider>
+                <App />
+              </ClientProvider>
+            </MembershipProvider>
+          </TrainerProvider>
+        </UserProvider>
+      </LocationProvider>
     </QueryClientProvider>
   </StrictMode>,
 )

@@ -14,11 +14,11 @@ const LocationsPage = () => {
     const getLink = () => {
         switch (userTypeFromStorage) {
             case 'Client':
-                return '/clientid';
+                return '/client';
             case 'Trainer':
-                return '/profesorid'; 
+                return '/profesor'; 
             case 'Admin':
-                return '/adminid'; 
+                return '/admin'; 
             default:
                 return '/'; 
         }
