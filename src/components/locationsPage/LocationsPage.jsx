@@ -53,10 +53,7 @@ const LocationsPage = () => {
                   <IoLocationSharp className="h-6 w-6" />
                   <p className="text-lg px-2">{branch.address}</p>
                 </div>
-                <div className="flex items-center text-lg mb-2 ">
-                  <FaPhoneAlt className="h-6 w-6" />
-                  <p className="px-2">{branch.phone}</p>
-                </div>
+                
                 <div className="text-lg mb-2">
                   <div className="flex items-center mb-1">
                     <GoClockFill className="h-6 w-6" />
@@ -82,17 +79,7 @@ const LocationsPage = () => {
                     )}
                   </ul>
                 </div>
-                <div className="flex items-center text-lg mb-2">
-                  <MdEmail className="h-6 w-6" />
-                  <a
-                    href={`mailto:${branch.email}`}
-                    className="text-black-500 underline"
-                  >
-                    <p className="text-lg px-2">
-                      {branch.email}
-                    </p>
-                  </a>
-                </div>
+                
                 <ModalMaps id={branch.id} position={branch.position}/>
               </div>
             ))}
