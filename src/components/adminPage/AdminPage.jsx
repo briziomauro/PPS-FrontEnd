@@ -1,69 +1,121 @@
-import React from 'react'
-import { DiAndroid, DiVim } from 'react-icons/di'
+import React, { useEffect, useState } from 'react'
 import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-const userLocations = [
-  {
-    sedeName: 'Sede Centro',
-    userQuantity: 500,
-    color: "#0f172a"
-  },
-  {
-    sedeName: 'Sede Norte',
-    userQuantity: 320,
-    color: "#1d4ed8"
-  },
-  {
-    sedeName: 'Sede Sur',
-    userQuantity: 450,
-    color: "#16a34a"
-  },
-  {
-    sedeName: 'Sede Oeste',
-    userQuantity: 280,
-    color: "#052e16"
-  },
-  {
-    sedeName: 'Sede Fisherton',
-    userQuantity: 150,
-    color: "#eab308"
-  },
-  {
-    sedeName: 'Sede Pichincha',
-    userQuantity: 380,
-    color: "#dc2626"
-  },
-  {
-    sedeName: 'Sede Puerto Norte',
-    userQuantity: 220,
-    color: "#67e8f9"
-  },
-];
-
-
-const datosMembresias = [
-  { tipo: "Básica", cantidad: 120, color: "#eab308" },
-  { tipo: "Premium", cantidad: 80, color: "#c2410c" },
-];
-
-const nuevosUsuarios = [
-  { mes: 'Enero', cantidad: 30 },
-  { mes: 'Febrero', cantidad: 45 },
-  { mes: 'Marzo', cantidad: 50 },
-  { mes: 'Abril', cantidad: 70 },
-  { mes: 'Mayo', cantidad: 60 },
-  { mes: 'Junio', cantidad: 90 },
-  { mes: 'Julio', cantidad: 100 },
-  { mes: 'Agosto', cantidad: 80 },
-  { mes: 'Septiembre', cantidad: 75 },
-  { mes: 'Octubre', cantidad: 85 },
-  { mes: 'Noviembre', cantidad: 95 },
-  { mes: 'Diciembre', cantidad: 120 },
-];
-
 const AdminPage = () => {
+  const [membershipCount, setMembershipCount] = useState([])
+  const [clientsPerMonth, setClientsPerMonth] = useState([])
+  const [clientsPerLocation, setClientsPerLocation] = useState([])
+  const [error, setError] = useState("")
+
+
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
+
+  //FETCH PARA OBTENER LA CUENTA DE LAS MEMBRESIAS
+  useEffect(() => {
+    const getMembershipCount = async () => {
+      try {
+        const response = await fetch(
+          "https://localhost:7179/api/Membership/client-count",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error al obtener los detalles del cliente");
+        }
+
+        const data = await response.json();
+        setMembershipCount(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    getMembershipCount();
+  }, []);
+
+
+  //FETCH PARA OBTENER LA CUENTA DE LOS USUARIOS
+  useEffect(() => {
+    const getClientPerMonth = async () => {
+      try {
+        const response = await fetch(
+          "https://localhost:7179/api/Client/GetNewClientsPerMonth",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error al obtener los detalles del cliente");
+        }
+
+        const data = await response.json();
+
+        // Transformar la respuesta
+        const transformedData = data.map(item => ({
+          mes: `${item.year}-${item.month.toString().padStart(2, '0')}`,
+          cantidad: item.count
+        }));
+
+        setClientsPerMonth(transformedData);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    getClientPerMonth();
+  }, []);
+
+
+  // CANTIDAD DE PERSONAS POR SEDE
+  useEffect(() => {
+    const getClientsPerLocation = async () => {
+      try {
+        const response = await fetch(
+          "https://localhost:7179/api/Location/locations/clients-count",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error al obtener los detalles del cliente");
+        }
+
+        const data = await response.json();
+        setClientsPerLocation(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    getClientsPerLocation();
+  }, []);
+
   return (
     <div className='flex flex-col min-h-screen'>
 
@@ -87,7 +139,7 @@ const AdminPage = () => {
               <BarChart
                 width={200}
                 height={300}
-                data={userLocations}
+                data={clientsPerLocation}
                 margin={{
                   top: 20,
                   right: 30,
@@ -100,9 +152,9 @@ const AdminPage = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="userQuantity">
+                <Bar dataKey={clientsPerLocation.clientsCount}>
                   {userLocations.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={getRandomColor()} />
                   ))}
                 </Bar>
               </BarChart>
@@ -116,17 +168,17 @@ const AdminPage = () => {
                   <PieChart>
                     <Tooltip />
                     <Pie
-                      data={datosMembresias}
-                      dataKey="cantidad"
-                      nameKey="tipo"
+                      data={membershipCount}
+                      dataKey="clientCount"
+                      nameKey="type"
                       cx="50%"
                       cy="50%"
                       outerRadius={80}
                       fill="#8884d8"
                       label={({ name }) => name}
                     >
-                      {datosMembresias.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      {membershipCount.map((index) => (
+                        <Cell key={`cell-${index}`} fill={getRandomColor()} />
                       ))}
                     </Pie>
                   </PieChart>
@@ -137,7 +189,7 @@ const AdminPage = () => {
               <div className='flex flex-col justify-center items-center'>
                 <h3 className='text-black text-3xl font-bebas mb-5 mt-3 uppercase'>Nuevos Usuarios por Mes</h3>
                 <ResponsiveContainer width={500} height={300}>
-                  <LineChart data={nuevosUsuarios}>
+                  <LineChart data={clientsPerMonth}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="mes" />
                     <YAxis />
