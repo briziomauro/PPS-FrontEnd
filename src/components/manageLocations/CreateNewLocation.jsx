@@ -2,27 +2,18 @@ import React, { useState } from 'react';
 import { FaRegSave } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
 
-const CreateNewLocation = ({ isOpen, onClose, onSubmit }) => {
-    const [formData, setFormData] = useState({
-        name: '',
-        location: '',
-        isActive: false
-    });
-
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
-            [name]: type === 'checkbox' ? checked : value,
-        });
-    };
+const CreateNewLocation = ({ isOpen, onClose, handleGetLocations }) => {
+    const [locName, setLocName] = useState('');
+    const [locAdress, setLocAdress] = useState('');
+    const [locActive, setLocActive] = useState('1');
 
     const handleNewLocation = async (e) => {
         e.preventDefault();
 
         const dataToSend = {
-            ...formData,
-            isActive: formData.isActive === "true" || formData.isActive === true,
+            adress: locAdress,
+            name: locName,
+            isactive: parseInt(locActive)
         };
 
         console.log("Datos enviados:", dataToSend);
@@ -38,12 +29,13 @@ const CreateNewLocation = ({ isOpen, onClose, onSubmit }) => {
             });
 
             if (!response.ok) {
+                const errorDetail = await response.json();
+                console.error("Detalles del error:", errorDetail);
                 throw new Error('Error al añadir la locación');
             }
 
             const data = await response.json();
-            console.log('Locación añadida:', data);
-            onSubmit(data);
+            handleGetLocations();
             onClose();
         } catch (error) {
             console.error('Hubo un problema con el fetch:', error);
@@ -68,8 +60,8 @@ const CreateNewLocation = ({ isOpen, onClose, onSubmit }) => {
                         <input
                             type="text"
                             name="name"
-                            value={formData.name}
-                            onChange={handleChange}
+                            value={locName}
+                            onChange={(e) => setLocName(e.target.value)}
                             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
                             required
                         />
@@ -85,8 +77,8 @@ const CreateNewLocation = ({ isOpen, onClose, onSubmit }) => {
                         <input
                             type="text"
                             name="location"
-                            value={formData.location}
-                            onChange={handleChange}
+                            value={locAdress}
+                            onChange={(e) => setLocAdress(e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded"
                             required
                         />
@@ -101,11 +93,12 @@ const CreateNewLocation = ({ isOpen, onClose, onSubmit }) => {
                             id="isActive"
                             name="isActive"
                             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
-                            value={formData.isActive}
-                            onChange={handleChange}
+                            value={locActive}
+                            onChange={(e) => setLocActive(e.target.value)}
+                            defaultValue='1'
                         >
-                            <option value={true}>Activo</option>
-                            <option value={false}>Inactivo</option>
+                            <option value='1' >Activo</option>
+                            <option value='0'>Inactivo</option>
                         </select>
                     </div>
 

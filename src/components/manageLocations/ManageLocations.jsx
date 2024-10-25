@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { MdDeleteForever } from "react-icons/md";
 import { IoIosRefresh } from "react-icons/io";
 import { FaPlus } from "react-icons/fa6";
 import ModalManageLocations from './ModalManageLocations';
 import { useLocation } from '../../contexts/LocationContext';
 import CreateNewLocation from './CreateNewLocation';
+import ChangeStateLocation from './ChangeStateLocation';
 
 const ManageLocations = () => {
     const { locations, GetLocations } = useLocation();
@@ -15,18 +15,12 @@ const ManageLocations = () => {
         GetLocations();
     }, []);
 
-    const handleDelete = (idlocation) => {
-        setLoc(prevLocations =>
-            prevLocations.filter(loc => loc.idlocation !== idlocation)
-        );
-    };
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
-    const handleAddLocation = (formData) => {
-        setLoc(prevLocations => [...prevLocations, formData]); 
-        console.log("Nueva locación agregada:", formData);
+    const handleGetLocations = async () => {
+        await GetLocations();
     };
 
     return (
@@ -41,14 +35,15 @@ const ManageLocations = () => {
                                 <p className='text-white font-bebas mb-3'>Estado: {location.isactive ? 'Activo' : 'Inactivo'}</p>
 
                                 <div className='text-white flex gap-4'>
-                                    <button className='flex gap-2 p-4 items-center bg-zinc-900 rounded-xl hover:scale-105 transition-all duration-300' onClick={() => document.getElementById(`location_${location.idlocation}`).showModal()}><span className='text-xl'><IoIosRefresh /></span>ACTUALIZAR</button>
-                                    <button className='flex gap-2 p-4 items-center bg-yellow-500 rounded-xl hover:scale-105 transition-all duration-300' onClick={() => handleDelete(location.idlocation)}> <span className='text-xl'><MdDeleteForever /></span>ELIMINAR </button>
+                                    <button className='flex gap-2 p-4 items-center bg-zinc-900 rounded-xl hover:scale-105 transition-all duration-300' onClick={() => document.getElementById(`update_location_${location.idlocation}`).showModal()}><span className='text-xl'><IoIosRefresh /></span>ACTUALIZAR</button>
+                                    <ChangeStateLocation handleGetLocations={handleGetLocations} idlocation={location.idlocation} name={location.name}/>
                                 </div>
                             </div>
-                            <ModalManageLocations idlocation={location.idlocation} name={location.name} />
+                            <ModalManageLocations handleGetLocations={handleGetLocations} idlocation={location.idlocation} name={location.name} adress={location.adress} isactive={location.isactive} />
+                            
                         </React.Fragment>
                     ))}
-                    <div className='cursor-pointer bg-zinc-800/40 h-[175px] w-[315px] flex justify-center items-center hover:scale-105 hover:bg-zinc-800 transition-all duration-300 group'  onClick={openModal}>
+                    <div className='cursor-pointer bg-zinc-800/40 h-[175px] w-[315px] flex justify-center items-center hover:scale-105 hover:bg-zinc-800 transition-all duration-300 group' onClick={openModal}>
                         <span className='text-white text-4xl p-3 transition-all duration-200 group-hover:bg-zinc-600 group-hover:rounded-full'>
                             <FaPlus />
                         </span>
@@ -57,7 +52,7 @@ const ManageLocations = () => {
             </div>
             <CreateNewLocation isOpen={isModalOpen}
                 onClose={closeModal}
-                onSubmit={handleAddLocation} />
+                handleGetLocations={handleGetLocations} />
         </>
     );
 };

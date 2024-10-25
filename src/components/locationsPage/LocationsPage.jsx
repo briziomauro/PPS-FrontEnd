@@ -1,28 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Footer from "../footer/Footer";
-import { locations } from "../../data/data";
 import { IoLocationSharp } from "react-icons/io5";
-import { FaPhoneAlt } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import { GoClockFill } from "react-icons/go";
-import { useState } from "react";
-import ModalMaps from "../modalMaps/ModalMaps";
+import { useEffect, useState } from "react";
+import { useLocation } from '../../contexts/LocationContext';
 
 const LocationsPage = () => {
+  const { locations, GetLocations } = useLocation();
+  const [loc, setLoc] = useState();
   const userTypeFromStorage = localStorage.getItem("userTypeResponse");
 
-    const getLink = () => {
-        switch (userTypeFromStorage) {
-            case 'Client':
-                return '/client';
-            case 'Trainer':
-                return '/profesor'; 
-            case 'Admin':
-                return '/admin'; 
-            default:
-                return '/'; 
-        }
-    };
+
+  const getLink = () => {
+    switch (userTypeFromStorage) {
+      case 'Client':
+        return '/client';
+      case 'Trainer':
+        return '/profesor';
+      case 'Admin':
+        return '/admin';
+      default:
+        return '/';
+    }
+  };
+
+  useEffect(() => {
+    GetLocations();
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -37,50 +40,23 @@ const LocationsPage = () => {
         <div className="font-bebas">
           <h1 className="text-6xl text-black">SEDES</h1>
         </div>
-        <div className="flex justify-center w-[90%] bg-black h-[2px] my-5"/>
+        <div className="flex justify-center w-[90%] bg-black h-[2px] my-5" />
         <div className="flex items-center justify-center w-full">
           <div className="flex flex-wrap gap-6 justify-center font-roboto w-[60%]">
-            {locations.map((branch) => (
+            {locations.map((location) => (
               <div
-                key={branch.id}
+                key={location.idlocation}
                 className="flex flex-col bg-zinc-900 text-white p-6 rounded-lg shadow-md w-80"
               >
                 <h2 className="text-2xl font-bebas mb-2">
-                  {branch.name}
+                  {location.name}
                 </h2>
                 <hr className="border-white border-t-2 mb-4" />
                 <div className="flex items-center text-lg mb-2">
                   <IoLocationSharp className="h-6 w-6" />
-                  <p className="text-lg px-2">{branch.address}</p>
+                  <p className="text-lg px-2 text-white">{location.adress}</p>
                 </div>
-                
-                <div className="text-lg mb-2">
-                  <div className="flex items-center mb-1">
-                    <GoClockFill className="h-6 w-6" />
-                    <p className="text-lg px-2 ">Horarios:</p>
-                  </div>
-                  <ul className="pl-8">
-                    <li className="mb-1">
-                      <strong>L a V:</strong> {branch.hours.weekday}
-                    </li>
-                    {branch.hours.saturday && (
-                      <li className="mb-1">
-                        <strong>S:</strong> {branch.hours.saturday}
-                      </li>
-                    )}
-                    {branch.hours.sunday ? (
-                      <li>
-                        <strong>D:</strong> {branch.hours.sunday}
-                      </li>
-                    ) : (
-                      <li>
-                        <strong>D:</strong> Cerrado
-                      </li>
-                    )}
-                  </ul>
-                </div>
-                
-                <ModalMaps id={branch.id} position={branch.position}/>
+                {/* <ModalMaps id={location.idlocation} /> */}
               </div>
             ))}
           </div>
