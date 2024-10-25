@@ -153,7 +153,7 @@ const AdminPage = () => {
                 <Tooltip />
                 <Legend />
                 <Bar dataKey={clientsPerLocation.clientsCount}>
-                  {userLocations.map((entry, index) => (
+                  {clientsPerLocation.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={getRandomColor()} />
                   ))}
                 </Bar>
