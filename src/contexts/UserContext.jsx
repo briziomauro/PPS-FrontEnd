@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import queryClient from "../services/persistQueryClient";
+import { toast } from "react-toastify";
 
 const UserContext = createContext();
 
@@ -38,6 +39,7 @@ export const UserProvider = ({ children }) => {
 
         } catch (error) {
             console.error("Error de autenticación:", error);
+            toast.error("Error al iniciar sesión.");
             throw error;
         }
     };

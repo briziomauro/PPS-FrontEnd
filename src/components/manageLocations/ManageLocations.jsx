@@ -5,6 +5,8 @@ import ModalManageLocations from './ModalManageLocations';
 import { useLocation } from '../../contexts/LocationContext';
 import CreateNewLocation from './CreateNewLocation';
 import ChangeStateLocation from './ChangeStateLocation';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ManageLocations = () => {
     const { locations, GetLocations } = useLocation();
@@ -36,11 +38,11 @@ const ManageLocations = () => {
 
                                 <div className='text-white flex gap-4'>
                                     <button className='flex gap-2 p-4 items-center bg-zinc-900 rounded-xl hover:scale-105 transition-all duration-300' onClick={() => document.getElementById(`update_location_${location.idlocation}`).showModal()}><span className='text-xl'><IoIosRefresh /></span>ACTUALIZAR</button>
-                                    <ChangeStateLocation handleGetLocations={handleGetLocations} idlocation={location.idlocation} name={location.name}/>
+                                    <ChangeStateLocation handleGetLocations={handleGetLocations} idlocation={location.idlocation} name={location.name} />
                                 </div>
                             </div>
                             <ModalManageLocations handleGetLocations={handleGetLocations} idlocation={location.idlocation} name={location.name} adress={location.adress} isactive={location.isactive} />
-                            
+
                         </React.Fragment>
                     ))}
                     <div className='cursor-pointer bg-zinc-800/40 h-[175px] w-[315px] flex justify-center items-center hover:scale-105 hover:bg-zinc-800 transition-all duration-300 group' onClick={openModal}>
@@ -53,6 +55,19 @@ const ManageLocations = () => {
             <CreateNewLocation isOpen={isModalOpen}
                 onClose={closeModal}
                 handleGetLocations={handleGetLocations} />
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                transition:Bounce
+            />
         </>
     );
 };
