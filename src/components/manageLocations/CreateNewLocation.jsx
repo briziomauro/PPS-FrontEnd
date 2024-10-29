@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaRegSave } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const CreateNewLocation = ({ isOpen, onClose, handleGetLocations }) => {
     const [locName, setLocName] = useState('');
@@ -34,11 +35,13 @@ const CreateNewLocation = ({ isOpen, onClose, handleGetLocations }) => {
                 throw new Error('Error al añadir la locación');
             }
 
+            toast.success("Sede agregada correctamente.");
             const data = await response.json();
             handleGetLocations();
             onClose();
         } catch (error) {
             console.error('Hubo un problema con el fetch:', error);
+            toast.error ("Error al agregar la sede.");
         }
     };
 

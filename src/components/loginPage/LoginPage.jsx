@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useUser } from "../../contexts/UserContext";
 import ResetPassword from "../resetPassword/ResetPassword";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
   const { login } = useUser();
@@ -63,6 +65,7 @@ const LoginPage = () => {
 
 
   return (
+    <>
     <div className="mx-auto h-screen flex">
       <main className="w-full px-10">
         <Link to="/">
@@ -134,6 +137,20 @@ const LoginPage = () => {
         />
       </div>
     </div>
+    <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition:Bounce
+      />
+    </>
   );
 };
 

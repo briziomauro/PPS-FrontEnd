@@ -31,6 +31,7 @@
     "react-router-dom": "^6.26.1",
     "react-simple-wheel-picker": "^1.2.0",
     "react-step-wizard": "^5.3.11",
+    "react-toastify": "^10.0.6",
     "recharts": "^2.12.7",
     "swiper": "^11.1.12",
     "tailwind-merge": "^2.5.2"
