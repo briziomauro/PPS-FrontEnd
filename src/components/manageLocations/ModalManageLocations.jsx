@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IoIosRefresh } from "react-icons/io";
+import { toast } from "react-toastify";
 
 const ModalManageLocations = ({ idlocation, name, adress, isactive, handleGetLocations }) => {
     const [locUpdatedName, setLocUpdatedName] = useState(name);
@@ -32,9 +33,11 @@ const ModalManageLocations = ({ idlocation, name, adress, isactive, handleGetLoc
             }
 
             await handleGetLocations();
-            document.getElementById(`update_location_${idlocation}`).close(); // Cierra el modal
+            document.getElementById(`update_location_${idlocation}`).close();
+            toast.success("Sede actualizada correctamente.");
         } catch (error) {
             console.error('Hubo un problema con el fetch:', error);
+            toast.error("Error al actualizar la sede.");
         }
     };
 

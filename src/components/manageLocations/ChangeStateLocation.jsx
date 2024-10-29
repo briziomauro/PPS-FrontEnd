@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { toast } from "react-toastify";
 import { TbArrowsExchange2 } from "react-icons/tb";
 
 const ChangeStateLocation = ({idlocation, handleGetLocations, name}) => {
@@ -17,6 +17,7 @@ const ChangeStateLocation = ({idlocation, handleGetLocations, name}) => {
 
             handleGetLocations();
         } catch (error) {
+            toast.error ("Error al modificar estado de la sede.");
             console.error('Hubo un problema con la solicitud de eliminación:', error);
         }
     };
