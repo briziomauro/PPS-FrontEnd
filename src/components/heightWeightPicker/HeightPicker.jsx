@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import WheelPicker from "react-simple-wheel-picker";
 
 const HeightPicker = ({ onHeightChange }) => {
-  // Genera las opciones de altura en formato 1,90 a 2,50
-  const alturas = Array.from({ length: 150 }, (_, i) => ({ id: i, value: (1 + i / 100).toFixed(2).replace('.', ',') }));
+  // Genera las opciones de altura desde 1,50 a 2,50
+  const alturas = Array.from({ length: 101 }, (_, i) => ({ id: i, value: (1.50 + i / 100).toFixed(2).replace('.', ',') }));
 
-  const [selectedAltura, setSelectedAltura] = useState(alturas[0].value);
+  // Valor inicial 1,80
+  const [selectedAltura, setSelectedAltura] = useState("1,80");
 
   const handleAlturaChange = (altura) => {
     setSelectedAltura(altura.value);
@@ -13,14 +14,14 @@ const HeightPicker = ({ onHeightChange }) => {
   };
 
   return (
-    <div>
-      <h3>Altura (m)</h3>
+    <div className="flex flex-col justify-center items-center w-[200px]">
+      
       <WheelPicker 
         data={alturas}
         onChange={handleAlturaChange}
         selectedID={alturas.find((item) => item.value === selectedAltura).id}
         height={200}
-        width={100}
+        width={120}
         itemHeight={40}
       />
       <p className="text-white">Seleccionado: {selectedAltura} m</p>
