@@ -11,23 +11,104 @@ const AssingShiftsPage = () => {
   const { locations, GetLocations } = useLocation();
   const { getAllTrainers } = useTrainer();
   const [trainers, setTrainers] = useState([]);
+  const [dayForLocation, setDayForLocation] = useState("")
+  const [shiftsDayLocation, setShiftsDayLocation] = useState([])
+  const [selectedTrainer, setSelectedTrainer] = useState("")
+  const [selectedShifts, setSelectedShifts] = useState([])
+
   const handleLocationChange = (e) => {
     const selectedLocation = e.target.value;
     setSelectlocation(selectedLocation);
+    setDayForLocation("-");
   };
 
   useEffect(() => {
     GetLocations();
   }, []);
+
   const activeLocation = locations.filter((l) => l.isactive === 1);
+
   useEffect(() => {
     const fetchTrainers = async () => {
-      const allTrainers = await getAllTrainers(); // Asegúrate de que esta función devuelva los datos
-      setTrainers(allTrainers); // Actualiza el estado con los entrenadores
+      const allTrainers = await getAllTrainers();
+      setTrainers(allTrainers);
     };
 
     fetchTrainers();
   }, [getAllTrainers]);
+
+
+  const getShiftsByDayLocation = async () => {
+    try {
+      const response = await fetch(
+        `https://localhost:7179/api/Shift/GetShiftsByLocationAndDate?locationId=${selectlocation}&day=${dayForLocation} `,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al obtener los trainers");
+      }
+
+      const data = await response.json();
+      setShiftsDayLocation(data);
+
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  useEffect(() => {
+    if (selectlocation && dayForLocation) {
+      getShiftsByDayLocation();
+    }
+  }, [selectlocation, dayForLocation]);
+
+  const handleCheckboxChange = (shiftId) => {
+    setSelectedShifts((prevSelectedShifts) =>
+      prevSelectedShifts.includes(shiftId)
+        ? prevSelectedShifts.filter((id) => id !== shiftId)
+        : [...prevSelectedShifts, shiftId]
+    );
+  };
+
+  const handleAssignShiftTrainer = async (e) => {
+    e.preventDefault();
+
+    const shiftTrainerData = {
+      shiftIds: selectedShifts,
+      dnitrainer: selectedTrainer,
+    };
+
+    const assingTrainerToShift = async (shiftTrainerData) => {
+      try {
+        const response = await fetch("https://localhost:7179/api/Shift/AssingTrainerToShift", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(shiftTrainerData),
+          credentials: "include",
+        });
+
+        if (!response.ok) {
+          throw new Error("Error al asignar trainer");
+        }
+        const data = await response.json();
+
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    await assingTrainerToShift(shiftTrainerData);
+  };
+
   return (
     <div className="flex flex-col h-screen bg-gradient-to-tl from-black via-zinc-900 to-black">
       <div className="flex items-center justify-center">
@@ -48,7 +129,7 @@ const AssingShiftsPage = () => {
                   Seleccione sede
                 </option>
                 {activeLocation.map((location) => (
-                  <option key={location.idlocation} value={location.name}>
+                  <option key={location.idlocation} value={location.idlocation}>
                     {location.name}
                   </option>
                 ))}
@@ -58,57 +139,90 @@ const AssingShiftsPage = () => {
               <FaArrowRightLong />
             </div>
             <div className="flex justify-center items-center text-white mt-10">
-              <select className="select w-full max-w-xs rounded-none border border-yellow-400 bg-zinc-800">
+              <select onChange={(e) => setDayForLocation(e.target.value)} value={dayForLocation} className="select w-full max-w-xs rounded-none border border-yellow-400 bg-zinc-800">
                 <option disabled selected>
                   Seleccione dia
                 </option>
                 {selectlocation && (
                   <>
+                    <option value="-" selected>-</option>
                     <option value="Lunes">Lunes</option>
                     <option value="Martes"> Martes</option>
-                    <option value="Miercoles">Miercoles</option>
+                    <option value="Miércoles">Miercoles</option>
                     <option value="Jueves">Jueves</option>
                     <option value="Viernes">Viernes</option>
-                    <option value="Sabado">Sabado</option>
+                    <option value="Sábado">Sabado</option>
                   </>
                 )}
               </select>
             </div>
           </div>
-          <div className="items-center justify-center flex mt-8">
-            <div className="flex items-center justify-between text-white bg-black w-[1010px] h-[40px] border border-yellow-400">
-              <p className="ml-3">Turno 1</p>
-              <p className="m-1">7:00hs - 15:00hs</p>
-              <label className="flex items-center transform scale-150">
-                <input type="checkbox" className="mr-6 " />
-              </label>
-            </div>
+
+          <div className='overflow-y-scroll h-[600px] flex flex-col gap-3 mt-5 p-2 overflow-x-hidden'>
+            {shiftsDayLocation &&
+              shiftsDayLocation.map((shiftDay) => {
+
+                const startTime = new Date();
+                startTime.setHours(parseInt(shiftDay.hour), 0, 0);
+                const endTime = new Date(startTime);
+                endTime.setHours(startTime.getHours() + 1);
+
+                const formatTime = (date) => date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+                const assignedTrainer = trainers.find(trainer => trainer.trainerDto.dniTrainer === shiftDay.dnitrainer);
+
+
+                return (
+                  <div key={shiftDay.idshift} className="items-center justify-center flex mt-8">
+                    <div className="flex items-center justify-between text-white bg-black w-[1010px] h-[40px] border border-yellow-400">
+                      <p className="ml-3">Turno {shiftDay.idshift}</p>
+                      <p className="m-1">{formatTime(startTime)} h - {formatTime(endTime)} h</p>
+                      {assignedTrainer ? (
+                        <p className="pr-3">Trainer Asignado: <span className="text-yellow-400">{assignedTrainer.trainerDto.firstName} {assignedTrainer.trainerDto.lastName}</span></p>
+                      ) : (
+                        <label className="flex items-center transform scale-150">
+                          <input
+                            type="checkbox"
+                            className="mr-6"
+                            onChange={() => handleCheckboxChange(shiftDay.idshift)}
+                            checked={selectedShifts.includes(shiftDay.idshift)}
+                          />
+                        </label>
+                      )}
+                    </div>
+                  </div>
+                )
+              })
+            }
           </div>
 
-          <div className="flex justify-center items-center text-white mt-10 gap-3">
-            <div className="flex justify-center">
-              <button className="flex items-center justify-center gap-3  p-4 text-white border-white border my-4 hover:scale-105 transition-all rounded-full ">
-                Confirmar turno Para{" "}
-                <FaArrowRightLong className="animate-bounce" />
-              </button>
-            </div>
-            <select
-              className="select w-full max-w-xs rounded-none border border-yellow-400 bg-zinc-800"
-              onChange={handleLocationChange}
-              value={selectlocation}
-            >
-              <option value="" disabled selected>
-                Seleccione Profesor
-              </option>
-              {trainers.map((trainer) => (
-                <option
-                  key={trainer.userDto.id}
-                  value={trainer.trainerDto.dniTrainer}
-                >
-                  {trainer.trainerDto.firstName}
+
+          <div className="flex justify-center items-center text-white my-5 gap-3">
+            <form onSubmit={handleAssignShiftTrainer} className="flex items-center w-full justify-center gap-5">
+              <div className="flex justify-center">
+                <button type="submit" className="flex items-center justify-center gap-3  p-4 text-white border-white border my-4 hover:scale-105 transition-all rounded-full ">
+                  Confirmar turno Para{" "}
+                  <FaArrowRightLong className="animate-bounce" />
+                </button>
+              </div>
+              <select
+                className="select w-full max-w-xs rounded-none border border-yellow-400 bg-zinc-800"
+                onChange={handleLocationChange}
+                value={selectlocation}
+              >
+                <option value="" disabled selected>
+                  Seleccione Profesor
                 </option>
-              ))}
-            </select>
+                {trainers.map((trainer) => (
+                  <option
+                    key={trainer.userDto.id}
+                    value={trainer.trainerDto.dniTrainer}
+                    onChange={(e) => setSelectedTrainer(e.target.value)}
+                  >
+                    {trainer.trainerDto.firstName} {trainer.trainerDto.lastName}
+                  </option>
+                ))}
+              </select>
+            </form>
           </div>
         </div>
         <div className="bg-white w-[700px] h-[600px] text-black uppercase font-bebas text-xl mt-10 rounded-xl">
