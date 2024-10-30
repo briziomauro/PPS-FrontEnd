@@ -63,6 +63,7 @@ const AssingShiftsPage = () => {
     }
   };
 
+
   useEffect(() => {
     if (selectlocation && dayForLocation) {
       getShiftsByDayLocation();
@@ -85,9 +86,11 @@ const AssingShiftsPage = () => {
       dnitrainer: selectedTrainer,
     };
 
-    const assingTrainerToShift = async (shiftTrainerData) => {
+    console.log(shiftTrainerData);
+
+    const assignTrainerToShift = async (shiftTrainerData) => {
       try {
-        const response = await fetch("https://localhost:7179/api/Shift/AssingTrainerToShift", {
+        const response = await fetch("https://localhost:7179/api/Shift/AssignTrainerToShift", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -99,15 +102,29 @@ const AssingShiftsPage = () => {
         if (!response.ok) {
           throw new Error("Error al asignar trainer");
         }
-        const data = await response.json();
+
+        const updatedShifts = shiftsDayLocation.map((shift) => {
+          if (selectedShifts.includes(shift.idshift)) {
+            return {
+              ...shift,
+              dnitrainer: selectedTrainer
+            };
+          }
+          return shift;
+        });
+
+        setShiftsDayLocation(updatedShifts);
+        setSelectedShifts([]);
+        setSelectedTrainer("");
 
       } catch (error) {
         console.error("Error:", error);
       }
     };
 
-    await assingTrainerToShift(shiftTrainerData);
+    await assignTrainerToShift(shiftTrainerData);
   };
+
 
   return (
     <div className="flex flex-col h-screen bg-gradient-to-tl from-black via-zinc-900 to-black">
@@ -206,22 +223,19 @@ const AssingShiftsPage = () => {
               </div>
               <select
                 className="select w-full max-w-xs rounded-none border border-yellow-400 bg-zinc-800"
-                onChange={handleLocationChange}
-                value={selectlocation}
+                onChange={(e) => setSelectedTrainer(e.target.value)}
+                value={selectedTrainer}
               >
                 <option value="" disabled selected>
                   Seleccione Profesor
                 </option>
                 {trainers.map((trainer) => (
-                  <option
-                    key={trainer.userDto.id}
-                    value={trainer.trainerDto.dniTrainer}
-                    onChange={(e) => setSelectedTrainer(e.target.value)}
-                  >
+                  <option key={trainer.userDto.id} value={trainer.trainerDto.dniTrainer}>
                     {trainer.trainerDto.firstName} {trainer.trainerDto.lastName}
                   </option>
                 ))}
               </select>
+
             </form>
           </div>
         </div>
