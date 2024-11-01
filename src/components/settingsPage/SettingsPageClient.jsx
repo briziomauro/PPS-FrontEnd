@@ -17,22 +17,39 @@ const SettingsPageClient = () => {
 
   const currentMembership = clientDetails?.clientDto?.typeMembership;
 
+  useEffect(() => {
+    if (clientDetails) {
+      setFirstName(clientDetails.clientDto.firstName);
+      setLastName(clientDetails.clientDto.lastName);
+      setEmail(clientDetails.userDto.email);
+      setGender(clientDetails.clientDto.genre); 
+    }
+  }, [clientDetails]);
+
   const memberships = [
     {
       name: "Standar",
-      description:
-        "Membresía Estandar. Reserva de turnos, en cualquier sede y horario disponible.",
-      availability: "No disponible: Planes y Rutinas personalizadas",
-      price: "$20000",
+      description: "La opción ideal para quienes recién comienzan.",
+      availability: `
+        - Acceso limitado a servicios generales.
+        - Soporte técnico vía email.
+        - 1 usuario registrado.
+        - 5% de descuento en compras seleccionadas.
+      `,
+      price: "$20.000 ARS/MES",
     },
     {
       name: "Premium",
-      description:
-        "Membresía Premium. Reserva de turnos, en cualquier sede y horario disponible.",
-      availability: "Disponible: Planes y Rutinas personalizadas",
-      price: "$32000",
+      description: "Ideal para quienes buscan lo mejor.",
+      availability: `
+      - Acceso completo a todos los servicios.
+      - Soporte técnico 24/7 vía email
+      - 3 usuarios registrados.
+      - 15% de descuento en todas las compras.
+      - Planes nutricionales y Rutinas personalizadas`,
+      price: "$32.000 ARS/MES",
     },
-  ];
+];
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -40,35 +57,33 @@ const SettingsPageClient = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(
-        "https://localhost:7179/api/Clients/UpdateClient",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            clientRequest: {
-              firstname: firstName,
-              lastname: lastName,
-              genre: gender,
-            },
-            userRequest: {
-              email,
-            },
-          }),
-        }
-      );
+      const data = {
+        firstName,
+        lastName,
+        email,
+        genre: gender,
+      };
+
+      const response = await fetch('https://localhost:7179/api/Client/UpdateClient', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
       if (!response.ok) {
-        throw new Error("Error al guardar los cambios");
+        throw new Error('Error al guardar los cambios');
       }
 
-      console.log("Cambios guardados exitosamente");
+      const responseData = await response.json();
+      console.log('Cambios guardados:', responseData);
+
+      queryClient.invalidateQueries('clientDetails'); 
+
       setIsEditing(false);
-      queryClient.invalidateQueries("clientDetails");
     } catch (error) {
-      console.error("Error al guardar los cambios:", error);
+      console.error('Error al guardar los cambios:', error);
     }
   };
 
@@ -93,9 +108,9 @@ const SettingsPageClient = () => {
           body: JSON.stringify({
             Type: selectedMembership,
             BackUrls: {
-              Success: "https://tu-dominio.com/success",
-              Failure: "https://tu-dominio.com/failure",
-              Pending: "https://tu-dominio.com/pending",
+              Success: "https://localhost:7179/success",
+              Failure: "https://localhost:7179/failure",
+              Pending: "https://localhost:7179/pending",
             },
           }),
         }
@@ -141,7 +156,6 @@ const SettingsPageClient = () => {
                 {clientDetails.clientDto.firstName}{" "}
                 {clientDetails.clientDto.lastName}
               </h2>
-              <p className="text-white mt-1">{clientDetails.userDto.type}</p>
             </div>
             {!isEditing ? (
               <button
@@ -153,13 +167,13 @@ const SettingsPageClient = () => {
             ) : (
               <div className="ml-auto flex space-x-2 uppercase">
                 <button
-                  className="bg-yellow-500 text-white px-4 py-2 rounded transition-all duration-300  hover:bg-yellow-600 font-bebas text-xl"
+                  className="bg-yellow-500 text-white px-4 py-2 rounded transition-all duration-300 hover:bg-yellow-600 font-bebas text-xl"
                   onClick={handleSave}
                 >
                   Guardar Cambios
                 </button>
                 <button
-                  className="bg-zinc-600 text-white px-4 py-2 rounded transition-all duration-300  hover:bg-zinc-500 font-bebas text-xl"
+                  className="bg-zinc-600 text-white px-4 py-2 rounded transition-all duration-300 hover:bg-zinc-500 font-bebas text-xl"
                   onClick={handleDiscard}
                 >
                   Descartar
@@ -178,7 +192,7 @@ const SettingsPageClient = () => {
                   </label>
                   <input
                     type="text"
-                    value={firstName}
+                    value={clientDetails.clientDto.firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     placeholder="Ingrese su nombre completo"
                     className="mt-1 block w-full rounded-md p-2 bg-zinc-800 text-white placeholder-zinc-500"
@@ -205,7 +219,7 @@ const SettingsPageClient = () => {
                 </label>
                 <input
                   type="email"
-                  value={clientDetails.userDto.email}
+                  value={clientDetails.clientDto.email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Ingrese su correo electrónico"
                   className="mt-1 block w-full rounded-md p-2 bg-zinc-800 text-white placeholder-zinc-500"
@@ -223,7 +237,7 @@ const SettingsPageClient = () => {
                   className="mt-1 block w-full rounded-md p-2 bg-zinc-800 text-white placeholder-zinc-500"
                   disabled={!isEditing}
                 >
-                  <option value="Género" disabled>
+                  <option value={clientDetails.clientDto.genre} disabled>
                     Género
                   </option>
                   <option value="Masculino">Masculino</option>
@@ -295,36 +309,35 @@ const SettingsPageClient = () => {
             {showMembershipModal && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex  justify-center items-center">
                 <div className="bg-white p-5 rounded-md max-w-5xl w-full">
-                  <h2 className="text-2xl font-bold justify-center flex  mb-4">
+                  <h2 className="text-2xl text-black font-bold justify-center flex  mb-4">
                     Selecciona una Membresía
                   </h2>
-                  <p className="mb-4 text-gray-700">
+                  <p className="mb-4 text-black">
                     Membresía actual: <strong>{currentMembership}</strong>
                   </p>
 
                   <div className="grid grid-cols-2 gap-4">
                     {memberships.map((membership) => (
-                      <div
-                        key={membership.name}
-                        onClick={() => setSelectedMembership(membership.name)}
-                        className={`p-4  border rounded-md cursor-pointer ${
-                          selectedMembership === membership.name
-                            ? "border-yellow-500 bg-yellow-100"
-                            : "border-gray-300"
-                        }`}
-                      >
-                        <h3 className="text-xl font-bold">{membership.name}</h3>
-                        <p className="text-gray-700">
-                          {membership.description}
-                        </p>
-                        <p className="text-sm mt-2">
-                          {membership.availability}
-                        </p>
-                        <p className="text-lg font-semibold mt-2">
-                          {membership.price}
-                        </p>
-                      </div>
+                     <div
+                     key={membership.name}
+                     onClick={() => setSelectedMembership(membership.name)}
+                     className={`p-6 border-2 rounded-xl cursor-pointer shadow-lg transition-transform transform ${
+                       selectedMembership === membership.name
+                         ? "border-yellow-500 bg-yellow-100 scale-95"
+                         : "border-gray-300 bg-white hover:scale-105"
+                     } flex flex-col justify-between h-full`}
+                   >
+                     <div>
+                       <h3 className="text-3xl font-bold text-yellow-500 mb-2">{membership.name}</h3>
+                       <p className="text-black font-bold italic mb-4">{membership.description}</p>
+                       <p className="text-base text-black whitespace-pre-line">
+                         {membership.availability}
+                       </p>
+                     </div>
+                     <p className="text-2xl font-semibold text-black mt-auto">{membership.price}</p>
+                   </div>
                     ))}
+                    <h2 className="mb-4 text-lg font-medium min-w-max text-black">Recorda que tu membresía actual finaliza el "INDICAR FECHA DE FIN"</h2>
                   </div>
 
                   <div className="flex justify-end mt-4">
@@ -348,8 +361,8 @@ const SettingsPageClient = () => {
             {showAlertModal && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                 <div className="bg-white p-5 rounded-md  max-w-[520px] w-full">
-                  <h2 className="text-xl font-bold mb-4">Atención</h2>
-                  <p className="mb-4 text-gray-700">
+                  <h2 className="text-xl font-bold text-black mb-4">Atención</h2>
+                  <p className="mb-4 text-black">
                     Ya tienes esta membresía. No puedes cambiar a la misma.
                   </p>
                   <div className="flex justify-end mt-4">
@@ -361,6 +374,7 @@ const SettingsPageClient = () => {
                     </button>
                   </div>
                 </div>
+                
               </div>
             )}
           </div>
