@@ -137,8 +137,6 @@ const AdminPage = () => {
             </div>
             <ResponsiveContainer width={600} height={450}>
               <BarChart
-                width={200}
-                height={300}
                 data={clientsPerLocation}
                 margin={{
                   top: 20,
@@ -148,18 +146,21 @@ const AdminPage = () => {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="sedeName" />
-                <YAxis />
+                <XAxis dataKey="locationName" />
+                <YAxis tickFormatter={(value) => Math.floor(value)} />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey={clientsPerLocation.clientsCount}>
+                <Bar dataKey="clientsCount">
                   {clientsPerLocation.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={getRandomColor()} />
                   ))}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
+
+
           </div>
+
           <div className='flex gap-5 mt-5'>
             <div>
               <h3 className='text-3xl font-bebas text-black mt-3 mb-5'>MEMBRESIAS MAS POPUALRES</h3>
