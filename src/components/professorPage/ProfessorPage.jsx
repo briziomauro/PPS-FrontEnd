@@ -9,6 +9,7 @@ import { useQueryClient } from '@tanstack/react-query';
 const ProfessorPage = () => {
   const { trainerDetails, isLoading, error } = useTrainer();
   const [qNutritionalPlans, setQNutritionalPlans] = useState([])
+  const [nextShift, setNextShift] = useState([])
   const queryClient = useQueryClient();
   const [date, setDate] = useState(new Date());
 
@@ -54,6 +55,36 @@ const ProfessorPage = () => {
     }
   };
 
+  const getNextShift = async () => {
+    try {
+      const response = await fetch(
+        "https://localhost:7179/api/Shift/GetNextTrainerShift",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al obtener el plan nutricional");
+      }
+
+      const data = await response.json();
+      setNextShift(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getNextShift();
+  }, []);
+
+
+  console.log(nextShift)
   return (
     <div>
       <header className="bg-zinc-700 pl-20 py-4 font-bebas tracking-wider ">
@@ -105,9 +136,9 @@ const ProfessorPage = () => {
           <div className='flex flex-col font-bebas text-xl bg-gradient-to-br from-black via-zinc-800 to-black text-white w-3/4 p-3 mt-10'>
             <p className='border-b'>Proximo Turno:</p>
             <div className='flex mt-1'>
-              <p className='flex-1'>Dia: <strong>10/10/24</strong></p>
+              <p className='flex-1'>Dia: <span className='text-yellow-400 text-2xl'>{nextShift.dateday}</span></p>
               <div className="divider divider-horizontal bg-white w-[1px]"></div>
-              <p className='flex-1'>Hora: <strong>15:00 HS</strong></p>
+              <p className='flex-1'>Hora: <span className='text-yellow-400 text-2xl'>{nextShift.hour}</span></p>
             </div>
           </div>
         </div>
