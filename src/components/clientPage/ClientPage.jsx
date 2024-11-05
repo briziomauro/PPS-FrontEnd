@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CiCalendar, CiLocationOn, CiUser } from "react-icons/ci";
 import { FaCheck } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa6";
 import { MdAccessTime } from "react-icons/md";
+import { LuClock2 } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { useClient } from "../../contexts/ClientContext";
 import { useQueryClient } from "@tanstack/react-query";
 
 const ClientPage = () => {
   const { clientDetails, isLoading, error } = useClient();
+  const [shiftDetails, setShiftDetails] = useState({})
   const queryClient = useQueryClient(); // Obtén el queryClient para usarlo en logout
 
   if (isLoading) {
@@ -18,6 +20,38 @@ const ClientPage = () => {
   if (error) {
     return <div>Error al cargar los detalles del cliente: {error.message}</div>;
   }
+
+
+  //GET SHIFT DETAILS 
+  useEffect(() => {
+    const getMyShiftDetails = async () => {
+      try {
+        const response = await fetch(
+          "https://localhost:7179/api/Shift/GetMyShiftDetails",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error al obtener los detalles del cliente");
+        }
+
+        const data = await response.json();
+        setShiftDetails(data);
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
+
+    getMyShiftDetails();
+  }, []);
+
+  console.log(shiftDetails)
 
 
   return (
@@ -37,34 +71,36 @@ const ClientPage = () => {
             <h2 className="flex items-center w-full gap-1 text-2xl font-bebas uppercase  mb-4  pb-2 border-black">
               <CiCalendar />
               Turno de Hoy
-              <FaCheck className="text-green-400 ml-auto" />
+              {(shiftDetails).length > 0 ? <FaCheck className="text-green-400 ml-auto" /> : <LuClock2 className="text-yellow-500 ml-auto" />}
             </h2>
 
             <div className="text-lg w-full">
               <p className="flex items-center gap-1">
                 <CiLocationOn />
-                Sede Pichincha
+                <span className="text-yellow-400 font-bold">{shiftDetails.namelocation || " - "}</span>
               </p>
 
               <p className="flex items-center gap-1">
-                <CiUser /> <span className="font-semibold">Entrenador:</span>{" "}
-                Carlos Pérez
+                <CiUser /> <span className="font-semibold">Entrenador/a:</span>{" "}
+                {shiftDetails.firstname && shiftDetails.lastname ? `${shiftDetails.firstname} ${shiftDetails.lastname}` : " - "}
               </p>
 
               <p className="flex items-center gap-1">
                 <MdAccessTime />
-                17:00
+                {shiftDetails.hour ? `${shiftDetails.hour} hs` : " - "}
               </p>
             </div>
           </article>
-          <article className="bg-yellow-400 h-24 p-4 rounded-lg flex flex-col items-center hover:scale-105 transition-all duration-200">
+
+          <article className={`bg-yellow-400 h-24 p-4 rounded-lg flex flex-col items-center transition-all duration-200 ${Object.keys(shiftDetails).length > 0 ? "opacity-50 cursor-not-allowed" : ""}`}>
             <Link
-              to="get-turn"
-              className="text-3xl font-bebas cursor-pointer uppercase w-full h-28 flex items-center justify-center text-white"
+              to={Object.keys(shiftDetails).length > 0 ? "#" : "get-turn"}
+              className={`text-3xl font-bebas cursor-pointer uppercase w-full h-28 flex items-center justify-center text-white ${Object.keys(shiftDetails).length > 0 ? "pointer-events-none" : ""}`}
             >
-              Reservar turno
+              {Object.keys(shiftDetails).length > 0 ? "Ya tienes un turno para hoy" : "Reservar turno"}
             </Link>
           </article>
+
         </div>
 
         <div className="w-full flex flex-col gap-5">
