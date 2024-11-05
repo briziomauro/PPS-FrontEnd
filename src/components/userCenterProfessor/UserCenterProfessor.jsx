@@ -37,6 +37,10 @@ const UserCenterProfessor = () => {
         getAllTrainers();
     }, []);
 
+    const handleStateChange = async () => {
+        await getAllTrainers(); 
+    };
+
     const filteredTrainers = allTrainers.filter((trainer) => {
         const fullName = `${trainer.trainerDto.firstName} ${trainer.trainerDto.lastName}`.toLowerCase();
         return (
@@ -63,7 +67,7 @@ const UserCenterProfessor = () => {
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
-                    <CreateTrainer handleGetTrainers={getAllTrainers} />
+                    <CreateTrainer handleGetTrainers={getAllTrainers}  />
                 </div>
             </div>
             <div className='overflow-y-scroll h-[600px] flex flex-col gap-5 p-3'>
@@ -80,7 +84,7 @@ const UserCenterProfessor = () => {
                                 <p className="text-gray-400 mt-1">DNI: {trainer.trainerDto.dniTrainer}</p>
                                 <div className="flex w-full items-center justify-between mt-2">
                                     <p className='font-bold'>ESTADO: <span className={trainer.trainerDto.isactive ? 'text-green-500':'text-red-500'} >{trainer.trainerDto.isactive ? 'Activo' : 'Inactivo'}</span> </p>
-                                    <DeleteTrainer idUser={trainer.userDto.id} trainerDni={trainer.trainerDto.dniTrainer} trainerName={trainer.trainerDto.firstName} trainerLast={trainer.trainerDto.lastName}/>
+                                    <DeleteTrainer onStateChange={handleStateChange} idUser={trainer.userDto.id} trainerDni={trainer.trainerDto.dniTrainer} trainerName={trainer.trainerDto.firstName} trainerLast={trainer.trainerDto.lastName}/>
                                 </div>
                             </div>
                         </div>

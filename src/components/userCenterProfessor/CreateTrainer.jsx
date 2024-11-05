@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { FaPlus } from 'react-icons/fa6'
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreateTrainer = ({ handleGetTrainers }) => {
     const [trainerName, setTrainerName] = useState("")
@@ -49,6 +51,7 @@ const CreateTrainer = ({ handleGetTrainers }) => {
             const data = await response.json();
             handleGetTrainers();
             modalRef.current.close(); 
+            toast.success(`Entrenador ${dataTrainerToSend.trainerRequest.firstname} ${dataTrainerToSend.trainerRequest.lastname} agregado correctamente`)
         } catch (error) {
             console.error('Hubo un problema con el fetch:', error);
         }
@@ -114,6 +117,19 @@ const CreateTrainer = ({ handleGetTrainers }) => {
                     </form>
                 </div >
             </dialog >
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                transition={Bounce}
+            />
         </>
     )
 }

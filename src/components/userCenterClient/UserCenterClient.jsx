@@ -1,42 +1,44 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import DeleteClient from './DeleteClient';
 import { IoIosSearch } from 'react-icons/io';
 
 const UserCenterClient = () => {
+    const [allClients, setAllClients] = useState([]);
+    const [error, setError] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
 
-    const [allClients, setAllClients] = useState([])
-    const [error, setError] = useState("")
-    const [searchTerm, setSearchTerm] = useState("")
+    const getAllClients = async () => {
+        try {
+            const response = await fetch(
+                "https://localhost:7179/api/Client/GetAllClients",
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                }
+            );
 
+            if (!response.ok) {
+                throw new Error("Error al obtener los clientes");
+            }
+
+            const data = await response.json();
+            setAllClients(data);
+
+        } catch (error) {
+            setError(error.message);
+        }
+    };
 
     useEffect(() => {
-        const getAllClients = async () => {
-            try {
-                const response = await fetch(
-                    "https://localhost:7179/api/Client/GetAllClients",
-                    {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        credentials: "include",
-                    }
-                );
-
-                if (!response.ok) {
-                    throw new Error("Error al obtener los clientes");
-                }
-
-                const data = await response.json();
-                setAllClients(data);
-
-            } catch (error) {
-                setError(error.message);
-            }
-        };
-
         getAllClients();
     }, []);
+
+    const handleStateChange = async () => {
+        await getAllClients();
+    };
 
     const filteredClients = allClients.filter((client) => {
         const fullName = `${client.clientDto.firstName} ${client.clientDto.lastName}`.toLowerCase();
@@ -45,8 +47,7 @@ const UserCenterClient = () => {
             client.userDto.id.toString().includes(searchTerm) ||
             client.clientDto.dniClient.toString().includes(searchTerm)
         );
-    })
-
+    });
 
     return (
         <div className="ml-10">
@@ -66,10 +67,8 @@ const UserCenterClient = () => {
                         />
                     </div>
                 </div>
-
             </div>
             <div className='overflow-y-scroll h-[600px] flex flex-col gap-5 p-3'>
-
                 {filteredClients
                     .sort((a, b) => b.userDto.id - a.userDto.id)
                     .map((client) => (
@@ -82,8 +81,14 @@ const UserCenterClient = () => {
                                 </div>
                                 <p className="text-gray-400 mt-1">DNI: {client.clientDto.dniClient}</p>
                                 <div className="flex w-full items-center justify-between mt-2">
-                                    <p className='font-bold'>ESTADO: <span className={client.clientDto.isactive ? 'text-green-500' : 'text-red-500'} >{client.clientDto.isactive ? 'Activo' : 'Inactivo'}</span> </p>
-                                    <DeleteClient idUser={client.userDto.id} clientDni={client.clientDto.dniClient} clientName={client.clientDto.firstName} clientLast={client.clientDto.lastName} />
+                                    <p className='font-bold'>ESTADO: <span className={client.clientDto.isactive ? 'text-green-500' : 'text-red-500'}>{client.clientDto.isactive ? 'Activo' : 'Inactivo'}</span></p>
+                                    <DeleteClient
+                                        idUser={client.userDto.id}
+                                        clientDni={client.clientDto.dniClient}
+                                        clientName={client.clientDto.firstName}
+                                        clientLast={client.clientDto.lastName}
+                                        onStateChange={handleStateChange}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -95,7 +100,7 @@ const UserCenterClient = () => {
                 )}
             </div>
         </div>
-    )
+    );
 }
 
-export default UserCenterClient
+export default UserCenterClient;
