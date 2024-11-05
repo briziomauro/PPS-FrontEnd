@@ -31,7 +31,7 @@ const AssingNutricionalPlan = () => {
       }
 
       const data = await response.json();
-      const filteredData = data.filter((n) => n.status == "Pending");
+      const filteredData = data.filter((n) => n.status == "In Progress");
       setNutritionalPlans(filteredData);
     } catch (error) {
       console.log(error);
