@@ -1,66 +1,265 @@
-import { div } from "framer-motion/client";
+import { div, span } from "framer-motion/client";
 import { CiForkAndKnife } from "react-icons/ci";
+import WeightPicker from "../heightWeightPicker/WeightPicker";
+import HeightPicker from "../heightWeightPicker/HeightPicker";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NutritionalPlan = () => {
+  const [nutritionalPlan, setNutritionalPlan] = useState();
+  const [isPending, setIsPending] = useState(false);
+  const [objective, setObjective] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getNutritionalPlan();
+  }, []);
+
+  const getNutritionalPlan = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        "https://localhost:7179/api/NutritionalPlan/GetMyPlans",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al obtener el plan nutricional");
+      }
+
+      const data = await response.json();
+      const pending = data.some((n) => n.status === "Pending");
+      const filteredDate = data.find((n) => n.status === "Enabled");
+      setNutritionalPlan(filteredDate);
+      setIsPending(pending);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const AddNutritionalPlan = async (NutritionalPlanRequest) => {
+    const response = await fetch("https://localhost:7179/api/NutritionalPlan", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(NutritionalPlanRequest),
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al obtener los detalles del cliente");
+    }
+
+    return response.json();
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError(false);
+    if (objective.length < 5 || objective.length > 50) return setError(true);
+    document.getElementById("my_modal_10").close();
+    const NutritionalPlanRequest = {
+      weight: weight,
+      height: height,
+      description: objective,
+    };
+
+    try {
+      setLoading(true);
+      const response = await AddNutritionalPlan(NutritionalPlanRequest);
+      console.log("Rutina enviada correctamente:", response);
+      toast.success("Plan solicitado correctamente.");
+      setIsPending(true);
+      setObjective("");
+    } catch (error) {
+      console.error("Error capturado en handleSubmit:", error);
+      toast.error("Error al solicitar el plan");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="flex h-screen justify-center items-center bg-gradient-to-br from-black via-zinc-800 to-black p-6">
-      <div className="max-w-4xl w-full">
-        <h3 className="text-6xl font-bebas text-white mb-6">
-          Plan Nutricional Básico
-        </h3>
+    <>
+      <div className=" flex h-screen justify-center items-center bg-gradient-to-br from-black via-zinc-800 to-black p-6">
+        {!loading && (
+          <div className="max-w-4xl w-full">
+            <h3 className="text-6xl font-bebas text-white mb-6 flex justify-between">
+              Plan Nutricional
+            </h3>
+            {nutritionalPlan?.status === "Enabled" ? (
+              <>
+                <p className="text-lg mb-4  text-white">
+                  <span className="font-medium text-yellow-400">Objetivo:</span>{" "}
+                  {nutritionalPlan.description}
+                </p>
 
-        <div className="flex justify-center items-center w-full mb-10">
-          <button className="uppercase font-bebas bg-white text-black p-5 w-full text-2xl rounded-md">
-            Solicitar Plan Nutricional
-          </button>
-        </div>
+                <div className="flex flex-wrap justify-between  gap-6 text-black">
+                  <div className="flex-1 min-w-[200px] bg-white p-4 rounded-lg shadow-md">
+                    <h4 className="flex items-center gap-1 text-xl font-semibold mb-2">
+                      <CiForkAndKnife />
+                      Desayuno
+                    </h4>
+                    <p>{nutritionalPlan.breakfast}</p>
+                  </div>
+                  <div className="flex-1 min-w-[200px] bg-white p-4 rounded-lg shadow-md">
+                    <h4 className="flex items-center gap-1 text-xl font-semibold mb-2">
+                      <CiForkAndKnife /> Almuerzo
+                    </h4>
+                    <p>{nutritionalPlan.lunch}</p>
+                  </div>
+                  <div className="flex-1 min-w-[200px] bg-white p-4 rounded-lg shadow-md">
+                    <h4 className="flex items-center gap-1 text-xl font-semibold mb-2">
+                      <CiForkAndKnife /> Merienda
+                    </h4>
+                    <p>{nutritionalPlan.brunch}</p>
+                  </div>
+                  <div className="flex-1 min-w-[200px] bg-white p-4 rounded-lg shadow-md">
+                    <h4 className="flex items-center gap-1 text-xl font-semibold mb-2">
+                      <CiForkAndKnife /> Cena
+                    </h4>
+                    <p>{nutritionalPlan.dinner}</p>
+                  </div>
+                  <div className="flex-1 min-w-[200px] bg-white p-4 rounded-lg shadow-md">
+                    <h4 className="flex items-center gap-1 text-xl font-semibold mb-2">
+                      <CiForkAndKnife /> Snack post-entrenamiento
+                    </h4>
+                    <p>{nutritionalPlan.snack}</p>
+                  </div>
+                </div>
+                <div className="flex items-center mt-16">
+                  {isPending && (
+                    <span className="text-amber-400">
+                      El entrenador esta evaluando el cambio de plan
+                    </span>
+                  )}
+                  <button
+                    onClick={() =>
+                      document.getElementById("my_modal_10").showModal()
+                    }
+                    className="text-md rounded border text-white p-4 ml-auto hover:bg-white/5 "
+                  >
+                    Solicitar cambio de plan
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="flex flex-col justify-center items-center w-full mb-10">
+                <button
+                  className="uppercase font-bebas bg-white text-black p-5 w-full text-2xl rounded-md"
+                  onClick={() =>
+                    document.getElementById("my_modal_10").showModal()
+                  }
+                >
+                  Solicitar Plan Nutricional
+                </button>
+                {isPending && (
+                  <span className="text-amber-400 mt-5 w-full ml-auto font-bebas text-2xl">
+                    El entrenador esta evaluando el plan
+                  </span>
+                )}
+              </div>
+            )}
 
+            <dialog id="my_modal_10" className="modal ">
+              <div className="modal-box bg-gradient-to-br from-black via-zinc-900 to-black  p-10 justify-center">
+                <form method="dialog">
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white">
+                    ✕
+                  </button>
+                </form>
+                <form onSubmit={handleSubmit} className="flex flex-col">
+                  <div className="flex flex-col w-full">
+                    <label className="text-white text-md p-2 font-bebas">
+                      OBJETIVO:
+                    </label>
+                    <input
+                      type="text"
+                      maxLength="50"
+                      minLength="5"
+                      className={`w-full bg-white text-black p-2 rounded-lg border-2 ${
+                        error ? "border-red-600" : "border-gray-300"
+                      } transition-colors duration-200`}
+                      value={objective}
+                      onChange={(e) => setObjective(e.target.value)}
+                    />
+                  </div>
+                  <div className="flex w-full mt-5 gap-4 justify-center ">
+                    <div className="flex flex-col items-center justify-center">
+                      <label className="text-white text-md p-2 font-bebas">
+                        PESO:
+                      </label>
+                      <div className="">
+                        <WeightPicker
+                          initialWeight="20"
+                          onWeightChange={setWeight}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-center justify-center">
+                      <label className="text-white text-md p-2 font-bebas">
+                        ALTURA:
+                      </label>
+                      <div className="">
+                        <HeightPicker onHeightChange={setHeight} />
+                      </div>
+                    </div>
+                  </div>
 
-        <p className="text-lg mb-2  text-white">
-          <span className="font-medium text-yellow-400">Objetivo:</span> Ganancia de masa
-          muscular
-        </p>
-        <p className="text-lg mb-4 text-white ">
-          <span className="font-medium text-yellow-400">Calorías diarias:</span> 2,500 kcal
-        </p>
-        <div className="flex flex-wrap justify-between gap-6 text-black">
-          <div className="flex-1 min-w-[200px] bg-white p-4 rounded-lg shadow-md">
-            <h4 className="flex items-center gap-1 text-xl font-semibold mb-2">
-              <CiForkAndKnife />
-              Desayuno
-            </h4>
-            <p>Avena con leche descremada, 1 banana, 1 huevo duro.</p>
+                  <button
+                    type="submit"
+                    className="flex bg-yellow-500 w-full text-white font-bebas text-xl justify-center p-2 mt-7 rounded-xl hover:bg-yellow-400 transition-all duration-200"
+                  >
+                    <p>ENVIAR</p>
+                  </button>
+                </form>
+              </div>
+            </dialog>
           </div>
-          <div className="flex-1 min-w-[200px] bg-white p-4 rounded-lg shadow-md">
-            <h4 className="flex items-center gap-1 text-xl font-semibold mb-2">
-              <CiForkAndKnife /> Almuerzo
-            </h4>
-            <p>
-              Pechuga de pollo a la plancha, arroz integral, ensalada de
-              espinaca.
-            </p>
-          </div>
-          <div className="flex-1 min-w-[200px] bg-white p-4 rounded-lg shadow-md">
-            <h4 className="flex items-center gap-1 text-xl font-semibold mb-2">
-              <CiForkAndKnife /> Merienda
-            </h4>
-            <p>Batido de proteínas, 1 manzana.</p>
-          </div>
-          <div className="flex-1 min-w-[200px] bg-white p-4 rounded-lg shadow-md">
-            <h4 className="flex items-center gap-1 text-xl font-semibold mb-2">
-              <CiForkAndKnife /> Cena
-            </h4>
-            <p>Salmón al horno, batata asada, brócoli al vapor.</p>
-          </div>
-          <div className="flex-1 min-w-[200px] bg-white p-4 rounded-lg shadow-md">
-            <h4 className="flex items-center gap-1 text-xl font-semibold mb-2">
-              <CiForkAndKnife /> Snack post-entrenamiento
-            </h4>
-            <p>Yogur griego con almendras.</p>
-          </div>
-        </div>
+        )}
+
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition:Bounce
+        />
       </div>
-    </div>
+
+      {loading && (
+        <div className="fixed inset-0 z-[500000] flex items-center justify-center bg-black/45">
+          <div
+            className="h-16 w-16 animate-spin rounded-full border-4 border-yellow-500 border-solid border-r-transparent"
+            role="status"
+          >
+            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+              Loading...
+            </span>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
