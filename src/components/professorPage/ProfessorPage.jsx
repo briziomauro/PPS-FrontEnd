@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ProfessorPage.css'
 import { Link } from 'react-router-dom';
 import CalendarProf from '../calendarProf/CalendarProf';
@@ -7,7 +7,8 @@ import { useTrainer } from '../../contexts/TrainerContext';
 import { useQueryClient } from '@tanstack/react-query';
 
 const ProfessorPage = () => {
-  const {trainerDetails, isLoading, error} = useTrainer();
+  const { trainerDetails, isLoading, error } = useTrainer();
+  const [qNutritionalPlans, setQNutritionalPlans] = useState([])
   const queryClient = useQueryClient();
   const [date, setDate] = useState(new Date());
 
@@ -18,11 +19,39 @@ const ProfessorPage = () => {
   if (error) {
     return <div>Error al cargar los detalles del entrenador: {error.message}</div>;
   }
-  
-  
 
   const onChangeDate = (newDate) => {
     setDate(newDate);
+  };
+
+  useEffect(() => {
+    getNutritionalPlan();
+  }, []);
+
+  const getNutritionalPlan = async () => {
+    try {
+      const response = await fetch(
+        "https://localhost:7179/api/NutritionalPlan/GetMyPlans",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-cache",
+          },
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al obtener el plan nutricional");
+      }
+
+      const data = await response.json();
+      const filteredData = data.filter((n) => n.status == "In Progress");
+      setQNutritionalPlans(filteredData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -65,7 +94,7 @@ const ProfessorPage = () => {
                       className="bg-zinc-800 flex justify-center items-center gap-3 text-white p-10 text-xl rounded-b-3xl text-center hover:bg-zinc-900 transition-all duration-200"
                       to="/profesor/assing-nutritional-plan"
                     >
-                      2 Planes pendientes de Asignación<FaArrowRight className="animate-bounce" />
+                      {qNutritionalPlans.length} Planes pendientes de Asignación<FaArrowRight className="animate-bounce" />
                     </Link>
                   </li>
                 </ul>
