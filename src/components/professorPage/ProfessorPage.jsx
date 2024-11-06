@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import './ProfessorPage.css'
+import React, { useEffect, useState } from 'react';
+import './ProfessorPage.css';
 import { Link } from 'react-router-dom';
 import CalendarProf from '../calendarProf/CalendarProf';
 import { FaArrowRight } from 'react-icons/fa';
@@ -8,25 +8,21 @@ import { useQueryClient } from '@tanstack/react-query';
 
 const ProfessorPage = () => {
   const { trainerDetails, isLoading, error } = useTrainer();
-  const [qNutritionalPlans, setQNutritionalPlans] = useState([])
+  const [qNutritionalPlans, setQNutritionalPlans] = useState([]);
+  const [nextShift, setNextShift] = useState(null);
   const queryClient = useQueryClient();
   const [date, setDate] = useState(new Date());
-
-  if (isLoading) {
-    return <div>Cargando...</div>;
-  }
-
-  if (error) {
-    return <div>Error al cargar los detalles del entrenador: {error.message}</div>;
-  }
 
   const onChangeDate = (newDate) => {
     setDate(newDate);
   };
 
   useEffect(() => {
-    getNutritionalPlan();
-  }, []);
+    if (!isLoading && !error) {
+      getNutritionalPlan();
+      getNextShift();
+    }
+  }, [isLoading, error]);
 
   const getNutritionalPlan = async () => {
     try {
@@ -47,12 +43,45 @@ const ProfessorPage = () => {
       }
 
       const data = await response.json();
-      const filteredData = data.filter((n) => n.status == "In Progress");
+      const filteredData = data.filter((n) => n.status === "In Progress");
       setQNutritionalPlans(filteredData);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const getNextShift = async () => {
+    try {
+      const response = await fetch(
+        "https://localhost:7179/api/Shift/GetNextTrainerShift",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al obtener el próximo turno");
+      }
+
+      const data = await response.json();
+      setNextShift(data);
+    } catch (error) {
+      console.log(error);
+      setNextShift({});
+    }
+  };
+
+  if (isLoading) {
+    return <div>Cargando...</div>;
+  }
+
+  if (error) {
+    return <div>Error al cargar los detalles del entrenador: {error.message}</div>;
+  }
 
   return (
     <div>
@@ -62,7 +91,6 @@ const ProfessorPage = () => {
         </h1>
       </header>
       <div className='flex text-black justify-evenly items-center'>
-
         <div className='flex flex-col flex-1 justify-center items-center text-white h-full'>
           <h2 className='font-bebas text-5xl text-black mb-10'>ASIGNACIONES PENDIENTES:</h2>
           <div className='flex flex-col gap-5 font-bebas w-full justify-center'>
@@ -105,13 +133,12 @@ const ProfessorPage = () => {
           <div className='flex flex-col font-bebas text-xl bg-gradient-to-br from-black via-zinc-800 to-black text-white w-3/4 p-3 mt-10'>
             <p className='border-b'>Proximo Turno:</p>
             <div className='flex mt-1'>
-              <p className='flex-1'>Dia: <strong>10/10/24</strong></p>
+              <p className='flex-1'>Dia: <span className='text-yellow-400 text-2xl'>{nextShift?.dateday || 'Cargando...'}</span></p>
               <div className="divider divider-horizontal bg-white w-[1px]"></div>
-              <p className='flex-1'>Hora: <strong>15:00 HS</strong></p>
+              <p className='flex-1'>Hora: <span className='text-yellow-400 text-2xl'>{nextShift?.hour || 'Cargando...'}</span></p>
             </div>
           </div>
         </div>
-
 
         <div className='flex flex-col flex-1 justify-center items-center my-10'>
           <div className='bg-white w-[600px] h-full text-black uppercase font-bebas text-xl mb-4 shadow-lg'>
@@ -120,7 +147,7 @@ const ProfessorPage = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProfessorPage
+export default ProfessorPage;

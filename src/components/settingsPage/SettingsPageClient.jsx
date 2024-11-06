@@ -18,11 +18,13 @@ const SettingsPageClient = () => {
   const currentMembership = clientDetails?.clientDto?.typeMembership;
 
   useEffect(() => {
-    if (clientDetails) {
+    if (clientDetails && clientDetails.clientDto && clientDetails.userDto) {
       setFirstName(clientDetails.clientDto.firstName);
       setLastName(clientDetails.clientDto.lastName);
       setEmail(clientDetails.userDto.email);
-      setGender(clientDetails.clientDto.genre); 
+      setGender(clientDetails.clientDto.genre);
+    } else {
+      console.log("Esperando detalles del cliente...");
     }
   }, [clientDetails]);
 
@@ -49,7 +51,7 @@ const SettingsPageClient = () => {
       - Planes nutricionales y Rutinas personalizadas`,
       price: "$32.000 ARS/MES",
     },
-];
+  ];
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -57,33 +59,51 @@ const SettingsPageClient = () => {
 
   const handleSave = async () => {
     try {
-      const data = {
-        firstName,
-        lastName,
-        email,
-        genre: gender,
+
+      clientid = clientDetails.usertDto.id
+      const updatedData = {
+        ClientId: clientid,
+        Email: email,
+        Firstname: firstName,
+        Lastname: lastName,
+        Genre: gender,
       };
-
-      const response = await fetch('https://localhost:7179/api/Client/UpdateClient', {
-        method: 'POST',
+  
+      console.log("Datos enviados:", updatedData);
+  
+      const response = await fetch("https://localhost:7179/api/Client/UpdateClient", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(updatedData),
       });
-
+  
+      const textResponse = await response.text();
+  
       if (!response.ok) {
-        throw new Error('Error al guardar los cambios');
+        console.error("Error de API:", textResponse);
+        alert(`Error al guardar los cambios: ${textResponse}`);
+        throw new Error(textResponse);
       }
-
-      const responseData = await response.json();
-      console.log('Cambios guardados:', responseData);
-
-      queryClient.invalidateQueries('clientDetails'); 
-
+  
+      console.log("Respuesta de la API:", textResponse);
+  
+      const updatedClientDetails = { ...clientDetails };
+      updatedClientDetails.clientDto.firstName = firstName;
+      updatedClientDetails.clientDto.lastName = lastName;
+      updatedClientDetails.userDto.email = email;
+      updatedClientDetails.clientDto.genre = gender;
+  
+      // Actualiza en React Query
+      queryClient.setQueryData("clientDetails", updatedClientDetails);
+  
+      alert("Cambios guardados exitosamente");
       setIsEditing(false);
     } catch (error) {
-      console.error('Error al guardar los cambios:', error);
+      console.error("Error al guardar los cambios:", error);
+      alert("Error al guardar los cambios: " + error.message);
     }
   };
 
@@ -92,7 +112,7 @@ const SettingsPageClient = () => {
   };
 
   const handleMembershipChange = async () => {
-    if (selectedMembership === currentMembership) {
+    if (selectedMembership.toLowerCase() === currentMembership.toLowerCase()) {
       setShowAlertModal(true);
       return;
     }
@@ -136,8 +156,8 @@ const SettingsPageClient = () => {
         <h1 className="text-white text-4xl">
           Bienvenido{" "}
           <strong className="text-yellow-400">
-            {clientDetails.clientDto.firstName}{" "}
-            {clientDetails.clientDto.lastName}
+            {clientDetails?.clientDto?.firstName}{" "}
+            {clientDetails?.clientDto?.lastName}
           </strong>{" "}
           - MI PERFIL
         </h1>
@@ -153,8 +173,8 @@ const SettingsPageClient = () => {
             />
             <div>
               <h2 className="text-xl font-semibold text-white">
-                {clientDetails.clientDto.firstName}{" "}
-                {clientDetails.clientDto.lastName}
+                {clientDetails?.clientDto?.firstName}{" "}
+                {clientDetails?.clientDto?.lastName}
               </h2>
             </div>
             {!isEditing ? (
@@ -192,7 +212,7 @@ const SettingsPageClient = () => {
                   </label>
                   <input
                     type="text"
-                    value={clientDetails.clientDto.firstName}
+                    value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     placeholder="Ingrese su nombre completo"
                     className="mt-1 block w-full rounded-md p-2 bg-zinc-800 text-white placeholder-zinc-500"
@@ -205,7 +225,7 @@ const SettingsPageClient = () => {
                   </label>
                   <input
                     type="text"
-                    value={clientDetails.clientDto.lastName}
+                    value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     placeholder="Ingrese su apellido"
                     className="mt-1 block w-full rounded-md p-2 bg-zinc-800 text-white placeholder-zinc-500"
@@ -219,7 +239,7 @@ const SettingsPageClient = () => {
                 </label>
                 <input
                   type="email"
-                  value={clientDetails.clientDto.email}
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Ingrese su correo electrónico"
                   className="mt-1 block w-full rounded-md p-2 bg-zinc-800 text-white placeholder-zinc-500"
@@ -237,7 +257,7 @@ const SettingsPageClient = () => {
                   className="mt-1 block w-full rounded-md p-2 bg-zinc-800 text-white placeholder-zinc-500"
                   disabled={!isEditing}
                 >
-                  <option value={clientDetails.clientDto.genre} disabled>
+                  <option value={clientDetails?.clientDto?.genre} disabled>
                     Género
                   </option>
                   <option value="Masculino">Masculino</option>
@@ -318,26 +338,35 @@ const SettingsPageClient = () => {
 
                   <div className="grid grid-cols-2 gap-4">
                     {memberships.map((membership) => (
-                     <div
-                     key={membership.name}
-                     onClick={() => setSelectedMembership(membership.name)}
-                     className={`p-6 border-2 rounded-xl cursor-pointer shadow-lg transition-transform transform ${
-                       selectedMembership === membership.name
-                         ? "border-yellow-500 bg-yellow-100 scale-95"
-                         : "border-gray-300 bg-white hover:scale-105"
-                     } flex flex-col justify-between h-full`}
-                   >
-                     <div>
-                       <h3 className="text-3xl font-bold text-yellow-500 mb-2">{membership.name}</h3>
-                       <p className="text-black font-bold italic mb-4">{membership.description}</p>
-                       <p className="text-base text-black whitespace-pre-line">
-                         {membership.availability}
-                       </p>
-                     </div>
-                     <p className="text-2xl font-semibold text-black mt-auto">{membership.price}</p>
-                   </div>
+                      <div
+                        key={membership.name}
+                        onClick={() => setSelectedMembership(membership.name)}
+                        className={`p-6 border-2 rounded-xl cursor-pointer shadow-lg transition-transform transform ${
+                          selectedMembership === membership.name
+                            ? "border-yellow-500 bg-yellow-100 scale-95"
+                            : "border-gray-300 bg-white hover:scale-105"
+                        } flex flex-col justify-between h-full`}
+                      >
+                        <div>
+                          <h3 className="text-3xl font-bold text-yellow-500 mb-2">
+                            {membership.name}
+                          </h3>
+                          <p className="text-black font-bold italic mb-4">
+                            {membership.description}
+                          </p>
+                          <p className="text-base text-black whitespace-pre-line">
+                            {membership.availability}
+                          </p>
+                        </div>
+                        <p className="text-2xl font-semibold text-black mt-auto">
+                          {membership.price}
+                        </p>
+                      </div>
                     ))}
-                    <h2 className="mb-4 text-lg font-medium min-w-max text-black">Recorda que tu membresía actual finaliza el "INDICAR FECHA DE FIN"</h2>
+                    <h2 className="mb-4 text-lg font-medium min-w-max text-black">
+                      Recorda que tu membresía actual finaliza el "INDICAR FECHA
+                      DE FIN"
+                    </h2>
                   </div>
 
                   <div className="flex justify-end mt-4">
@@ -361,7 +390,9 @@ const SettingsPageClient = () => {
             {showAlertModal && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                 <div className="bg-white p-5 rounded-md  max-w-[520px] w-full">
-                  <h2 className="text-xl font-bold text-black mb-4">Atención</h2>
+                  <h2 className="text-xl font-bold text-black mb-4">
+                    Atención
+                  </h2>
                   <p className="mb-4 text-black">
                     Ya tienes esta membresía. No puedes cambiar a la misma.
                   </p>
@@ -374,7 +405,6 @@ const SettingsPageClient = () => {
                     </button>
                   </div>
                 </div>
-                
               </div>
             )}
           </div>
