@@ -1,8 +1,9 @@
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Footer from "../footer/Footer";
 import { IoLocationSharp } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { useLocation } from '../../contexts/LocationContext';
+import { GoClock } from "react-icons/go";
 
 const LocationsPage = () => {
   const { locations, GetLocations } = useLocation();
@@ -51,13 +52,21 @@ const LocationsPage = () => {
                 <h2 className="text-2xl font-bebas mb-2">
                   {location.name}
                 </h2>
-                <hr className="border-white border-t-2 mb-4" />
-                <div className="flex items-center text-lg mb-2">
-                  <IoLocationSharp className="h-6 w-6" />
-                  <p className="text-lg px-2 text-white">{location.adress}</p>
-                  <div>
-                    <p>Lunes a viernes: 7hs a 21hs</p>
-                    <p>Sabados: 7hs a 13hs</p>
+                <hr className="border-yellow-400 border-t-2 mb-4" />
+                <div className="flex flex-col gap-5 items-center text-lg mb-2">
+                  <div className="flex gap-2 items-center">
+                    <IoLocationSharp className="h-6 w-6" />
+                    <p className="text-lg px-2 text-white">{location.adress}</p>
+                  </div>
+                  <div className="flex flex-col items-start text-left">
+                    <div className="flex items-center gap-2">
+                      <GoClock className="h-5 w-5" />
+                      <p className="text-lg font-semibold">Horarios:</p>
+                    </div>
+                    <ul className="list-disc pl-6">
+                      <li><strong>Lunes a viernes:</strong> 7hs a 21hs</li>
+                      <li><strong>Sábados:</strong> 7hs a 13hs</li>
+                    </ul>
                   </div>
                 </div>
               </div>
