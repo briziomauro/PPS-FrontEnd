@@ -1,4 +1,3 @@
-import { div, span } from "framer-motion/client";
 import { CiForkAndKnife } from "react-icons/ci";
 import WeightPicker from "../heightWeightPicker/WeightPicker";
 import HeightPicker from "../heightWeightPicker/HeightPicker";
@@ -6,6 +5,9 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
+import { AiOutlineFilePdf } from "react-icons/ai";
 
 const NutritionalPlan = () => {
   const [nutritionalPlan, setNutritionalPlan] = useState();
@@ -92,12 +94,63 @@ const NutritionalPlan = () => {
       setLoading(false);
     }
   };
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF("p", "mm", "a4"); // Formato A4 en mm (p para orientación vertical)
 
+    const imageUrl = "/img/logoTC.png";
+
+    // Agregar el logo
+    doc.addImage(imageUrl, "PNG", 80, 10, 60, 30);
+
+    // Agregar un título al PDF
+    doc.setFontSize(18);
+    doc.text("PLAN NUTRICIONAL:", 10, 60);
+
+    // Detalles del cliente
+    doc.setFontSize(14);
+    doc.text(`Nombre y Apellido: ${nutritionalPlan.clientName}`, 10, 70);
+
+    doc.text(
+      `Peso de: ${nutritionalPlan.weight}kg Altura:${nutritionalPlan.height}m`,
+      10,
+      80
+    );
+
+    // Crear tabla para mostrar las comidas
+    const tableColumn = ["Comida", "Descripción"];
+    const tableRows = [
+      ["Desayuno", nutritionalPlan.breakfast],
+      ["Almuerzo", nutritionalPlan.lunch],
+      ["Merienda", nutritionalPlan.brunch],
+      ["Cena", nutritionalPlan.dinner],
+      ["Snack post-entrenamiento", nutritionalPlan.snack],
+    ];
+
+    // Establecer las columnas y las filas de la tabla
+    doc.autoTable({
+      startY: 100, // Comienza la tabla en la posición Y 90 mm (debajo del título "Comidas")
+      head: [tableColumn],
+      body: tableRows,
+      theme: "grid", // Usar un tema de cuadrícula para las celdas
+      headStyles: {
+        fillColor: "#FFA500", // Color de fondo del título de las columnas (amarillo/naranja)
+        textColor: [255, 255, 255], // Color del texto (blanco)
+        fontSize: 12,
+        halign: "center", // Alinear el texto al centro
+      },
+      styles: { fontSize: 12 },
+    });
+
+    // Descarga el PDF
+    doc.save(`plan_nutricional_de_${nutritionalPlan.clientName}.pdf`);
+  };
+
+  console.log(nutritionalPlan);
   return (
     <>
       <div className=" flex h-screen justify-center items-center bg-gradient-to-br from-black via-zinc-800 to-black p-6">
         {!loading && (
-          <div className="max-w-4xl w-full">
+          <div className="max-w-4xl w-full ">
             <h3 className="text-6xl font-bebas text-white mb-6 flex justify-between">
               Plan Nutricional
             </h3>
@@ -108,7 +161,10 @@ const NutritionalPlan = () => {
                   {nutritionalPlan.description}
                 </p>
 
-                <div className="flex flex-wrap justify-between  gap-6 text-black">
+                <div
+                  className="flex flex-wrap justify-between  gap-6 text-black"
+                  id="nutritional-plan-content"
+                >
                   <div className="flex-1 min-w-[200px] bg-white p-4 rounded-lg shadow-md">
                     <h4 className="flex items-center gap-1 text-xl font-semibold mb-2">
                       <CiForkAndKnife />
@@ -147,6 +203,12 @@ const NutritionalPlan = () => {
                       El entrenador esta evaluando el cambio de plan
                     </span>
                   )}
+                  <button
+                    onClick={handleDownloadPDF}
+                    className="flex items-center justify-center gap-2 text-md rounded border text-white p-4 mt-4 hover:bg-white/5"
+                  >
+                    Descargar PDF <AiOutlineFilePdf />
+                  </button>
                   <button
                     onClick={() =>
                       document.getElementById("my_modal_10").showModal()
