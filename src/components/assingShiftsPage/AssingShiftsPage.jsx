@@ -201,7 +201,7 @@ const AssingShiftsPage = () => {
               </div>
             </div>
 
-            <div className="overflow-y-scroll h-[600px] flex flex-col gap-3 mt-5 p-2 overflow-x-hidden">
+            <div className="overflow-y-auto h-[600px] flex flex-col gap-3 mt-5 p-2 overflow-x-hidden">
               {shiftsDayLocation && shiftsDayLocation.length > 0 ? (
                 shiftsDayLocation.map((shiftDay) => {
                   const startTime = new Date();
