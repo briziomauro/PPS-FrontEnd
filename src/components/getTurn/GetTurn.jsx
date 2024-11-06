@@ -4,8 +4,7 @@ import { useLocation } from "../../contexts/LocationContext";
 import { useTrainer } from "../../contexts/TrainerContext";
 import { GiClick } from "react-icons/gi";
 import { FaCircleInfo } from "react-icons/fa6";
-import { ToastContainer, toast, Bounce } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 
 const GetTurn = () => {
   const { locations, GetLocations } = useLocation();
@@ -14,7 +13,7 @@ const GetTurn = () => {
   const [trainers, setTrainers] = useState([]);
   const [selectedLocationClient, setSelectedLocationClient] = useState("");
   const [shiftsForToday, setShiftsForToday] = useState([]);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false); 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
