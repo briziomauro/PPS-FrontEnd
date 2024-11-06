@@ -55,8 +55,11 @@ const LocationsPage = () => {
                 <div className="flex items-center text-lg mb-2">
                   <IoLocationSharp className="h-6 w-6" />
                   <p className="text-lg px-2 text-white">{location.adress}</p>
+                  <div>
+                    <p>Lunes a viernes: 7hs a 21hs</p>
+                    <p>Sabados: 7hs a 13hs</p>
+                  </div>
                 </div>
-                {/* <ModalMaps id={location.idlocation} /> */}
               </div>
             ))}
           </div>
