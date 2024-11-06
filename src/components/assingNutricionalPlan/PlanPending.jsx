@@ -84,18 +84,17 @@ const PlanPending = ({
   };
 
   function calcularEdad(fechaNacimiento) {
-    const partes = fechaNacimiento.split("/"); // Divide la fecha en partes
-    const dia = parseInt(partes[0], 10); // Día
-    const mes = parseInt(partes[1], 10) - 1; // Mes (0-11 en JavaScript)
-    const año = parseInt(partes[2], 10); // Año
+    const partes = fechaNacimiento.split("/");
+    const dia = parseInt(partes[0], 10);
+    const mes = parseInt(partes[1], 10) - 1;
+    const año = parseInt(partes[2], 10);
 
     const hoy = new Date();
-    const nacimiento = new Date(año, mes, dia); // Crea el objeto de fecha
+    const nacimiento = new Date(año, mes, dia);
 
     let edad = hoy.getFullYear() - nacimiento.getFullYear();
     const mesDif = hoy.getMonth() - mes;
 
-    // Si aún no ha llegado el cumpleaños este año, resta 1
     if (mesDif < 0 || (mesDif === 0 && hoy.getDate() < dia)) {
       edad--;
     }
@@ -147,34 +146,38 @@ const PlanPending = ({
               <p className="text-sm text-gray-600 py-4">
                 Ingresa los detalles del plan para cada comida:
               </p>
-
               <form
                 onSubmit={(e) => e.preventDefault()}
                 className="flex-1 overflow-y-auto pb-24 px-2"
               >
                 <div className="flex flex-col gap-4">
-                  {["breakfast", "lunch", "dinner", "brunch", "snack"].map(
-                    (meal) => (
-                      <div key={meal}>
-                        <label className="block text-gray-700 font-semibold mb-1 capitalize">
-                          {meal}
-                        </label>
-                        <textarea
-                          name={meal}
-                          value={nutritionalPlan[meal]}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 border rounded-lg bg-white resize-none"
-                          placeholder={`Descripción de ${meal}`}
-                          rows={2}
-                        />
-                        {errors[meal] && (
-                          <p className="text-red-500 text-sm">{errors[meal]}</p>
-                        )}
-                      </div>
-                    )
-                  )}
+                  {[
+                    { key: "breakfast", label: "Desayuno" },
+                    { key: "brunch", label: "Brunch" },
+                    { key: "lunch", label: "Almuerzo" },
+                    { key: "dinner", label: "Cena" },
+                    { key: "snack", label: "Merienda" },
+                  ].map(({ key, label }) => (
+                    <div key={key}>
+                      <label className="block text-gray-700 font-semibold mb-1 capitalize">
+                        {label}
+                      </label>
+                      <textarea
+                        name={key}
+                        value={nutritionalPlan[key]}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border rounded-lg bg-white resize-none"
+                        placeholder={`Descripción de ${label.toLowerCase()}`}
+                        rows={2}
+                      />
+                      {errors[key] && (
+                        <p className="text-red-500 text-sm">{errors[key]}</p>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </form>
+
 
               <div className="mt-6 flex justify-end gap-3 bg-white p-4 fixed bottom-0 left-0 right-0 border-t">
                 <button
