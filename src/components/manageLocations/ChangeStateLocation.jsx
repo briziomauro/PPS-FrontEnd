@@ -27,7 +27,7 @@ const ChangeStateLocation = ({idlocation, handleGetLocations, name}) => {
             <button className='flex gap-2 p-4 items-center bg-yellow-500 rounded-xl hover:scale-105 transition-all duration-300' onClick={() => document.getElementById(`changestate_location_${idlocation}`).showModal()}> <span className='text-xl'><TbArrowsExchange2 />
             </span>ESTADO</button>
             <dialog id= {`changestate_location_${idlocation}`} className="modal">
-                <div className="bg-zinc-800 p-4 flex items-center flex-col justify-evenly h-[200px]">
+                <div className="bg-zinc-800 rounded-xl p-4 flex items-center flex-col justify-evenly h-[200px]">
                     <h2 className='text-white font-bebas text-2xl'>ESTAS SEGURO QUE QUERES CAMBIAR EL ESTADO DE LA <div className='text-yellow-500 text-center'>{name}</div></h2>
                     <div className="modal-action">
                         <form method="dialog">

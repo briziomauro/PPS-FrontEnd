@@ -11,7 +11,8 @@ const RegisterPage = ({ nextStep }) => {
   const [dni, setDni] = useState("");
   const [genre, setGenre] = useState("");
   const [membership, setMembership] = useState("");
-
+  const [showPass, setShowPass] = useState(false);
+  const [confirmPasswordShow, setConfirmPasswordShow] = useState(false);
 
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState("");
@@ -206,29 +207,52 @@ const RegisterPage = ({ nextStep }) => {
             </div>
 
             <div className="mb-4 flex flex-col md:flex-row gap-3">
+              {/* Contraseña */}
               <div className="mb-4 w-full">
                 <label className="text-sm m-1">Contraseña</label>
-                <input
-                  onChange={(e) => setPassword(e.target.value)}
-                  value={password}
-                  type="password"
-                  placeholder="Ingrese su Contraseña"
-                  className={`bg-white appearance-none border caret-zinc-400 rounded w-full py-4 px-3 leading-tight focus:outline-none ${errors.password ? "border-red-600" : "border-gray-300"} text-zinc-700`}
-                />
+                <div className="flex items-center">
+                  <input
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    type={showPass ? "text" : "password"}
+                    placeholder="Ingrese su Contraseña"
+                    className={`bg-white appearance-none border caret-zinc-400 rounded-l w-full py-4 px-3 leading-tight focus:outline-none ${errors.password ? "border-red-600" : "border-gray-300"} text-zinc-700`}
+                  />
+                  <button
+                    type="button"
+                    className="flex items-center justify-center text-zinc-400 bg-white h-14 w-14 rounded-r cursor-pointer border-y border-r border-gray-300"
+                    onClick={() => setShowPass(!showPass)}
+                  >
+                    <i className={`bi ${showPass ? 'bi-eye-slash' : 'bi-eye'}`} />
+                  </button>
+                </div>
                 {errors.password && <p className="text-red-600 text-sm">{errors.password}</p>}
               </div>
+
+              {/* Repetir Contraseña */}
               <div className="mb-4 w-full">
                 <label className="text-sm m-1">Repetir Contraseña</label>
-                <input
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  value={confirmPassword}
-                  type="password"
-                  placeholder="Repita su Contraseña"
-                  className={`bg-white appearance-none border caret-zinc-400 rounded w-full py-4 px-3 leading-tight focus:outline-none ${errors.confirmPassword ? "border-red-600" : "border-gray-300"} text-zinc-700`}
-                />
+                <div className="flex items-center">
+                  <input
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    value={confirmPassword}
+                    type={confirmPasswordShow ? "text" : "password"}
+                    placeholder="Repita su Contraseña"
+                    className={`bg-white appearance-none border caret-zinc-400 rounded-l w-full py-4 px-3 leading-tight focus:outline-none ${errors.confirmPassword ? "border-red-600" : "border-gray-300"} text-zinc-700`}
+                  />
+                  <button
+                    type="button"
+                    className="flex items-center justify-center text-zinc-400 bg-white h-14 w-14 rounded-r cursor-pointer border-y border-r border-gray-300"
+                    onClick={() => setConfirmPasswordShow(!confirmPasswordShow)}
+                  >
+                    <i className={`bi ${confirmPasswordShow ? 'bi-eye-slash' : 'bi-eye'}`} />
+                  </button>
+                </div>
                 {errors.confirmPassword && <p className="text-red-600 text-sm">{errors.confirmPassword}</p>}
               </div>
             </div>
+
+
 
             <div className="flex items-center">
               <button type="submit" className="bg-yellow-400 rounded-full w-full text-white px-6 py-3 transition-all duration-200 hover:bg-yellow-500 hover:font-bold">

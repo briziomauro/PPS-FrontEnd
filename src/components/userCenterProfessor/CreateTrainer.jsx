@@ -12,8 +12,12 @@ const CreateTrainer = ({ handleGetTrainers }) => {
     const [trainerStatus, setTrainerStatus] = useState("1")
     const [trainerEmail, setTrainerEmail] = useState("")
     const [trainerPass, setTrainerPass] = useState("")
-    const modalRef = useRef(null); 
-
+    const [showPassLogin, setShowPassLogin] = useState(false);
+    const modalRef = useRef(null);
+    
+    const handleShowPassLogin = () => {
+        setShowPassLogin((prevShowPass) => !prevShowPass);
+    };
 
     const handleNewTrainer = async (e) => {
         e.preventDefault();
@@ -50,7 +54,7 @@ const CreateTrainer = ({ handleGetTrainers }) => {
             }
             const data = await response.json();
             handleGetTrainers();
-            modalRef.current.close(); 
+            modalRef.current.close();
             toast.success(`Entrenador ${dataTrainerToSend.trainerRequest.firstname} ${dataTrainerToSend.trainerRequest.lastname} agregado correctamente`)
         } catch (error) {
             console.error('Hubo un problema con el fetch:', error);
@@ -109,8 +113,25 @@ const CreateTrainer = ({ handleGetTrainers }) => {
                         </div>
                         <div className="form-group my-3">
                             <label className="text-zinc-400 text-sm p-1">Contraseña</label>
-                            <input type="password" name="password" value={trainerPass} className="input input-bordered w-full bg-zinc-800 text-white" onChange={(e) => setTrainerPass(e.target.value)} required />
+                            <div className="flex items-center relative">
+                                <input
+                                    type={showPassLogin ? "text" : "password"}
+                                    name="password"
+                                    value={trainerPass}
+                                    className="input input-bordered w-full bg-zinc-800 text-white pr-10"
+                                    onChange={(e) => setTrainerPass(e.target.value)}
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    className="absolute right-2 flex items-center justify-center text-zinc-400 h-[47px] w-[40px] cursor-pointer"
+                                    onClick={handleShowPassLogin}
+                                >
+                                    <i className={`bi ${showPassLogin ? 'bi-eye-slash' : 'bi-eye'}`} />
+                                </button>
+                            </div>
                         </div>
+
                         <div className='flex justify-end'>
                             <button type='submit' className='bg-yellow-500 px-4 py-2 font-bebas text-xl rounded-xl mt-2 text-white hover:bg-yellow-600 transition-all duration-200'>AGREGAR</button>
                         </div>

@@ -4,8 +4,8 @@ import { useLocation } from "../../contexts/LocationContext";
 import { useTrainer } from "../../contexts/TrainerContext";
 import { GiClick } from "react-icons/gi";
 import { FaCircleInfo } from "react-icons/fa6";
-import { ToastContainer, toast, Bounce } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+
 
 const GetTurn = () => {
   const { locations, GetLocations } = useLocation();
@@ -14,16 +14,24 @@ const GetTurn = () => {
   const [trainers, setTrainers] = useState([]);
   const [selectedLocationClient, setSelectedLocationClient] = useState("");
   const [shiftsForToday, setShiftsForToday] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    GetLocations();
+    const fetchLocations = async () => {
+      setLoading(true);
+      await GetLocations();
+      setLoading(false);
+    };
+    fetchLocations();
   }, []);
-
 
   useEffect(() => {
     const fetchTrainersShift = async () => {
+      setLoading(true);
       const allTrainers = await getAllTrainers();
       setTrainers(allTrainers);
+      setLoading(false);
     };
     fetchTrainersShift();
   }, [getAllTrainers]);
@@ -39,8 +47,8 @@ const GetTurn = () => {
   useEffect(() => {
     if (selectedLocationClient) {
       setShiftsForToday([]);
-
       const getShiftsByDayLocationClient = async () => {
+        setLoading(true);
         try {
           const response = await fetch(
             `https://localhost:7179/api/Shift/GetShiftsByLocationAndDate?locationId=${selectedLocationClient}&day=${today}`,
@@ -61,9 +69,10 @@ const GetTurn = () => {
           setShiftsForToday(data);
         } catch (error) {
           console.log(error);
+        } finally {
+          setLoading(false);
         }
       };
-
       getShiftsByDayLocationClient();
     } else {
       setShiftsForToday([]);
@@ -74,12 +83,11 @@ const GetTurn = () => {
     setSelectedLocationClient(locationId);
   };
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const handleReserveShift = async (idReserveShift) => {
     if (isSubmitting) return;
 
     setIsSubmitting(true);
+    setLoading(true); // Show loading during reservation
     try {
       const response = await fetch(
         "https://localhost:7179/api/Shift/ReserveShift",
@@ -120,9 +128,9 @@ const GetTurn = () => {
       toast.error(error.message);
     } finally {
       setIsSubmitting(false);
+      setLoading(false);
     }
   };
-
 
   return (
     <>
@@ -184,8 +192,9 @@ const GetTurn = () => {
                   return (
                     <div
                       key={turn.idshift}
-                      className="bg-white rounded-lg shadow-lg p-4 w-[350px] flex flex-col cursor-pointer hover:scale-105 transition-all duration-200"
-                      onClick={() => handleReserveShift(turn.idshift)}
+                      className={`bg-white rounded-lg shadow-lg p-4 w-[350px] flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 
+              ${!assignedTrainer ? "pointer-events-none opacity-50" : ""}`}
+                      onClick={() => assignedTrainer && handleReserveShift(turn.idshift)}
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center">
@@ -224,6 +233,7 @@ const GetTurn = () => {
                         </div>
                       </div>
                     </div>
+
                   );
                 })
             ) : (
@@ -232,19 +242,18 @@ const GetTurn = () => {
           </div>
         )}
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
+      {loading && (
+        <div className="fixed inset-0 z-[50000] flex items-center justify-center bg-black/45">
+          <div
+            className="h-16 w-16 animate-spin rounded-full border-4 border-yellow-500 border-solid border-r-transparent"
+            role="status"
+          >
+            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+              Loading...
+            </span>
+          </div>
+        </div>
+      )}
     </>
   );
 };
