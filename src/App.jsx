@@ -12,10 +12,9 @@ import UserCenter from "./components/userCenter/UserCenter";
 import AssingShiftsPage from "./components/assingShiftsPage/AssingShiftsPage";
 import NotFound from "./components/notFound/NotFound";
 import AssingNutricionalPlan from "./components/assingNutricionalPlan/AssingNutricionalPlan";
-import AssingRoutine from "./components/assingRoutine/AssingRoutine";
 import GetTurn from "./components/getTurn/GetTurn";
 import NutritionalPlan from "./components/nutritionalPlan/NutritionalPlan";
-import Routines from "./components/routines/Routines";
+import Routines from "./components/routines/RoutinesClient";
 import RoleRedirect from "./components/roleRedirect/RoleRedirect";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import RegisterProcess from "./components/registerPage/RegisterProcess";
@@ -23,6 +22,7 @@ import ContactPage from "./components/contactPage/ContactPage";
 import ManageLocations from "./components/manageLocations/ManageLocations";
 import SetttingsPageTrainer from "./components/settingsPage/SetttingsPageTrainer";
 import SettingsPageClient from "./components/settingsPage/SettingsPageClient";
+import AssingRoutine from "./components/routines/AssignRoutine";
 
 function App() {
 

@@ -164,6 +164,7 @@ const NutritionalPlan = () => {
                   onClick={() =>
                     document.getElementById("my_modal_10").showModal()
                   }
+                  disabled={isPending}
                 >
                   Solicitar Plan Nutricional
                 </button>
