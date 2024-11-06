@@ -21,7 +21,15 @@ const RoutinePlan = () => {
     .sort((a, b) => daysOrder.indexOf(a) - daysOrder.indexOf(b));
   const exercisesForSelectedDay = exercises.filter(exercise => exercise.day === selectedDay);
 
-
+  const groupedExercises = exercisesForSelectedDay.reduce((acc, { exercise, series, breaktime }) => {
+    // Si el grupo muscular no existe en el acumulador, lo creamos
+    if (!acc[exercise.musclegroup]) {
+      acc[exercise.musclegroup] = [];
+    }
+    // Agregamos el ejercicio al grupo correspondiente
+    acc[exercise.musclegroup].push({ exercise, series, breaktime });
+    return acc;
+  }, {});
   const handleDaysChange = (e) => setDays(e.target.value);
 
   useEffect(() => {
@@ -98,19 +106,19 @@ const RoutinePlan = () => {
   const getIconForMuscleGroup = (musclegroup) => {
     switch (musclegroup) {
       case "Pecho":
-        return <img src="/png/chest.png" className="h-60" alt="imagen de pecho" />;
+        return <img src="/png/chest.png" className="h-36 w-36 p-2" alt="imagen de pecho" />;
       case "Espalda":
-        return <img src="/png/back2.png" className="h-60" alt="imagen de espalda" />;
+        return <img src="/png/back2.png" className="h-36 w-36 " alt="imagen de espalda" />;
       case "Piernas":
-        return <img src="/png/backleg.png" className="h-60" alt="imagen de piernas" />;
+        return <img src="/png/backleg.png" className="h-36 w-36 p-4" alt="imagen de piernas" />;
       case "Hombros":
-        return <img src="/png/shoulder.png" className="h-60" alt="imagen de hombros" />;
+        return <img src="/png/shoulder.png" className="h-36 w-36 p-6" alt="imagen de hombros" />;
       case "Abdominales":
-        return <img src="/png/abd.png" className="h-60" alt="imagen de abdominales" />;
+        return <img src="/png/abd.png" className="h-36 w-36 p-4" alt="imagen de abdominales" />;
       case "Bíceps":
-        return <img src="/png/biceps.png" className="h-60" alt="imagen de biceps" />;
+        return <img src="/png/biceps.png" className="h-36 w-36 p-6" alt="imagen de biceps" />;
       case "Tríceps":
-        return <img src="/png/triceps.png" className="h-60" alt="imagen de triceps" />;
+        return <img src="/png/triceps.png" className="h-36 w-36 p-6" alt="imagen de triceps" />;
       default:
         return null;
     }
@@ -168,16 +176,39 @@ const RoutinePlan = () => {
                   </div>
 
                   {/* Mostrar ejercicios del día seleccionado */}
+                  {console.log(exercisesForSelectedDay)}
                   {selectedDay && exercisesForSelectedDay.length > 0 ? (
                     <div>
-                      <h4 className="text-5xl flex justify-center items-center font-bebas text-yellow-400 mb-4 uppercase">{selectedDay}</h4>
-                      {exercisesForSelectedDay.map(({ exercise, series, breaktime }) => (
-                        <div key={exercise.idexercise} className="bg-zinc-800 p-4 rounded-lg shadow-md text-white mb-4">
-                          <h5 className="text-xl font-semibold">{exercise.name}</h5>
-                          <p>Series: {series}</p>
-                          <p>Descanso: {breaktime}</p>
-                        </div>
-                      ))}
+                      <h4 className="text-5xl flex justify-center items-center font-bebas text-yellow-400  uppercase mb-5">{selectedDay}</h4>
+                      <div className="flex flex-col gap-8">
+                        {Object.keys(groupedExercises).map((muscleGroup) => (
+                          <div key={muscleGroup} className="flex flex-row  gap-5  justify-start items-center ">
+                            {/* Mostrar el icono solo una vez por grupo muscular */}
+                            <div className="flex flex-col gap-3 justify-center items-center h-full ">
+                              <div className="bg-white rounded-full w-[150px] h-[150px]">
+
+                              {getIconForMuscleGroup(muscleGroup)}
+                              </div>
+                              <h4 className="text-white uppercase font-bebas text-2xl ">{muscleGroup}</h4>
+                            </div>
+
+                            {/* Mostrar los ejercicios correspondientes a ese grupo */}
+                            <div className="flex flex-wrap gap-5">
+
+                            {groupedExercises[muscleGroup].map(({ exercise, series, breaktime }) => (
+                              <div key={exercise.idexercise} className="bg-zinc-800 rounded-lg shadow-md text-white flex flex-col  justify-center items-center ">
+                                {/* Ejercicios a la derecha */}
+                                <div className="w-[200px] h-[150px] px-4 flex flex-col justify-center items-center">
+                                  <h5 className="text-xl font-semibold ">{exercise.name}</h5>
+                                  <p>Series: {series}</p>
+                                  <p>Descanso: {breaktime}</p>
+                                </div>
+                              </div>
+                            ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   ) : (
                     selectedDay && <p className="text-white">No hay ejercicios para este día.</p>
@@ -191,7 +222,7 @@ const RoutinePlan = () => {
                   className="uppercase font-bebas bg-white text-black p-5 w-full text-2xl rounded-md"
                   onClick={() =>
                     document.getElementById("my_modal_10").showModal()
-                    
+
                   }
                   disabled={isPending}
                 >
@@ -240,7 +271,7 @@ const RoutinePlan = () => {
                     min="1"
                     max="6"
                     className={`w-full bg-white text-black p-2 rounded-lg border-2 ${error ? "border-red-600" : "border-gray-300"
-                    } transition-colors duration-200`}
+                      } transition-colors duration-200`}
                     required
                   />
                 </label>
