@@ -11,10 +11,11 @@ const AssingShiftsPage = () => {
   const { locations, GetLocations } = useLocation();
   const { getAllTrainers } = useTrainer();
   const [trainers, setTrainers] = useState([]);
-  const [dayForLocation, setDayForLocation] = useState("")
-  const [shiftsDayLocation, setShiftsDayLocation] = useState([])
-  const [selectedTrainer, setSelectedTrainer] = useState("")
-  const [selectedShifts, setSelectedShifts] = useState([])
+  const [dayForLocation, setDayForLocation] = useState("");
+  const [shiftsDayLocation, setShiftsDayLocation] = useState([]);
+  const [selectedTrainer, setSelectedTrainer] = useState("");
+  const [selectedShifts, setSelectedShifts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleLocationChange = (e) => {
     const selectedLocation = e.target.value;
@@ -23,25 +24,33 @@ const AssingShiftsPage = () => {
   };
 
   useEffect(() => {
-    GetLocations();
+    const fetchLocations = async () => {
+      setLoading(true);
+      await GetLocations();
+      setLoading(false);
+    };
+
+    fetchLocations();
   }, []);
 
   const activeLocation = locations.filter((l) => l.isactive === 1);
 
   useEffect(() => {
     const fetchTrainers = async () => {
+      setLoading(true);
       const allTrainers = await getAllTrainers();
       setTrainers(allTrainers);
+      setLoading(false);
     };
 
     fetchTrainers();
   }, [getAllTrainers]);
 
-
   const getShiftsByDayLocation = async () => {
     try {
+      setLoading(true);
       const response = await fetch(
-        `https://localhost:7179/api/Shift/GetShiftsByLocationAndDate?locationId=${selectlocation}&day=${dayForLocation} `,
+        `https://localhost:7179/api/Shift/GetShiftsByLocationAndDate?locationId=${selectlocation}&day=${dayForLocation}`,
         {
           method: "GET",
           headers: {
@@ -57,12 +66,12 @@ const AssingShiftsPage = () => {
 
       const data = await response.json();
       setShiftsDayLocation(data);
-
+      setLoading(false);
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      setLoading(false);
     }
   };
-
 
   useEffect(() => {
     if (selectlocation && dayForLocation) {
@@ -80,13 +89,12 @@ const AssingShiftsPage = () => {
 
   const handleAssignShiftTrainer = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const shiftTrainerData = {
       shiftIds: selectedShifts,
       dnitrainer: selectedTrainer,
     };
-
-    console.log(shiftTrainerData);
 
     const assignTrainerToShift = async (shiftTrainerData) => {
       try {
@@ -116,9 +124,11 @@ const AssingShiftsPage = () => {
         setShiftsDayLocation(updatedShifts);
         setSelectedShifts([]);
         setSelectedTrainer("");
+        setLoading(false);
 
       } catch (error) {
         console.error("Error:", error);
+        setLoading(false);
       }
     };
 
@@ -128,6 +138,18 @@ const AssingShiftsPage = () => {
 
   return (
     <div className="flex flex-col h-screen bg-gradient-to-tl from-black via-zinc-900 to-black">
+      {loading && (
+        <div className="fixed inset-0 z-[50000] flex items-center justify-center bg-black/45">
+          <div
+            className="h-16 w-16 animate-spin rounded-full border-4 border-yellow-500 border-solid border-r-transparent"
+            role="status"
+          >
+            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+              Loading...
+            </span>
+          </div>
+        </div>
+      )}
       <div className="flex items-center justify-center">
         <h2 className="font-bebas text-white text-5xl mt-5">
           ASIGANCIÓN DE TURNOS
