@@ -92,11 +92,11 @@ const RutinaPending = ({id,name,age,weight,height,description,days,onSendRoutine
 
 
   return (
-    <div className="bg-zinc-800 w-[1000px] h-[150px] flex justify-evenly items-center text-white">
+    <div className="bg-zinc-800 rounded-2xl w-[1000px] h-[150px] flex justify-evenly items-center text-white">
       <div className="bg-zinc-500 rounded-full h-[100px] w-[100px]">
         <img src="/img/person.png" className="w-full" alt="" />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-2 ">
         <p className="font-bold text-lg">{name}</p>
         <p>
           <strong>Edad:</strong> {calcularEdad(age)}
@@ -115,7 +115,7 @@ const RutinaPending = ({id,name,age,weight,height,description,days,onSendRoutine
         <p>
           <strong>Días:</strong> {days}
         </p>
-        <div className="max-w-[300px] w-full flex gap-3">
+        <div className="max-w-[400px] w-full flex gap-3">
           <button
             className="bg-white text-black px-5 py-3 rounded-lg uppercase font-bebas text-xl hover:text-white hover:bg-yellow-500 transition-all duration-200"
             onClick={() => setIsModalOpen(true)}
