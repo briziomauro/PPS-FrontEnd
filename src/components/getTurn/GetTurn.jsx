@@ -4,6 +4,7 @@ import { useLocation } from "../../contexts/LocationContext";
 import { useTrainer } from "../../contexts/TrainerContext";
 import { GiClick } from "react-icons/gi";
 import { FaCircleInfo } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 
 const GetTurn = () => {
@@ -13,7 +14,7 @@ const GetTurn = () => {
   const [trainers, setTrainers] = useState([]);
   const [selectedLocationClient, setSelectedLocationClient] = useState("");
   const [shiftsForToday, setShiftsForToday] = useState([]);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -191,8 +192,9 @@ const GetTurn = () => {
                   return (
                     <div
                       key={turn.idshift}
-                      className="bg-white rounded-lg shadow-lg p-4 w-[350px] flex flex-col cursor-pointer hover:scale-105 transition-all duration-200"
-                      onClick={() => handleReserveShift(turn.idshift)}
+                      className={`bg-white rounded-lg shadow-lg p-4 w-[350px] flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 
+              ${!assignedTrainer ? "pointer-events-none opacity-50" : ""}`}
+                      onClick={() => assignedTrainer && handleReserveShift(turn.idshift)}
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center">
@@ -231,6 +233,7 @@ const GetTurn = () => {
                         </div>
                       </div>
                     </div>
+
                   );
                 })
             ) : (
@@ -239,19 +242,6 @@ const GetTurn = () => {
           </div>
         )}
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
       {loading && (
         <div className="fixed inset-0 z-[50000] flex items-center justify-center bg-black/45">
           <div

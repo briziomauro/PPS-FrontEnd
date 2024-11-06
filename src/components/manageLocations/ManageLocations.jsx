@@ -5,8 +5,7 @@ import ModalManageLocations from './ModalManageLocations';
 import { useLocation } from '../../contexts/LocationContext';
 import CreateNewLocation from './CreateNewLocation';
 import ChangeStateLocation from './ChangeStateLocation';
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const ManageLocations = () => {
     const { locations, GetLocations } = useLocation();
@@ -55,19 +54,6 @@ const ManageLocations = () => {
             <CreateNewLocation isOpen={isModalOpen}
                 onClose={closeModal}
                 handleGetLocations={handleGetLocations} />
-            <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-                transition:Bounce
-            />
         </>
     );
 };

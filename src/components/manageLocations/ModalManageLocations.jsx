@@ -27,14 +27,13 @@ const ModalManageLocations = ({ idlocation, name, adress, isactive, handleGetLoc
             });
 
             if (!response.ok) {
-                const errorDetail = await response.json();
-                console.error("Detalles del error:", errorDetail);
-                throw new Error('Error al actualizar la locación');
+                toast.error('Error al actualizar la locación');
             }
 
             await handleGetLocations();
             document.getElementById(`update_location_${idlocation}`).close();
             toast.success("Sede actualizada correctamente.");
+            
         } catch (error) {
             console.error('Hubo un problema con el fetch:', error);
             toast.error("Error al actualizar la sede.");
@@ -43,7 +42,7 @@ const ModalManageLocations = ({ idlocation, name, adress, isactive, handleGetLoc
 
     return (
         <dialog id={`update_location_${idlocation}`} className="modal text-center">
-            <div className="modal-box rounded-md items-center w-[500px] h-[510px] bg-gradient-to-br from-black via-zinc-900 to-black">
+            <div className="modal-box rounded-md items-center w-[500px] bg-gradient-to-br from-black via-zinc-900 to-black">
                 <form method="dialog">
                     <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                 </form>
@@ -85,7 +84,7 @@ const ModalManageLocations = ({ idlocation, name, adress, isactive, handleGetLoc
                     </div>
 
                     <div className="flex justify-center">
-                        <button type="submit" className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 flex gap-2 items-center font-bebas text-xl">
+                        <button type="submit" className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 flex gap-2 items-center font-bebas text-xl transition-all duration-200">
                             <IoIosRefresh /> Actualizar
                         </button>
                     </div>

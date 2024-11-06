@@ -203,11 +203,10 @@ const NutritionalPlan = () => {
                       El entrenador esta evaluando el cambio de plan
                     </span>
                   )}
-                  <button
-                    onClick={handleDownloadPDF}
-                    className="flex items-center justify-center gap-2 text-md rounded border text-white p-4 mt-4 hover:bg-white/5"
-                  >
-                    Descargar PDF <AiOutlineFilePdf />
+
+                  <button onClick={handleDownloadPDF} className="flex w-50 p-3 text-white items-center justify-center gap-3 border border-white rounded-2xl hover:bg-white hover:text-black transition-all duration-200">
+                    DESCARGAR
+                    <img src="/svg/pdfsvg.svg" alt="PDF" className="w-12 h-8" />
                   </button>
                   <button
                     onClick={() =>
@@ -253,9 +252,8 @@ const NutritionalPlan = () => {
                       type="text"
                       maxLength="50"
                       minLength="5"
-                      className={`w-full bg-white text-black p-2 rounded-lg border-2 ${
-                        error ? "border-red-600" : "border-gray-300"
-                      } transition-colors duration-200`}
+                      className={`w-full bg-white text-black p-2 rounded-lg border-2 ${error ? "border-red-600" : "border-gray-300"
+                        } transition-colors duration-200`}
                       value={objective}
                       onChange={(e) => setObjective(e.target.value)}
                     />
