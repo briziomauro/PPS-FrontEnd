@@ -7,6 +7,7 @@ import { useTrainer } from "../../contexts/TrainerContext";
 import { FaArrowRightLong } from "react-icons/fa6";
 import DeleteTrainerFromShift from "./DeleteTrainerFromShift";
 import { toast } from "react-toastify";
+import { IconRectangleRoundedBottom } from "@tabler/icons-react";
 
 
 const AssingShiftsPage = () => {
@@ -61,7 +62,7 @@ const AssingShiftsPage = () => {
       const data = await response.json();
       setShiftsDayLocation(data);
     } catch (error) {
-      console.log(error);
+      return;
     }
   };
 
@@ -81,12 +82,6 @@ const AssingShiftsPage = () => {
 
   const handleAssignShiftTrainer = async (e) => {
     e.preventDefault();
-
-    // Verificar si el usuario seleccionó un profesor y turnos
-    if (!selectedTrainer || selectedShifts.length === 0) {
-      alert("Por favor, seleccione un profesor y al menos un turno.");
-      return;
-    }
 
     const shiftTrainerData = {
       shiftIds: selectedShifts,
@@ -128,7 +123,7 @@ const AssingShiftsPage = () => {
         setLoading(false);
         toast.success("Trainer agregado correctamente")
       } catch (error) {
-        console.error("Error:", error);
+        return;
       }
     };
 
@@ -162,7 +157,7 @@ const AssingShiftsPage = () => {
                   onChange={handleLocationChange}
                   value={selectlocation}
                 >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     Seleccione sede
                   </option>
                   {activeLocation.map((location) => (
@@ -181,14 +176,12 @@ const AssingShiftsPage = () => {
                   value={dayForLocation}
                   className="select w-full max-w-xs rounded-none border border-yellow-400 bg-zinc-800"
                 >
-                  <option disabled selected>
+                  <option value="" disabled>
                     Seleccione dia
                   </option>
                   {selectlocation && (
                     <>
-                      <option value="-" selected>
-                        -
-                      </option>
+                      <option value="-">-</option>
                       <option value="Lunes">Lunes</option>
                       <option value="Martes">Martes</option>
                       <option value="Miércoles">Miércoles</option>
@@ -280,7 +273,7 @@ const AssingShiftsPage = () => {
                     onChange={(e) => setSelectedTrainer(e.target.value)}
                     value={selectedTrainer}
                   >
-                    <option value="" selected disabled>
+                    <option value="" disabled>
                       Seleccione entrenador
                     </option>
                     {trainers.map((trainer) => (

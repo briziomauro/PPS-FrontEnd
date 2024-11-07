@@ -9,8 +9,6 @@ const ModalManageLocations = ({ idlocation, name, adress, isactive, handleGetLoc
     const handleUpdateLocation = async (e) => {
         e.preventDefault();
 
-        console.log(idlocation);
-
         const dataToUpdate = {
             adress: locUpdatedAdress,
             name: locUpdatedName,
@@ -35,7 +33,6 @@ const ModalManageLocations = ({ idlocation, name, adress, isactive, handleGetLoc
             toast.success("Sede actualizada correctamente.");
             
         } catch (error) {
-            console.error('Hubo un problema con el fetch:', error);
             toast.error("Error al actualizar la sede.");
         }
     };

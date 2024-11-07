@@ -68,7 +68,7 @@ const GetTurn = () => {
           const data = await response.json();
           setShiftsForToday(data);
         } catch (error) {
-          console.log(error);
+          toast.error("Error al obtener los turnos")
         } finally {
           setLoading(false);
         }
@@ -146,7 +146,7 @@ const GetTurn = () => {
             <div className="flex flex-wrap w-full justify-center items-center gap-4 my-10">
               {locations.map((branch) => (
                 <button
-                  key={branch.id}
+                  key={branch.idlocation}
                   className={`bg-gray-200 font-bold py-2 px-4 rounded-lg transition-all duration-200 flex items-center ${selectedLocationClient === branch.idlocation
                     ? "bg-gradient-to-br from-zinc-800 via-zinc-800 to-zinc-800 text-yellow-300"
                     : "bg-gray-200 text-black"

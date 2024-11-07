@@ -70,7 +70,6 @@ const ProfessorPage = () => {
       const data = await response.json();
       setNextShift(data);
     } catch (error) {
-      console.log(error);
       setNextShift({});
     }
   };
