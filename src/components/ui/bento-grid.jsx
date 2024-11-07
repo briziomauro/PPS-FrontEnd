@@ -35,7 +35,7 @@ export const BentoGridItem = ({
             )}
         >
             {isImageHeader ? (
-                <img src={header} alt={title} className="w-full h-[214px] object-fill rounded-xl" />
+                <img src={header} alt={title} className="w-full h-[214px] object-contain rounded-xl" />
             ) : (
                 header
             )}

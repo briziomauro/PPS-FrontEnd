@@ -116,6 +116,12 @@ const AdminPage = () => {
     getClientsPerLocation();
   }, []);
 
+  const sortedClientsPerMonth = [...clientsPerMonth].sort((a, b) => {
+    // Asegúrate de que `mes` tenga un formato comparable, como un número o fecha
+    return new Date(a.mes) - new Date(b.mes);
+  });
+
+
   return (
     <div className='flex flex-col min-h-screen'>
 
@@ -190,7 +196,7 @@ const AdminPage = () => {
               <div className='flex flex-col justify-center items-center'>
                 <h3 className='text-black text-3xl font-bebas mb-5 mt-3 uppercase'>Nuevos Usuarios por Mes</h3>
                 <ResponsiveContainer width={500} height={300}>
-                  <LineChart data={clientsPerMonth}>
+                  <LineChart data={sortedClientsPerMonth}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="mes" />
                     <YAxis />

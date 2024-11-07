@@ -14,7 +14,6 @@ const ClientPage = () => {
   const [shiftDetails, setShiftDetails] = useState({});
   const queryClient = useQueryClient(); // Obtén el queryClient para usarlo en logout
 
-  // Efecto para obtener detalles del turno
   useEffect(() => {
     const getMyShiftDetails = async () => {
       try {
@@ -30,31 +29,22 @@ const ClientPage = () => {
         );
 
         if (!response.ok) {
-          throw new Error("Error al obtener los detalles del cliente");
+          return;
         }
 
         const data = await response.json();
         setShiftDetails(data);
+
       } catch (error) {
-        toast.error(error.message);
+        return;
       }
     };
 
-    // Solo llama a la función si no se está cargando y no hay error
     if (!isLoading && !error) {
       getMyShiftDetails();
     }
-  }, [isLoading, error]); // Dependencias del useEffect
+  }, [isLoading, error]);
 
-  // Manejo de carga
-  if (isLoading) {
-    return <div>Cargando...</div>;
-  }
-
-  // Manejo de errores
-  if (error) {
-    return <div>Error al cargar los detalles del cliente: {error.message}</div>;
-  }
 
   return (
     <div>
@@ -62,9 +52,10 @@ const ClientPage = () => {
         <h1 className="text-white text-4xl">
           Bienvenido{" "}
           <strong className="text-yellow-400">
-            {clientDetails.clientDto.firstName} {clientDetails.clientDto.lastName}
+            {clientDetails?.clientDto?.firstName} {clientDetails?.clientDto?.lastName}
           </strong>
         </h1>
+
       </header>
 
       <div className="px-20 flex flex-col md:flex-row gap-10 py-10">

@@ -79,7 +79,7 @@ const Drawer = () => {
                                 <li className='hover:bg-white hover:text-black'><p>GESTIÓN DE SEDES</p></li>
                             </Link>
                         </div>}
-                        {(userTypeFromStorage === 'Client' || userTypeFromStorage === 'Trainer') &&
+                        {(userTypeFromStorage === 'Client') &&
                             <div className='flex  items-center mt-10 gap-2 px-[16px] py-[8px] hover:bg-white hover:text-black cursor-pointer' onClick={handleSettings}>
                                 <IoIosSettings />
                                 <button >CONFIGURACIÓN</button>

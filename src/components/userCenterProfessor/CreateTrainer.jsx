@@ -14,11 +14,10 @@ const CreateTrainer = ({ handleGetTrainers }) => {
     const [trainerPass, setTrainerPass] = useState("")
     const [showPassLogin, setShowPassLogin] = useState(false);
     const modalRef = useRef(null);
-
+    
     const handleShowPassLogin = () => {
         setShowPassLogin((prevShowPass) => !prevShowPass);
     };
-
 
     const handleNewTrainer = async (e) => {
         e.preventDefault();
