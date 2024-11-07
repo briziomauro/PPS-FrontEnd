@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useClient } from "../../contexts/ClientContext";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const SettingsPageClient = () => {
   const [firstName, setFirstName] = useState("");
@@ -24,7 +25,7 @@ const SettingsPageClient = () => {
       setEmail(clientDetails.userDto.email);
       setGender(clientDetails.clientDto.genre);
     } else {
-      console.log("Esperando detalles del cliente...");
+      toast.info("Esperando detalles del cliente...");
     }
   }, [clientDetails]);
 
@@ -58,52 +59,43 @@ const SettingsPageClient = () => {
   };
 
   const handleSave = async () => {
-    try {
 
-      clientid = clientDetails.usertDto.id
-      const updatedData = {
-        ClientId: clientid,
-        Email: email,
-        Firstname: firstName,
-        Lastname: lastName,
-        Genre: gender,
-      };
-  
-      console.log("Datos enviados:", updatedData);
-  
+    const updatedData = {
+      email: email,
+      firstname: firstName,
+      lastname: lastName,
+      genre: gender,
+    };
+
+    try {
       const response = await fetch("https://localhost:7179/api/Client/UpdateClient", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          
+
         },
+        credentials: "include",
         body: JSON.stringify(updatedData),
       });
-  
+
       const textResponse = await response.text();
-  
+
       if (!response.ok) {
-        console.error("Error de API:", textResponse);
-        alert(`Error al guardar los cambios: ${textResponse}`);
-        throw new Error(textResponse);
+        toast.error('Error al guardar los cambios');
       }
-  
-      console.log("Respuesta de la API:", textResponse);
-  
+
       const updatedClientDetails = { ...clientDetails };
       updatedClientDetails.clientDto.firstName = firstName;
       updatedClientDetails.clientDto.lastName = lastName;
       updatedClientDetails.userDto.email = email;
       updatedClientDetails.clientDto.genre = gender;
-  
-      // Actualiza en React Query
+
       queryClient.setQueryData("clientDetails", updatedClientDetails);
-  
-      alert("Cambios guardados exitosamente");
+
+      toast.success("Cambios guardados exitosamente");
       setIsEditing(false);
     } catch (error) {
-      console.error("Error al guardar los cambios:", error);
-      alert("Error al guardar los cambios: " + error.message);
+      toast.error('Error al guardar los cambios')
     }
   };
 
@@ -128,9 +120,9 @@ const SettingsPageClient = () => {
           body: JSON.stringify({
             Type: selectedMembership,
             BackUrls: {
-              Success: "https://localhost:7179/success",
-              Failure: "https://localhost:7179/failure",
-              Pending: "https://localhost:7179/pending",
+              Success: "http://localhost:5173/client",
+              Failure: "http://localhost:5173/client",
+              Pending: "http://localhost:5173/client",
             },
           }),
         }
@@ -167,9 +159,9 @@ const SettingsPageClient = () => {
         <div className="w-full">
           <div className="flex items-center my-10 mx-20">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROx-J1Qn1fr2r1gxcUToksn65vtGQt5QNNnw&s"
-              alt="Profile"
-              className="w-24 h-24 rounded-full border-2 border-gray-300 mr-4"
+              src="/img/person.png"
+              alt="img de perfil"
+              className="w-24 h-24 rounded-full border-2 mr-4 bg-white"
             />
             <div>
               <h2 className="text-xl font-semibold text-white">
@@ -341,11 +333,10 @@ const SettingsPageClient = () => {
                       <div
                         key={membership.name}
                         onClick={() => setSelectedMembership(membership.name)}
-                        className={`p-6 border-2 rounded-xl cursor-pointer shadow-lg transition-transform transform ${
-                          selectedMembership === membership.name
-                            ? "border-yellow-500 bg-yellow-100 scale-95"
-                            : "border-gray-300 bg-white hover:scale-105"
-                        } flex flex-col justify-between h-full`}
+                        className={`p-6 border-2 rounded-xl cursor-pointer shadow-lg transition-transform transform ${selectedMembership === membership.name
+                          ? "border-yellow-500 bg-yellow-100 scale-95"
+                          : "border-gray-300 bg-white hover:scale-105"
+                          } flex flex-col justify-between h-full`}
                       >
                         <div>
                           <h3 className="text-3xl font-bold text-yellow-500 mb-2">

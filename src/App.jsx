@@ -20,11 +20,13 @@ import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import RegisterProcess from "./components/registerPage/RegisterProcess";
 import ContactPage from "./components/contactPage/ContactPage";
 import ManageLocations from "./components/manageLocations/ManageLocations";
-import SetttingsPageTrainer from "./components/settingsPage/SetttingsPageTrainer";
 import SettingsPageClient from "./components/settingsPage/SettingsPageClient";
 import AssingRoutine from "./components/routines/AssignRoutine";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UpdateMembership from "./components/updateMembership/UpdateMembership";
+import PayMembership from "./components/updateMembership/ConfirmUpdate";
+import ConfirmUpdate from "./components/updateMembership/ConfirmUpdate";
 
 function App() {
 
@@ -65,6 +67,16 @@ function App() {
         <ProtectedRoute allowedRole={['Client']}>
           <LayoutLogged>
             <ClientPage />
+          </LayoutLogged>
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/client/renew-membership",
+      element: (
+        <ProtectedRoute allowedRole={['Client']}>
+          <LayoutLogged>
+            <ConfirmUpdate />
           </LayoutLogged>
         </ProtectedRoute>
       ),
@@ -176,17 +188,6 @@ function App() {
         <ProtectedRoute allowedRole={['Trainer']}>
           <LayoutLogged>
             <AssingRoutine />
-          </LayoutLogged>
-        </ProtectedRoute>
-      ),
-    },
-    ,
-    {
-      path: "/profesor/settings",
-      element: (
-        <ProtectedRoute allowedRole={['Trainer']}>
-          <LayoutLogged>
-            <SetttingsPageTrainer />
           </LayoutLogged>
         </ProtectedRoute>
       ),
