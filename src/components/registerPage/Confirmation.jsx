@@ -46,7 +46,6 @@ const Confirmation = ({ lastStep }) => {
       const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
       return () => clearTimeout(timer);
     } else {
-      // Ejecutar la creación del cliente cuando el contador llegue a 0
       handleRegister();
     }
   }, [countdown]);

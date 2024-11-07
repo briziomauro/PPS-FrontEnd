@@ -22,9 +22,7 @@ const Drawer = () => {
     const userTypeFromStorage = localStorage.getItem("userTypeResponse");
 
     const handleSettings = () => {
-        if (userTypeFromStorage === "Trainer") {
-            navigate("/trainer/settings")
-        } else if (userTypeFromStorage === "Client") {
+        if (userTypeFromStorage === "Client") {
             navigate("/client/settings")
         }
     }
