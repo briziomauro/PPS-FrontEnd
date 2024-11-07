@@ -252,8 +252,6 @@ const RegisterPage = ({ nextStep }) => {
               </div>
             </div>
 
-
-
             <div className="flex items-center">
               <button type="submit" className="bg-yellow-400 rounded-full w-full text-white px-6 py-3 transition-all duration-200 hover:bg-yellow-500 hover:font-bold">
                 Siguiente
