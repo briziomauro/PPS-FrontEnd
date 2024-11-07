@@ -52,9 +52,10 @@ const ClientPage = () => {
         <h1 className="text-white text-4xl">
           Bienvenido{" "}
           <strong className="text-yellow-400">
-            {clientDetails.clientDto.firstName} {clientDetails.clientDto.lastName}
+            {clientDetails?.clientDto?.firstName} {clientDetails?.clientDto?.lastName}
           </strong>
         </h1>
+
       </header>
 
       <div className="px-20 flex flex-col md:flex-row gap-10 py-10">
