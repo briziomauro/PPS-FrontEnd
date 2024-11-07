@@ -46,7 +46,7 @@ const NutritionalPlan = () => {
       setNutritionalPlan(filteredDate);
       setIsPending(pending);
     } catch (error) {
-      console.log(error);
+      return;
     } finally {
       setLoading(false);
     }
@@ -83,7 +83,7 @@ const NutritionalPlan = () => {
     try {
       setLoading(true);
       const response = await AddNutritionalPlan(NutritionalPlanRequest);
-      console.log("Rutina enviada correctamente:", response);
+      
       toast.success("Plan solicitado correctamente.");
       setIsPending(true);
       setObjective("");
@@ -145,7 +145,7 @@ const NutritionalPlan = () => {
     doc.save(`plan_nutricional_de_${nutritionalPlan.clientName}.pdf`);
   };
 
-  console.log(nutritionalPlan);
+
   return (
     <>
       <div className=" flex h-screen justify-center items-center bg-gradient-to-br from-black via-zinc-800 to-black p-6">

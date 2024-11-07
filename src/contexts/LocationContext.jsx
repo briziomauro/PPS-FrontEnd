@@ -21,10 +21,9 @@ export const LocationProvider = ({ children }) => {
             if (!response.ok) {
                 throw new Error("Error al obtener los detalles de las sedes");
             }
-
             const data = await response.json();
-            console.log(data);
             setLocations(data);
+            
         } catch (error) {
             setError(error.message);
         }

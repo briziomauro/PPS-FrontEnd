@@ -1,7 +1,6 @@
 import React from 'react';
 import { TbArrowsExchange2 } from 'react-icons/tb';
-import { ToastContainer, toast, Bounce } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const DeleteTrainer = ({ idUser, trainerDni, trainerName, trainerLast, onStateChange }) => {
 
@@ -38,7 +37,7 @@ const DeleteTrainer = ({ idUser, trainerDni, trainerName, trainerLast, onStateCh
                 <div className="modal-box bg-black ">
                     <h3 className="font-bebas text-2xl flex flex-col justify-center items-center gap-1">
                         ¿Estás seguro que quieres cambiar el estado del usuario:
-                        <span className='text-yellow-500'>{trainerName} {trainerLast} - #{idUser}</span>?
+                        <span className='text-yellow-500'>{trainerName} {trainerLast} - #{idUser}?</span>
                     </h3>
                     <div className="modal-action">
                         <form method="dialog">
@@ -50,19 +49,6 @@ const DeleteTrainer = ({ idUser, trainerDni, trainerName, trainerLast, onStateCh
                     </div>
                 </div>
             </dialog>
-            <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-                transition={Bounce}
-            />
         </>
     );
 };
