@@ -363,10 +363,6 @@ const SettingsPageClient = () => {
                         </p>
                       </div>
                     ))}
-                    <h2 className="mb-4 text-lg font-medium min-w-max text-black">
-                      Recorda que tu membresía actual finaliza el "INDICAR FECHA
-                      DE FIN"
-                    </h2>
                   </div>
 
                   <div className="flex justify-end mt-4">
