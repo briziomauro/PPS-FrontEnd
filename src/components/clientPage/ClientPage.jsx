@@ -61,12 +61,13 @@ const ClientPage = () => {
         <div>
           <header className="bg-zinc-700 pl-20 py-4 font-bebas tracking-wider">
             <h1 className="text-white text-4xl">
-              Bienvenido{" "}
+              {clientDetails?.clientDto?.genre?.toLowerCase() === "masculino" ? "Bienvenido" : "Bienvenida"}{" "}
               <strong className="text-yellow-400">
                 {clientDetails?.clientDto?.firstName} {clientDetails?.clientDto?.lastName}
               </strong>
             </h1>
           </header>
+
 
           <div className="px-20 flex flex-col md:flex-row gap-10 py-10">
             <div className="w-1/2 flex flex-col gap-5">

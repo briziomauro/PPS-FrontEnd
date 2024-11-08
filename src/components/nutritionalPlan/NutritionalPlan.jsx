@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import { AiOutlineFilePdf } from "react-icons/ai";
+import { CiCircleInfo } from "react-icons/ci";
+
 
 const NutritionalPlan = () => {
   const [nutritionalPlan, setNutritionalPlan] = useState();
@@ -83,7 +85,7 @@ const NutritionalPlan = () => {
     try {
       setLoading(true);
       const response = await AddNutritionalPlan(NutritionalPlanRequest);
-      
+
       toast.success("Plan solicitado correctamente.");
       setIsPending(true);
       setObjective("");
@@ -234,6 +236,11 @@ const NutritionalPlan = () => {
                     El entrenador esta evaluando el plan
                   </span>
                 )}
+
+                <div className="flex gap-3 items-center justify-center mt-10 text-zinc-400">
+                  <CiCircleInfo className="text-xl" />
+                  <p>SE NECESITA TENER UN TURNO ACTIVO PARA SOLICITAR UN PLAN NUTRICIONAL</p>
+                </div>
               </div>
             )}
 
