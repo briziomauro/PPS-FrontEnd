@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useClient } from "../../contexts/ClientContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { CiCircleInfo } from "react-icons/ci";
 import { useMembership } from "../../contexts/MembershipContext";
 
 const SettingsPageClient = () => {
@@ -14,6 +15,10 @@ const SettingsPageClient = () => {
   const [showMembershipModal, setShowMembershipModal] = useState(false);
   const [selectedMembership, setSelectedMembership] = useState(null);
   const [showAlertModal, setShowAlertModal] = useState(false);
+  const [originalFirstName, setOriginalFirstName] = useState("");
+  const [originalLastName, setOriginalLastName] = useState("");
+  const [originalEmail, setOriginalEmail] = useState("");
+  const [originalGender, setOriginalGender] = useState("");
   const { clientDetails } = useClient();
   const queryClient = useQueryClient();
   const { membershipData } = useMembership();
@@ -26,6 +31,12 @@ const SettingsPageClient = () => {
       setLastName(clientDetails.clientDto.lastName);
       setEmail(clientDetails.userDto.email);
       setGender(clientDetails.clientDto.genre);
+
+      setOriginalFirstName(clientDetails.clientDto.firstName);
+      setOriginalLastName(clientDetails.clientDto.lastName);
+      setOriginalEmail(clientDetails.userDto.email);
+      setOriginalGender(clientDetails.clientDto.genre);
+
     } else {
       toast.info("Esperando detalles del cliente...");
     }
@@ -79,13 +90,17 @@ const SettingsPageClient = () => {
   };
 
   const handleDiscard = () => {
+    setFirstName(originalFirstName);
+    setLastName(originalLastName);
+    setEmail(originalEmail);
+    setGender(originalGender);
     setIsEditing(false);
   };
 
   const handleMembershipChange = async (type) => {
     const selected = type ? type.toLowerCase() : "";
     const current = currentMembership ? currentMembership.toLowerCase() : "";
-  
+
     if (selected === current) {
       setShowAlertModal(true);
       return;
@@ -220,7 +235,6 @@ const SettingsPageClient = () => {
                   disabled={!isEditing}
                 />
               </div>
-
               <div>
                 <label className="block text-sm font-medium text-white">
                   Género
@@ -231,8 +245,8 @@ const SettingsPageClient = () => {
                   className="mt-1 block w-full rounded-md p-2 bg-zinc-800 text-white placeholder-zinc-500"
                   disabled={!isEditing}
                 >
-                  <option value={clientDetails?.clientDto?.genre} disabled>
-                    Género
+                  <option value="" disabled>
+                    {gender ? gender : "Selecciona tu género"}
                   </option>
                   <option value="Masculino">Masculino</option>
                   <option value="Femenino">Femenino</option>
@@ -303,11 +317,11 @@ const SettingsPageClient = () => {
             {showMembershipModal && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex  justify-center items-center">
                 <div className="bg-white p-5 rounded-md max-w-5xl w-full">
-                  <h2 className="text-2xl text-black font-bold justify-center flex  mb-4">
+                  <h2 className="text-2xl text-black font-bold justify-center flex my-4">
                     Selecciona una Membresía
                   </h2>
                   <p className="mb-4 text-black">
-                    Membresía actual: <strong>{currentMembership}</strong>
+                    Membresía actual: <strong className="uppercase">{currentMembership}</strong>
                   </p>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -315,17 +329,16 @@ const SettingsPageClient = () => {
                       <div
                         key={membership.type}
                         onClick={() => setSelectedMembership(membership.type)}
-                        className={`p-6 border-2 rounded-xl cursor-pointer shadow-lg transition-transform transform ${
-                          selectedMembership === membership.type
-                            ? "border-yellow-500 bg-yellow-100 scale-95"
-                            : "border-gray-300 bg-white hover:scale-105"
-                        } flex flex-col justify-between h-full`}
+                        className={`p-6 border-2 rounded-xl cursor-pointer shadow-lg transition-transform transform ${selectedMembership === membership.type
+                          ? "border-yellow-500 bg-yellow-100 scale-95"
+                          : "border-gray-300 bg-white hover:scale-105"
+                          } flex flex-col justify-between h-full`}
                       >
                         <div>
                           <h3 className="text-4xl justify-center items-center flex text-yellow-500 mb-2 uppercase font-bebas">
                             {membership.type}
                           </h3>
-                          <div className="w-full flex bg-black h-[3px] rounded-full"/>
+                          <div className="w-full flex bg-black h-[3px] rounded-full" />
                           <ul className="list-disc text-black text-lg list-inside mt-4 text-left">
                             {membership.description
                               .split(".")
@@ -342,18 +355,26 @@ const SettingsPageClient = () => {
                         </p>
                       </div>
                     ))}
+
+
+                  </div>
+                  <div className="flex justify-start items-center gap-2 text-base mt-5">
+                    <CiCircleInfo className="text-red-500" />
+                    <p className="text-red-500 w-full">
+                      Ten en cuenta que si decides cambiar de membresía, perderás los días restantes de tu membresía actual.
+                    </p>
                   </div>
 
                   <div className="flex justify-end mt-4">
                     <button
-                      className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                      className="bg-zinc-700 text-zinc-400 px-4 py-2 rounded mr-2 uppercase transition-all duration-200 hover:bg-zinc-600"
                       onClick={() => setShowMembershipModal(false)}
                     >
                       Cancelar
                     </button>
                     <button
-                      className="bg-yellow-500 text-white px-4 py-2 rounded"
-                      onClick={handleMembershipChange(selectedMembership)}
+                      className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-400 hover:scale-105 transition-all duration-200 uppercase"
+                      onClick={() => handleMembershipChange(selectedMembership)}
                     >
                       Confirmar
                     </button>
@@ -373,7 +394,7 @@ const SettingsPageClient = () => {
                   </p>
                   <div className="flex justify-end mt-4">
                     <button
-                      className="bg-yellow-500 text-white px-4 py-2 rounded"
+                      className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-400 hover:scale-105"
                       onClick={() => setShowAlertModal(false)}
                     >
                       Cerrar
