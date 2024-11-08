@@ -12,7 +12,7 @@ const ProfessorPage = () => {
   const [nextShift, setNextShift] = useState(null);
   const queryClient = useQueryClient();
   const [date, setDate] = useState(new Date());
-
+  const [routines, setRoutines] = useState([]);
   const onChangeDate = (newDate) => {
     setDate(newDate);
   };
@@ -21,8 +21,36 @@ const ProfessorPage = () => {
     if (!isLoading && !error) {
       getNutritionalPlan();
       getNextShift();
+      getRoutine();
     }
   }, [isLoading, error]);
+
+  const getRoutine = async () => {
+    try {
+     
+      const response = await fetch(
+        "https://localhost:7179/api/Routine/GetMyRoutines",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-cache",
+          },
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al obtener la rutina");
+      }
+
+      const data = await response.json();
+      const filteredData = data.filter((r) => r.status === "In Progress");
+      setRoutines(filteredData);
+    } catch (error) {
+      console.log(error);
+    } 
+  };
 
   const getNutritionalPlan = async () => {
     try {
@@ -105,7 +133,7 @@ const ProfessorPage = () => {
                       className="bg-zinc-800 flex justify-center items-center gap-3 text-white p-10 text-xl rounded-b-3xl text-center hover:bg-zinc-900 transition-all duration-200"
                       to="/profesor/assing-routine"
                     >
-                      5 Rutinas pendientes de Asignación<FaArrowRight className="animate-bounce" />
+                      {routines.length} Rutinas pendientes de Asignación<FaArrowRight className="animate-bounce" />
                     </Link>
                   </li>
                 </ul>

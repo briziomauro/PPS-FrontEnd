@@ -2,6 +2,7 @@ import WeightPicker from "../heightWeightPicker/WeightPicker";
 import HeightPicker from "../heightWeightPicker/HeightPicker";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import { CiCircleInfo } from "react-icons/ci";
 import "react-toastify/dist/ReactToastify.css";
 
 const RoutinePlan = () => {
@@ -233,7 +234,12 @@ const RoutinePlan = () => {
                     El entrenador esta evaluando el plan
                   </span>
                 )}
+                <div className="flex gap-3 items-center justify-center mt-10 text-zinc-400">
+                  <CiCircleInfo className="text-xl" />
+                  <p>SE NECESITA TENER UN TURNO ACTIVO PARA SOLICITAR UNA RUTINA</p>
+                </div>
               </div>
+              
             )}
           </div>
         )}
