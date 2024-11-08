@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useClient } from "../../contexts/ClientContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useMembership } from "../../contexts/MembershipContext";
 
 const SettingsPageClient = () => {
   const [firstName, setFirstName] = useState("");
@@ -15,6 +16,7 @@ const SettingsPageClient = () => {
   const [showAlertModal, setShowAlertModal] = useState(false);
   const { clientDetails } = useClient();
   const queryClient = useQueryClient();
+  const { membershipData } = useMembership();
 
   const currentMembership = clientDetails?.clientDto?.typeMembership;
 
@@ -29,37 +31,12 @@ const SettingsPageClient = () => {
     }
   }, [clientDetails]);
 
-  const memberships = [
-    {
-      name: "Standar",
-      description: "La opción ideal para quienes recién comienzan.",
-      availability: `
-        - Acceso limitado a servicios generales.
-        - Soporte técnico vía email.
-        - 1 usuario registrado.
-        - 5% de descuento en compras seleccionadas.
-      `,
-      price: "$20.000 ARS/MES",
-    },
-    {
-      name: "Premium",
-      description: "Ideal para quienes buscan lo mejor.",
-      availability: `
-      - Acceso completo a todos los servicios.
-      - Soporte técnico 24/7 vía email
-      - 3 usuarios registrados.
-      - 15% de descuento en todas las compras.
-      - Planes nutricionales y Rutinas personalizadas`,
-      price: "$32.000 ARS/MES",
-    },
-  ];
 
   const handleEdit = () => {
     setIsEditing(true);
   };
 
   const handleSave = async () => {
-
     const updatedData = {
       email: email,
       firstname: firstName,
@@ -68,20 +45,22 @@ const SettingsPageClient = () => {
     };
 
     try {
-      const response = await fetch("https://localhost:7179/api/Client/UpdateClient", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-
-        },
-        credentials: "include",
-        body: JSON.stringify(updatedData),
-      });
+      const response = await fetch(
+        "https://localhost:7179/api/Client/UpdateClient",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(updatedData),
+        }
+      );
 
       const textResponse = await response.text();
 
       if (!response.ok) {
-        toast.error('Error al guardar los cambios');
+        toast.error("Error al guardar los cambios");
       }
 
       const updatedClientDetails = { ...clientDetails };
@@ -95,7 +74,7 @@ const SettingsPageClient = () => {
       toast.success("Cambios guardados exitosamente");
       setIsEditing(false);
     } catch (error) {
-      toast.error('Error al guardar los cambios')
+      toast.error("Error al guardar los cambios");
     }
   };
 
@@ -103,26 +82,29 @@ const SettingsPageClient = () => {
     setIsEditing(false);
   };
 
-  const handleMembershipChange = async () => {
-    if (selectedMembership.toLowerCase() === currentMembership.toLowerCase()) {
+  const handleMembershipChange = async (type) => {
+    const selected = type ? type.toLowerCase() : "";
+    const current = currentMembership ? currentMembership.toLowerCase() : "";
+  
+    if (selected === current) {
       setShowAlertModal(true);
       return;
     }
 
     try {
       const response = await fetch(
-        "https://localhost:7179/api/Payments/update-preference",
+        "https://localhost:7179/api/Payments/create-preference",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            Type: selectedMembership,
+            Type: type,
             BackUrls: {
-              Success: "http://localhost:5173/client",
+              Success: `http://localhost:5173/client/renew-membership?membershipType=${type}`,
               Failure: "http://localhost:5173/client",
-              Pending: "http://localhost:5173/client",
+              Pending: `http://localhost:5173/client/renew-membership?membershipType=${type}`,
             },
           }),
         }
@@ -329,28 +311,34 @@ const SettingsPageClient = () => {
                   </p>
 
                   <div className="grid grid-cols-2 gap-4">
-                    {memberships.map((membership) => (
+                    {membershipData.map((membership) => (
                       <div
-                        key={membership.name}
-                        onClick={() => setSelectedMembership(membership.name)}
-                        className={`p-6 border-2 rounded-xl cursor-pointer shadow-lg transition-transform transform ${selectedMembership === membership.name
-                          ? "border-yellow-500 bg-yellow-100 scale-95"
-                          : "border-gray-300 bg-white hover:scale-105"
-                          } flex flex-col justify-between h-full`}
+                        key={membership.type}
+                        onClick={() => setSelectedMembership(membership.type)}
+                        className={`p-6 border-2 rounded-xl cursor-pointer shadow-lg transition-transform transform ${
+                          selectedMembership === membership.type
+                            ? "border-yellow-500 bg-yellow-100 scale-95"
+                            : "border-gray-300 bg-white hover:scale-105"
+                        } flex flex-col justify-between h-full`}
                       >
                         <div>
-                          <h3 className="text-3xl font-bold text-yellow-500 mb-2">
-                            {membership.name}
+                          <h3 className="text-4xl justify-center items-center flex text-yellow-500 mb-2 uppercase font-bebas">
+                            {membership.type}
                           </h3>
-                          <p className="text-black font-bold italic mb-4">
-                            {membership.description}
-                          </p>
-                          <p className="text-base text-black whitespace-pre-line">
-                            {membership.availability}
-                          </p>
+                          <div className="w-full flex bg-black h-[3px] rounded-full"/>
+                          <ul className="list-disc text-black text-lg list-inside mt-4 text-left">
+                            {membership.description
+                              .split(".")
+                              .map((item, index) => (
+                                <li key={index}>{item}</li>
+                              ))}
+                          </ul>
                         </div>
-                        <p className="text-2xl font-semibold text-black mt-auto">
-                          {membership.price}
+                        <p className="mb-3 font-bebas flex justify-center items-center mt-3 text-4xl">
+                          <span className="gap-1 text-black ">
+                            ${membership.price}
+                            <span className="text-xl"> ARS/MES</span>
+                          </span>
                         </p>
                       </div>
                     ))}
@@ -365,7 +353,7 @@ const SettingsPageClient = () => {
                     </button>
                     <button
                       className="bg-yellow-500 text-white px-4 py-2 rounded"
-                      onClick={handleMembershipChange}
+                      onClick={handleMembershipChange(selectedMembership)}
                     >
                       Confirmar
                     </button>
