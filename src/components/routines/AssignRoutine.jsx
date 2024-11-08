@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import RutinaPending from "./RoutinasPending";
+import RoutinesPending from "./RoutinesPending";
 
 const AssingRoutine = () => {
   const [routines, setRoutines] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    getRoutine();
+    getRoutine()
+    ;
   }, []);
 
   const getRoutine = async () => {
@@ -41,6 +41,26 @@ const AssingRoutine = () => {
     }
   };
 
+  const ChangeRoutineStatus = async (dniClient) => {
+    const response = await fetch(
+      `https://localhost:7179/api/Routine/ChangeStatusToDone`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dniClient),
+        credentials: "include",
+      }
+    );
+
+
+    if (!response.ok) {
+      throw new Error("Error al enviar el plan nutricional al cliente");
+    }
+  };
+
+
   const SendRoutine = async (routine, id) => {
     const response = await fetch(
       `https://localhost:7179/api/Routine/${id}`,
@@ -59,7 +79,8 @@ const AssingRoutine = () => {
     }
   };
 
-  const handleSendRoutine = async (routine, id) => {
+  
+  const handleSendRoutine = async (routine,id) => {
     try {
       setLoading(true);
       await SendRoutine(routine, id);
@@ -68,6 +89,7 @@ const AssingRoutine = () => {
         prevRoutines.filter((routine) => routine.idroutine !== id)
       );
       toast.success("Rutina enviada correctamente.");
+      await getRoutine();
     } catch (error) {
       console.error("Error capturado en handleSendRoutine:", error);
       toast.error("Error al enviar la rutina");
@@ -86,17 +108,21 @@ const AssingRoutine = () => {
           <div className="overflow-y-auto h-[600px]">
             <div className="flex flex-col gap-5 mx-10">
               {routines.map((r) => (
-                <RutinaPending
-                  key={r.idroutine}
-                  id={r.idroutine}
-                  name={r.name}
+
+                <RoutinesPending
+                  key={r.id}
+                  id={r.id}
+                  name={r.clientName}
                   age={r.clientBirthdate}
                   weight={r.weight}
                   height={r.height}
                   description={r.description}
                   days={r.days}
-                  onSendRoutine={handleSendRoutine}
+                  dniClient={r.dniClient}
+                  handleSendRoutine = {handleSendRoutine}
+                  ChangeRoutineStatus = {ChangeRoutineStatus}
                 />
+                
               ))}
               {routines.length === 0 && !loading && (
                 <p className="text-4xl text-gray-200 mt-10 mb-10">
