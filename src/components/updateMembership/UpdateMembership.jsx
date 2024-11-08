@@ -1,4 +1,3 @@
-// UpdateMembership.js
 import React, { useState } from 'react';
 import { useUser } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';

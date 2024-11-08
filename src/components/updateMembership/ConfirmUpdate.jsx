@@ -8,20 +8,19 @@ import { useClient } from '../../contexts/ClientContext';
 const ConfirmUpdate = () => {
     const [loadingRegister, setLoadingRegister] = useState(false);
     const [error, setError] = useState(null);
-    const [countdown, setCountdown] = useState(5); // Set initial countdown value
+    const [countdown, setCountdown] = useState(5);
     const [membershipType, setMembershipType] = useState(null);
     const navigate = useNavigate();
     const { clientDetails } = useClient();
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        // Get the membership type from the URL query parameter
         const params = new URLSearchParams(window.location.search);
         setMembershipType(params.get("membershipType"));
     }, []);
 
     const handleUpdatePago = async () => {
-        if (!membershipType) return; // Ensure membershipType is set
+        if (!membershipType) return;
 
         setLoadingRegister(true);
         try {
