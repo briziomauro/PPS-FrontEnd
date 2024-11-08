@@ -24,9 +24,8 @@ import SettingsPageClient from "./components/settingsPage/SettingsPageClient";
 import AssingRoutine from "./components/routines/AssignRoutine";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import UpdateMembership from "./components/updateMembership/UpdateMembership";
-import PayMembership from "./components/updateMembership/ConfirmUpdate";
 import ConfirmUpdate from "./components/updateMembership/ConfirmUpdate";
+import ClientProtectedRoute from "./components/protectedRoute/ClientProtectedRoute";
 
 function App() {
 
@@ -134,42 +133,42 @@ function App() {
     {
       path: "/client/get-turn",
       element: (
-        <ProtectedRoute allowedRole={['Client']}>
+        <ClientProtectedRoute allowedRole={['Client']}>
           <LayoutLogged>
             <GetTurn />
           </LayoutLogged>
-        </ProtectedRoute>
+        </ClientProtectedRoute>
       ),
     },
     {
       path: "/client/nutritional-plan",
       element: (
-        <ProtectedRoute allowedRole={['Client']}>
+        <ClientProtectedRoute allowedRole={['Client']}>
           <LayoutLogged>
             <NutritionalPlan />
           </LayoutLogged>
-        </ProtectedRoute>
+        </ClientProtectedRoute>
       ),
     },
     {
       path: "/client/routine",
       element: (
-        <ProtectedRoute allowedRole={['Client']}>
+        <ClientProtectedRoute allowedRole={['Client']}>
           <LayoutLogged>
             <Routines />
           </LayoutLogged>
-        </ProtectedRoute>
+        </ClientProtectedRoute>
       ),
     },
     ,
     {
       path: "/client/settings",
       element: (
-        <ProtectedRoute allowedRole={['Client']}>
+        <ClientProtectedRoute allowedRole={['Client']}>
           <LayoutLogged>
             <SettingsPageClient />
           </LayoutLogged>
-        </ProtectedRoute>
+        </ClientProtectedRoute>
       ),
     },
     {

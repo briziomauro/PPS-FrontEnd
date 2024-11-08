@@ -16,7 +16,6 @@ const ClientPage = () => {
   const [showModal, setShowModal] = useState(false);
   const queryClient = useQueryClient();
 
-  // Check if membership is expired
   useEffect(() => {
     if (clientDetails?.clientDto?.typeMembership === null) {
       setShowModal(true);
