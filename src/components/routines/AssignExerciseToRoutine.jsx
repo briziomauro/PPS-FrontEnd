@@ -317,14 +317,14 @@ const AssignExerciseToRoutine = ({ routineId, name, days, handleSendRoutineObj})
                                                     value={exercise.series}
                                                     maxLength={5}
                                                     onChange={(e) => handleSeriesChange(exercise.idexercise, e.target.value)}
-                                                    className="p-2 border border-gray-300 rounded text-black w-24 text-center "
+                                                    className="p-2 border border-gray-300 rounded text-white w-24 text-center "
                                                 />
                                                 <input
                                                     type="time"
                                                     step="1"
                                                     value={exercise.breaktime}
                                                     onChange={(e) => handleBreakTimeChange(exercise.idexercise, e.target.value)}
-                                                    className="p-2 border border-gray-300 rounded text-black"
+                                                    className="p-2 border border-gray-300 rounded text-white"
                                                 />
                                             </div>
                                         </div>

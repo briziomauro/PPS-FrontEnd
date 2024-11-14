@@ -5,11 +5,14 @@ import { useTrainer } from "../../contexts/TrainerContext";
 import { GiClick } from "react-icons/gi";
 import { FaCircleInfo } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 const GetTurn = () => {
   const { locations, GetLocations } = useLocation();
   const { getAllTrainers } = useTrainer();
+
+  const navigate = useNavigate();
 
   const [trainers, setTrainers] = useState([]);
   const [selectedLocationClient, setSelectedLocationClient] = useState("");
@@ -124,6 +127,7 @@ const GetTurn = () => {
         successMessage = await response.text();
       }
       toast.success(successMessage);
+      navigate("/client")
     } catch (error) {
       toast.error(error.message);
     } finally {

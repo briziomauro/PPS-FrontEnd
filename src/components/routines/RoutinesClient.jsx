@@ -181,7 +181,7 @@ const RoutinePlan = () => {
                   {selectedDay && exercisesForSelectedDay.length > 0 ? (
                     <div>
                       <h4 className="text-5xl flex justify-center items-center font-bebas text-yellow-400  uppercase mb-5">{selectedDay}</h4>
-                      <div className="flex flex-col gap-8">
+                      <div className="flex flex-wrap justify-center items-center gap-8">
                         {Object.keys(groupedExercises).map((muscleGroup) => (
                           <div key={muscleGroup} className="flex flex-row  gap-5  justify-start items-center ">
                             {/* Mostrar el icono solo una vez por grupo muscular */}
@@ -197,7 +197,7 @@ const RoutinePlan = () => {
                             <div className="flex flex-wrap gap-5">
 
                             {groupedExercises[muscleGroup].map(({ exercise, series, breaktime }) => (
-                              <div key={exercise.idexercise} className="bg-zinc-800 rounded-lg shadow-md text-white flex flex-col  justify-center items-center ">
+                              <div key={exercise.idexercise} className="bg-zinc-900 shadow-black rounded-lg shadow-md text-white flex flex-col  justify-center items-center ">
                                 {/* Ejercicios a la derecha */}
                                 <div className="w-[200px] h-[150px] px-4 flex flex-col justify-center items-center">
                                   <h5 className="text-xl font-semibold ">{exercise.name}</h5>
