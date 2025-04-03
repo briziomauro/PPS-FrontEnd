@@ -6,7 +6,7 @@
 
 ## 📖 Uso
 - [Backend](https://github.com/arrastianicolas/PPS-BACKEND)
-- [Base de Datos](https://drive.google.com/drive/folders/1jpVmFWXaefAOV3YS_QAFnstj4lHtO9Rn?usp=sharing)
+- [Base de Datos e Instrucciones](https://drive.google.com/drive/folders/1jpVmFWXaefAOV3YS_QAFnstj4lHtO9Rn?usp=sharing)
 
 ## 🚀 Tecnologías Utilizadas
 - React
