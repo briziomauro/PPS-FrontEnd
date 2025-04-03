@@ -4,7 +4,7 @@
 
 ![Pantalla inicial de la pagina](/public/img/mainPage2.JPG)
 
-##📖 Uso
+## 📖 Uso
 - [Backend](https://github.com/arrastianicolas/PPS-BACKEND)
 - [Base de Datos](https://drive.google.com/drive/folders/1jpVmFWXaefAOV3YS_QAFnstj4lHtO9Rn?usp=sharing)
 
